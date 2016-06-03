@@ -1,0 +1,1 @@
+{"version":3,"sources":["app.scss","style.css"],"names":[],"mappings":"AAGA;EACC,oBAAoB;EACpB,kCAAiC;EACjC,gBAAgB,EAChB;;ACPD","file":"app.css","sourcesContent":["// @import \"node_modules/bootstrap-sass/assets/stylesheets/bootstrap\";\r\n\r\n\r\nbody {\r\n\tbackground: #ff0000;\r\n\tbackground-border:1px #eee solid;\r\n\tfont-size: 12pt;\r\n}",null],"sourceRoot":"/source/"}
