@@ -1,3 +1,124 @@
-body {
-    background-color: #000;
+
+@font-face { font-family: 'PFDinTextCondPro-Light';  src: local('PFDinTextCondPro-Light'), url('http://nomail.com.ua/files/woff/2bba26df7ba63d850e5bd1de2f142358.woff') format('woff'); }
+@font-face { font-family: 'PFDinTextCondPro-Bold';  src: local('PFDinTextCondPro-Bold'), url('http://nomail.com.ua/files/woff/9ae3709d644c8df5546e96d0eddc99e1.woff') format('woff'); }
+
+
+
+
+//$primary-color: #f1672a;
+$brand-color1: #f1672a;
+$brand-color2: #4d4d4d;
+
+@mixin circle($size) {
+     width: $size;
+     height: $size;
+     border-radius: 100%;
+}
+
+@mixin border-bottom() {
+	 border-style: dotted;
+	 border-color: $brand-color1;
+	 border-width: 2px;
+	    border-left: 0px;
+	    border-right: 0px;
+	    border-top: 0px;
+	    border-radius:0px;
+}
+
+@mixin box-shadow($top, $left, $blur, $color, $inset: false) {
+  @if $inset {
+    -webkit-box-shadow:inset $top $left $blur $color;
+    -moz-box-shadow:inset $top $left $blur $color;
+    box-shadow:inset $top $left $blur $color;
+  } @else {
+    -webkit-box-shadow: $top $left $blur $color;
+    -moz-box-shadow: $top $left $blur $color;
+    box-shadow: $top $left $blur $color;
+  }
+}
+
+.navbar-default {
+    padding-top: 20px;
+	 background-color: #fff;
+	 @include border-bottom();
+}
+
+
+
+.navbar-brand {
+	padding: 0px 30px 20px 10px;
+	height:auto;
+}
+
+
+.logo-icon {
+    display: inline-block;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    width: 24px;
+    height: 16px;
+    background: url(/images/logo-icon.png) no-repeat center center;
+    background-size: 13px;
+}
+
+.top-container {
+	   background: $brand-color2;
+	   .top-contacts { padding: 10px 0px 10px 0px; color:#ccc; font-family: PFDinTextCondPro-Light; font-size:14pt; }
+	   .top-contacts-circle {
+	   		background: $brand-color1;
+		    right: 0px;
+		    z-index: 1;
+	 		top: -450px;
+		    position: absolute;
+		    @include circle(500px);
+		    @include box-shadow(0, 8px, 15px, rgba(0, 0, 0, 0.2));
+	   }
+	   .top-contacts-circle-text {
+		    position: absolute;
+	   		color: #fff;
+		    width:500px;
+		    right: 0px;
+		    top:0px;
+		    z-index: 2;
+		    position: absolute;
+		    text-align:center;
+		    text-decoration:none;
+
+		    font-size:22pt;
+		    sub, sup {
+		    	font-size:11pt;
+		    }
+		    /*
+		    font-family: PFDinTextCondPro-Bold;
+		    font-weight: bold;
+		    text-transform: uppercase;
+		    font-size:16pt;
+		    */
+
+	   }
+}
+
+.footer { 
+	 		background: $brand-color1;
+	 		color:#fff;
+	 		min-height:150px;
+	 		border-top:10px #eee solid;
+	 		padding-bottom:10px;
+		}
+
+#myCarousel {
+	.carousel-control {
+		background: none;
+	}
+
+
+	 @include border-bottom();
+
+	margin-top:-20px;
+	margin-bottom:20px;
+
+	.carousel-inner .item img {
+		width:100%;
+	}
 }

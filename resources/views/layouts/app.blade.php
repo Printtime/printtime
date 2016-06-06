@@ -28,6 +28,16 @@
 
 
 <body id="app-layout">
+
+<div class="top-container">
+    <div class="container">
+            <div class="col-md-12 top-contacts hidden-sm hidden-xs">Звоните сейчас! <i class="icon logo-icon"></i> (050) 856 67 63 <i class="icon logo-icon"></i> (067) 812-81-11 <i class="icon logo-icon"></i> (067) 812-81-11 
+                    <a href="{{ url('/home') }}" class="top-contacts-circle-text"><sup class="fa fa-clock-o" aria-hidden="true"></sup> 9:00-18:00 <sup>пн-сб</sup></a>
+                    <div class="top-contacts-circle"></div>
+        </div>
+    </div>
+</div>
+
     <nav class="navbar navbar-default">
         <div class="container">
             <div class="navbar-header">
@@ -42,7 +52,7 @@
 
                 <!-- Branding Image -->
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    Printtime
+                    <img src="/images/logo.png" alt="Printtime">
                 </a>
             </div>
 
@@ -60,7 +70,28 @@
         </div>
     </nav>
 
+    @include('slider.index')
+
     @yield('content')
+
+<footer class="footer">
+      <div class="container">
+        <div class="col-md-4">
+        <h3>Footer 1</h3>
+            <p>Content footer 1, Content footer 1 Content footer 1 Content footer 1, Content footer 1 Content footer 1 Content footer 1, Content footer 1 Content footer 1 Content footer 1, Content footer 1 Content footer 1Content footer 1, Content footer 1 Content footer 1 Content footer 1, Content footer 1 Content footer 1</p>
+        </div>
+        <div class="col-md-4">
+        <h3>Footer 2</h3>
+            <p>Content footer 1, Content footer 1 Content footer 1 Content footer 1, Content footer 1 Content footer 1 Content footer 1, Content footer 1 Content footer 1 Content footer 1, Content footer 1 Content footer 1Content footer 1, Content footer 1 Content footer 1 Content footer 1, Content footer 1 Content footer 1</p>
+        </div>
+
+        <div class="col-md-4">
+        <h3>Footer 3</h3>
+            <p>Content footer 1, Content footer 1 Content footer 1 Content footer 1, Content footer 1 Content footer 1 Content footer 1, Content footer 1 Content footer 1 Content footer 1, Content footer 1 Content footer 1Content footer 1, Content footer 1 Content footer 1 Content footer 1, Content footer 1 Content footer 1</p>
+        </div>
+      </div>
+</footer>
+
 
     <!-- JavaScripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
