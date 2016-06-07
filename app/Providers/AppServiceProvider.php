@@ -14,6 +14,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         #Dfms::register('dfms', App\Admin\FormItems\Dfms::class);
+        view()->composer('layouts.app', 'App\Http\Controllers\Controller');
     }
 
     /**

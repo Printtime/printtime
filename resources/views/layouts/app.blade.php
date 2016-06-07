@@ -1,29 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ config()['app']['locale'] }}">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <title>Printtime</title>
-
-    <!-- Fonts -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel='stylesheet' type='text/css'>
-    <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700" rel='stylesheet' type='text/css'>
-
-    <!-- Styles -->
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
     <link href="{{ elixir('css/app.css') }}" rel="stylesheet">
-
-    <style>
-        body {
-            font-family: 'Lato';
-        }
-
-        .fa-btn {
-            margin-right: 6px;
-        }
-    </style>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 
 
@@ -70,15 +53,21 @@
         </div>
     </nav>
 
-    @include('slider.index')
+    @if($slider)
+        @include('slider.index')
+    @endif
 
-    @yield('content')
+   <div class="body">@yield('content')</div>
 
 <footer class="footer">
       <div class="container">
         <div class="col-md-4">
-        <h3>Footer 1</h3>
-            <p>Content footer 1, Content footer 1 Content footer 1 Content footer 1, Content footer 1 Content footer 1 Content footer 1, Content footer 1 Content footer 1 Content footer 1, Content footer 1 Content footer 1Content footer 1, Content footer 1 Content footer 1 Content footer 1, Content footer 1 Content footer 1</p>
+        @foreach ($footer as $catalog)
+            <h3>{!! $catalog->title !!}</h3>
+            @foreach ($catalog->products as $product)
+                {!! $product->title !!}<br>
+            @endforeach
+        @endforeach
         </div>
         <div class="col-md-4">
         <h3>Footer 2</h3>
