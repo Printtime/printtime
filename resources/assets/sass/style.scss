@@ -1,10 +1,8 @@
 @import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css);
-@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
-@import url(https://fonts.googleapis.com/css?family=Dosis:400,300,200,500,600,700,800&subset=latin,latin-ext);
-
+@import url(https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css);
+@import "bootstrap";
 @font-face { font-family: 'PFDinTextCondPro-Light';  src: local('PFDinTextCondPro-Light'), url('http://nomail.com.ua/files/woff/2bba26df7ba63d850e5bd1de2f142358.woff') format('woff'); }
 @font-face { font-family: 'PFDinTextCondPro-Bold';  src: local('PFDinTextCondPro-Bold'), url('http://nomail.com.ua/files/woff/9ae3709d644c8df5546e96d0eddc99e1.woff') format('woff'); }
-
 
 $brand-color1: #f1672a;
 $brand-color2: #4d4d4d;
@@ -42,7 +40,7 @@ $brand-color2: #4d4d4d;
 	}
 
 body {
-	font-family: "Dosis", "Segoe UI", Frutiger, "Frutiger Linotype", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+	font-family: "Segoe UI", Frutiger, "Frutiger Linotype", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
 }
 
 h1, .h1 {
@@ -80,9 +78,74 @@ h1, .h1 {
     background-size: 13px;
 }
 
+
+.page {
+	padding-bottom:20px;
+}
+
+.catalog {
+	
+}
+
+.active {
+	text-decoration: underline;
+}
+
+.catalog-block {
+
+
+	a { 
+		color: $brand-color2;
+		text-decoration:none;
+		&:hover {
+			img { background: $brand-color1;  }
+			h2 { color: $brand-color1; }
+		}
+		
+	}
+
+
+	img {
+		width:96px;
+		height:96px; 
+		padding:3px; 
+		background: $brand-color2;
+		border:3px #fff solid;
+	    z-index: 2;
+	    position: relative;
+
+		    @include box-shadow(0, 8px, 8px, rgba(0, 0, 0, 0.1));
+	}
+
+	.catalog-info {
+
+		    @include box-shadow(0, 8px, 8px, rgba(0, 0, 0, 0.1));
+
+		background: #fff; 
+		border:1px #eee solid;
+	    position: relative;
+	    top: -48px;
+	    z-index: 1;
+
+	    h2 {
+	        margin-top: 60px;
+	        font-size:12pt;
+	    }
+
+	    p {
+	    	font-size:9pt;
+	    	    padding: 0px 40px 0px 40px;
+	    	    margin: 0 0 30px;
+    			line-height: 140%;
+	    }
+	}
+}
+
+
+
 .top-container {
 	   background: $brand-color2;
-	   .top-contacts { padding: 10px 0px 10px 0px; color:#ccc; /* font-family: PFDinTextCondPro-Light; */ font-size:13pt; }
+	   .top-contacts { padding: 10px 0px 10px 0px; color:#ccc; font-size:12pt; }
 	   .top-contacts-circle {
 	   		background: $brand-color1;
 		    right: 0px;
@@ -103,9 +166,9 @@ h1, .h1 {
 		    text-align:center;
 		    text-decoration:none;
 
-		    font-size:20pt;
+		    font-size:18pt;
 		    sub, sup {
-		    	font-size:11pt;
+		    	font-size:10pt;
 		    }
 		    /*
 		    font-family: PFDinTextCondPro-Bold;
@@ -130,6 +193,12 @@ h1, .h1 {
 	 		min-height:150px;
 	 		border-top:10px #eee solid;
 	 		padding-bottom:10px;
+
+	 		a {
+	 			color:#fff;
+	 		}
+
+	 		h3 a:hover { text-decoration:none; color: $brand-color2; }
 		}
 
 #myCarousel {

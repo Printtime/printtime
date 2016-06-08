@@ -57,34 +57,20 @@
         @include('slider.index')
     @endif
 
-   <div class="body">@yield('content')</div>
+   <div class="body">
+        @yield('page')
+        @yield('content')
+    </div>
 
-<footer class="footer">
-      <div class="container">
-        <div class="col-md-4">
-        @foreach ($footer as $catalog)
-            <h3>{!! $catalog->title !!}</h3>
-            @foreach ($catalog->products as $product)
-                {!! $product->title !!}<br>
-            @endforeach
-        @endforeach
-        </div>
-        <div class="col-md-4">
-        <h3>Footer 2</h3>
-            <p>Content footer 1, Content footer 1 Content footer 1 Content footer 1, Content footer 1 Content footer 1 Content footer 1, Content footer 1 Content footer 1 Content footer 1, Content footer 1 Content footer 1Content footer 1, Content footer 1 Content footer 1 Content footer 1, Content footer 1 Content footer 1</p>
-        </div>
-
-        <div class="col-md-4">
-        <h3>Footer 3</h3>
-            <p>Content footer 1, Content footer 1 Content footer 1 Content footer 1, Content footer 1 Content footer 1 Content footer 1, Content footer 1 Content footer 1 Content footer 1, Content footer 1 Content footer 1Content footer 1, Content footer 1 Content footer 1 Content footer 1, Content footer 1 Content footer 1</p>
-        </div>
-      </div>
-</footer>
+    @include('layouts.footer')
 
 
     <!-- JavaScripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<!--     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    {{-- <script src="{{ elixir('js/app.js') }}"></script> --}}
+    <script src="/js/wow.min.js"></script>
+    <script src="/js/js.js"></script> -->
+    
+    <script src="{{ elixir('js/app.js') }}"></script>
 </body>
 </html>

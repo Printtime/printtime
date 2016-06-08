@@ -19,13 +19,12 @@ class Controller extends BaseController
     public function compose(View $view)
     {
         $view->with('slider', Slider::orderBy('order', 'asc')->get());
-        $view->with('footer', $this->footer());
+        $view->with('compose_catalog', $this->compose_catalog());
     }
 
-    public function footer()
-    {	
-    	#products
-    	return Catalog::all();
+   public function compose_catalog()
+    {   
+        return Catalog::with('products')->orderBy('order', 'asc')->get();
     }
 
 /*

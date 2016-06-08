@@ -12,11 +12,19 @@
 */
 Route::group(['middleware' => 'web'], function () {
 
-	Route::get('/', function () {
-	    return view('welcome');
-	});
+	Route::get('/', 'CatalogController@index');
 
-    Route::get('/home', 'HomeController@index');
+	Route::resource('catalog', 'CatalogController', ['only' => ['show']]);
+
+	Route::resource('product', 'ProductController', ['only' => ['index', 'show']]);
+
+
+/*	Route::get('/', function () {
+	    return view('home');
+	});*/
+	
+
+    #Route::get('/', 'HomeController@index');
     
 	});
 /*
