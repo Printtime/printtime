@@ -10,6 +10,45 @@
 
             $('.footer').addClass('wow fadeInUp animated').attr( "data-wow-duration", "0.2s" ).attr( "data-wow-offset", "150" ).attr( "data-wow-delay", "0.25s" );
 
+
+    $(window).scroll(function () {
+        if ($(this).scrollTop() > 50) {
+            $('#back-to-top').fadeIn();
+        } else {
+            $('#back-to-top').fadeOut();
+        }
+        $('#back-to-top').tooltip('hide');
+    });
+
+    $('#back-to-top').tooltip('show');
+
+    // scroll body to 0px on click
+    $('#back-to-top').click(function () {
+        $('#back-to-top').tooltip('hide');
+        $('body,html').animate({
+            scrollTop: 0
+        }, 800);
+        return false;
+    });
+
+
+
+
+
+    $(".ajax").click(function( event ) {
+
+        event.preventDefault();
+
+        $.ajax({
+            url: this.href,
+            success: function(data) {
+                $('.modal-dialog').html(data);
+            }
+        });
+
+
+    });
+
            //  $('.front .view-catalog .views-row-odd').addClass('wow fadeInRight animated');
            //  $('.front .view-catalog .views-row-odd').attr( "data-wow-duration", "0.5s" ).attr( "data-wow-offset", "200" );
 

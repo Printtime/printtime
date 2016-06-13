@@ -20,6 +20,9 @@ Route::group(['middleware' => 'web'], function () {
 
 	Route::resource('product', 'ProductController', ['only' => ['index', 'show']]);
 
+	Route::get('ajax', 'AjaxController@get');
+	Route::post('ajax', 'AjaxController@post');
+
 
 /*	Route::get('/', function () {
 	    return view('home');

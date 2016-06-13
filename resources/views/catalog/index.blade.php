@@ -2,6 +2,8 @@
 
 	@section('page')
 
+
+
 <div class="container page">
     <div class="row">
         <div class="col-md-12">

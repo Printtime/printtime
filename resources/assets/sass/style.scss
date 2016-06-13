@@ -6,6 +6,9 @@
 
 $brand-color1: #f1672a;
 $brand-color2: #4d4d4d;
+$link-color: #f1672a;
+$link-hover-color: #4d4d4d;
+$link-hover-decoration: #4d4d4d;
 
 @mixin circle($size) {
      width: $size;
@@ -35,6 +38,15 @@ $brand-color2: #4d4d4d;
   }
 }
 
+@mixin tab-focus-none() {
+  // Default
+  outline: none;
+  // WebKit
+  outline: none;
+  outline-offset: -2px;
+}
+
+
 .fa-btn {
 	margin-right: 6px;
 	}
@@ -48,21 +60,69 @@ h1, .h1 {
 	color: #f1672a;
 }
 
-.nav {
-	.active {
-		background-color: #fff;
-	}
+
+
+
+
+// Links
+
+a {
+  color: $link-color;
+  text-decoration: none;
+
+  &:hover,
+  &:focus {
+    color: $link-hover-color;
+    text-decoration: $link-hover-decoration;
+  }
+
+  &:focus {
+    @include tab-focus;
+  }
 }
 
+
+
+
+// Default navbar
 .navbar-default {
+
     padding-top: 20px;
-	 background-color: #fff;
-
+	background-color: #fff;
     font-size: 12pt;
-    
+	@include border-bottom();
 
-	 @include border-bottom();
+	  .navbar-nav {
+    > li > a {
+      color: $navbar-default-link-color;
+
+      &:hover,
+      &:focus {
+        background-color: $navbar-default-link-hover-bg;
+        text-decoration: underline;
+      }
+    }
+    > .active > a {
+      &,
+      &:hover,
+      &:focus {
+        color: $brand-color1;
+        background-color: #fff;
+        text-decoration: none;
+      }
+    }
+    > .disabled > a {
+      &,
+      &:hover,
+      &:focus {
+        color: $navbar-default-link-disabled-color;
+        background-color: $navbar-default-link-disabled-bg;
+      }
+    }
+  }
+
 }
+
 
 
 
@@ -92,6 +152,7 @@ h1, .h1 {
 
 .catalog {
 
+h1 {  margin-bottom: 20px; }
 
 	    a {
 	    	color: $brand-color2;
@@ -103,9 +164,12 @@ h1, .h1 {
 	border-radius: 0px;
 }
 
-h3 {
-	    margin-top: 10px;
-	    font-size: 16px;
+.caption {
+		h3 {
+			    font-size: 16px;
+			    display: inline-block;
+			    margin-top: 15px;
+		}
 }
 
 .btn-send {
@@ -176,6 +240,7 @@ h3 {
 
 
 .top-container {
+
 	   background: $brand-color2;
 	   .top-contacts { padding: 10px 0px 10px 0px; color:#ccc; font-size:12pt; }
 	   .top-contacts-circle {
@@ -210,6 +275,11 @@ h3 {
 		    */
 
 	   }
+
+  a:focus {
+    @include tab-focus-none;
+  }
+
 }
 
 .body {
@@ -248,3 +318,120 @@ h3 {
 		width:100%;
 	}
 }
+
+
+
+
+.panel-primary {
+  @include panel-variant($brand-color2, $panel-primary-text, $brand-color1, $brand-color1);
+      border: 0px;
+}
+
+
+.back-to-top {
+    cursor: pointer;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: none;
+    color: $brand-color2;
+}
+
+
+
+
+
+/*
+IMAGE HOVER EFFECTS
+https://miketricking.github.io/dist/
+*/
+
+.hovereffect {
+width:100%;
+height:100%;
+float:left;
+overflow:hidden;
+position:relative;
+text-align:center;
+cursor:default;
+}
+
+.hovereffect .overlay {
+width:100%;
+height:100%;
+position:absolute;
+overflow:hidden;
+top:0;
+left:0;
+opacity:0;
+background-color:rgba(0,0,0,0.5);
+-webkit-transition:all .4s ease-in-out;
+transition:all .4s ease-in-out
+}
+
+.hovereffect img {
+display:block;
+position:relative;
+-webkit-transition:all .4s linear;
+transition:all .4s linear;
+}
+
+.hovereffect h2 {
+text-transform:uppercase;
+color:#fff;
+text-align:center;
+position:relative;
+font-size:17px;
+background: $brand-color1;
+-webkit-transform:translatey(-100px);
+-ms-transform:translatey(-100px);
+transform:translatey(-100px);
+-webkit-transition:all .2s ease-in-out;
+transition:all .2s ease-in-out;
+padding:10px;
+}
+
+.hovereffect a.info {
+text-decoration:none;
+display:inline-block;
+text-transform:uppercase;
+color:#fff;
+border:1px solid #fff;
+background-color:transparent;
+opacity:0;
+filter:alpha(opacity=0);
+-webkit-transition:all .2s ease-in-out;
+transition:all .2s ease-in-out;
+margin:50px 0 0;
+padding:7px 14px;
+}
+
+.hovereffect a.info:hover {
+box-shadow:0 0 5px #fff;
+}
+
+.hovereffect:hover img {
+-ms-transform:scale(1.2);
+-webkit-transform:scale(1.2);
+transform:scale(1.2);
+}
+
+.hovereffect:hover .overlay {
+opacity:1;
+filter:alpha(opacity=100);
+}
+
+.hovereffect:hover h2,.hovereffect:hover a.info {
+opacity:1;
+filter:alpha(opacity=100);
+-ms-transform:translatey(0);
+-webkit-transform:translatey(0);
+transform:translatey(0);
+}
+
+.hovereffect:hover a.info {
+-webkit-transition-delay:.2s;
+transition-delay:.2s;
+}
+
+

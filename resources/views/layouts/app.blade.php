@@ -72,6 +72,10 @@
 
     @include('layouts.footer')
 
+<a id="back-to-top" href="#" class="btn btn-lg back-to-top" role="button" title="Наверх!" data-toggle="tooltip" data-placement="left"><span class="glyphicon glyphicon-chevron-up"></span></a>
+
+<div class="modal fade" id="open-modal" tabindex="-1" role="dialog"><div class="modal-dialog" role="document"></div></div>
+
 
     <!-- JavaScripts -->
 <!--     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
