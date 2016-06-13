@@ -1,12 +1,10 @@
-<?php
+<?php namespace App\Model;
 
-namespace App\Model;
+use Baum\Node;
 
-use Illuminate\Database\Eloquent\Model;
-
-class Page extends Model
+class Page extends Node
 {
-    protected $fillable = ['title', 'description', 'text', 'avatar'];
+    protected $fillable = ['title', 'description', 'text'];
 }
 
 

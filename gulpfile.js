@@ -22,7 +22,20 @@ elixir(function(mix) {
     ).copy(
         'node_modules/bootstrap-sass/assets/stylesheets',
         'resources/assets/sass'
+    ).copy(
+        'node_modules/lightbox2/src/css',
+        'resources/assets/css'
+    ).copy(
+        'node_modules/lightbox2/src/js',
+        'resources/assets/js'
+    ).copy(
+        'node_modules/lightbox2/src/images',
+        'public/build/images'
     );
+
+    mix.styles([
+        'lightbox.css',
+    ], 'public/css/all.css');
 
     mix.sass([
         'app.scss',
@@ -33,12 +46,13 @@ elixir(function(mix) {
     mix.scripts([
     	'jquery.min.js',
     	'wow.min.js',
-    	'bootstrap.min.js',
+        'bootstrap.min.js',
+        'lightbox.js',
     	'js.js'
     	], 'public/js/app.js');
 
 
-    mix.version(['public/css/app.css', 'public/js/app.js']);
+    mix.version(['public/css/all.css', 'public/css/app.css', 'public/js/app.js']);
 
 
 });

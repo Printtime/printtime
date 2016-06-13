@@ -48,13 +48,18 @@ h1, .h1 {
 	color: #f1672a;
 }
 
+.nav {
+	.active {
+		background-color: #fff;
+	}
+}
 
 .navbar-default {
     padding-top: 20px;
 	 background-color: #fff;
 
     font-size: 12pt;
-    font-weight: bold;
+    
 
 	 @include border-bottom();
 }
@@ -83,13 +88,40 @@ h1, .h1 {
 	padding-bottom:20px;
 }
 
+
+
 .catalog {
-	
+
+
+	    a {
+	    	color: $brand-color2;
+	    	&:hover { color: $brand-color1; }
+	    }
+
+.thumbnail {
+	@include box-shadow(0, 8px, 8px, rgba(0, 0, 0, 0.1));
+	border-radius: 0px;
+}
+
+h3 {
+	    margin-top: 10px;
+	    font-size: 16px;
+}
+
+.btn-send {
+  @include button-variant(white, $brand-color1, white);
+}
+
+.caption {
+	font-size:10pt;
+}
+
 }
 
 .active {
 	text-decoration: underline;
 }
+
 
 .catalog-block {
 

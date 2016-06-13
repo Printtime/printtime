@@ -15,6 +15,8 @@ Route::group(['middleware' => 'web'], function () {
 	Route::get('/', 'CatalogController@index');
 
 	Route::resource('catalog', 'CatalogController', ['only' => ['show']]);
+	Route::resource('page', 'PageController', ['only' => ['show']]);
+	Route::resource('post', 'PostController', ['only' => ['index', 'show']]);
 
 	Route::resource('product', 'ProductController', ['only' => ['index', 'show']]);
 
