@@ -12,11 +12,24 @@
 */
 Route::group(['middleware' => 'web'], function () {
 
-	Route::get('/', function () {
-	    return view('welcome');
-	});
+	Route::get('/', 'CatalogController@index');
 
-    Route::get('/home', 'HomeController@index');
+	Route::resource('catalog', 'CatalogController', ['only' => ['show']]);
+	Route::resource('page', 'PageController', ['only' => ['show']]);
+	Route::resource('post', 'PostController', ['only' => ['index', 'show']]);
+
+	Route::resource('product', 'ProductController', ['only' => ['index', 'show']]);
+
+	Route::get('ajax', 'AjaxController@get');
+	Route::post('ajax', 'AjaxController@post');
+
+
+/*	Route::get('/', function () {
+	    return view('home');
+	});*/
+	
+
+    #Route::get('/', 'HomeController@index');
     
 	});
 /*

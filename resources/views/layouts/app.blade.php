@@ -1,31 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ config()['app']['locale'] }}">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <title>Printtime</title>
-
-    <!-- Fonts -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel='stylesheet' type='text/css'>
-    <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700" rel='stylesheet' type='text/css'>
-
-    <!-- Styles -->
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
-    {{-- <link href="{{ elixir('css/app.css') }}" rel="stylesheet"> --}}
-
-    <style>
-        body {
-            font-family: 'Lato';
-        }
-
-        .fa-btn {
-            margin-right: 6px;
-        }
-    </style>
+    <link href="{{ elixir('css/all.css') }}" rel="stylesheet">
+    <link href="{{ elixir('css/app.css') }}" rel="stylesheet">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
+
+
 <body id="app-layout">
+
+<div class="top-container">
+    <div class="container">
+            <div class="col-md-12 top-contacts hidden-sm hidden-xs">Звоните сейчас! <i class="icon logo-icon"></i> (050) 856 67 63 <i class="icon logo-icon"></i> (067) 812-81-11 <i class="icon logo-icon"></i> (067) 812-81-11 
+                    <a href="{{ url('/page/2') }}" class="top-contacts-circle-text"><sup class="fa fa-clock-o" aria-hidden="true"></sup> 9:00-18:00 <sup>пн-сб</sup></a>
+                    <div class="top-contacts-circle"></div>
+        </div>
+    </div>
+</div>
+
     <nav class="navbar navbar-default">
         <div class="container">
             <div class="navbar-header">
@@ -40,29 +36,53 @@
 
                 <!-- Branding Image -->
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    Printtime
+                    <img src="/images/logo.png" alt="Printtime">
                 </a>
             </div>
 
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
-                    <li><a href="{{ url('/home') }}">Home</a></li>
+                    <li{{ Helper::setActive('/') }}><a href="{{ url('/') }}">Услуги</a></li>
+                    <li{{ Helper::setActive('post') }}><a title="Новости" href="{!! route('post.index') !!}">Новости</a></li>
+                    <li{{ Helper::setActive('/') }}><a href="{{ url('/') }}">Наши работы</a></li>
                 </ul>
 
                 <!-- Right Side Of Navbar -->
-                <ul class="nav navbar-nav navbar-right">
+               {{-- <ul class="nav navbar-nav navbar-right">
                     @include('auth.partials.navbar')
+                </ul>
+                --}}
+                <ul class="nav navbar-nav navbar-right">
+                    <li{{ Helper::setActive('page/2') }}><a href="{{ url('/page/2') }}">Контакты</a></li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    @yield('content')
+    @if($slider)
+        @include('slider.index')
+    @endif
+
+   <div class="body {{ Request::route()->getName() }}">
+        @yield('page')
+        @yield('content')
+    </div>
+
+
+    @include('layouts.footer')
+
+<a id="back-to-top" href="#" class="btn btn-lg back-to-top" role="button" title="Наверх!" data-toggle="tooltip" data-placement="left"><span class="glyphicon glyphicon-chevron-up"></span></a>
+
+<div class="modal fade" id="open-modal" tabindex="-1" role="dialog"><div class="modal-dialog" role="document"></div></div>
+
 
     <!-- JavaScripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<!--     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    {{-- <script src="{{ elixir('js/app.js') }}"></script> --}}
+    <script src="/js/wow.min.js"></script>
+    <script src="/js/js.js"></script> -->
+    
+    <script src="{{ elixir('js/app.js') }}"></script>
 </body>
 </html>

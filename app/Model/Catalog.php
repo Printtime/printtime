@@ -95,4 +95,12 @@ class Catalog extends Model
     {
         return 'order';
     }
+
+
+    public function products()
+    {
+        return $this->hasMany(Product::class);
+    }
+
+
 }

@@ -3,8 +3,9 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUploadTable extends Migration
+class CreatePostsTable extends Migration
 {
+
     /**
      * Run the migrations.
      *
@@ -12,16 +13,12 @@ class CreateUploadTable extends Migration
      */
     public function up()
     {
-        Schema::create('upload', function (Blueprint $table) {
+        Schema::create('posts', function (Blueprint $table) {
             $table->increments('id');
-
-            $table->string('name');
-            $table->string('content_type');
-            $table->string('file');
-            $table->integer('size')->default(0);
-            $table->integer('views')->default(0);
-
+            $table->string('title');
+            $table->text('text');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -32,6 +29,7 @@ class CreateUploadTable extends Migration
      */
     public function down()
     {
-        Schema::drop('upload');
+        Schema::drop('posts');
     }
+
 }
