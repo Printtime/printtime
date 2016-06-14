@@ -45,7 +45,7 @@
                 <ul class="nav navbar-nav">
                     <li{{ Helper::setActive('/') }}><a href="{{ url('/') }}">Услуги</a></li>
                     <li{{ Helper::setActive('post') }}><a title="Новости" href="{!! route('post.index') !!}">Новости</a></li>
-                    <li{{ Helper::setActive('/') }}><a href="{{ url('/') }}">Наши работы</a></li>
+                    <li{{ Helper::setActive('portfolio') }}><a href="{!! route('catalog.portfolio') !!}">Наши работы</a></li>
                 </ul>
 
                 <!-- Right Side Of Navbar -->

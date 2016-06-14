@@ -5,7 +5,7 @@
 <div class="container catalog">
     <div class="row">
 
-        <div class="col-sm-4 col-md-3">
+        <div class="col-sm-4 col-md-3 menu">
                 @foreach ($catalogs as $item)
                     @if($catalog->id == $item->id)
                     	<h3>{!! link_to_route('catalog.show', $item->title, $item->id, ['class'=>'active']) !!}</h3>
@@ -40,7 +40,7 @@
     @endif
     <div class="caption">
 <h3>{!! link_to_route('product.show', $product->title, $product->id) !!}</h3>
- <p>{!! $product->description !!}</p>
+ <p>{!! str_limit($product->description, 240) !!}</p>
 </div>
 </div></div>
                     @endforeach

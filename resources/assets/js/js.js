@@ -1,14 +1,31 @@
 
 (function ($) {
 
+
+           $('.body h1').addClass('wow fadeInLeft animated').attr( "data-wow-duration", "0.5s" ).attr( "data-wow-offset", "200" );
+
+            $('.page p').addClass('wow fadeInUp animated').attr( "data-wow-duration", "0.25s" ).attr( "data-wow-offset", "100" ).attr( "data-wow-delay", "0.25s" );
+
             $('.catalog-block').addClass('wow fadeInUp animated');
             $('.catalog-block').attr( "data-wow-duration", "0.2s" );
-            $('.catalog-block').attr( "data-wow-offset", "150" );
-            $('.catalog-block').attr( "data-wow-delay", "0.25s" );
+            $('.catalog-block').attr( "data-wow-offset", "100" );
+            $('.catalog-block').attr( "data-wow-delay", "0.5s" );
+
+           $('.catalog .thumbnail').addClass('wow zoomIn animated').attr( "data-wow-duration", "0.5s" ).attr( "data-wow-offset", "100" ).attr( "data-wow-delay", "0.25s" );
+           $('.catalog .menu ul, .catalog .menu h3').addClass('wow fadeInLeft animated').attr( "data-wow-duration", "0.5s" ).attr( "data-wow-offset", "30" ).attr( "data-wow-delay", "0.5s" );
+            // $('.catalog .gal-item').addClass('wow fadeInUp animated');
+            // $('.catalog .gal-item').attr( "data-wow-duration", "0.2s" );
+            // $('.catalog .gal-item').attr( "data-wow-offset", "150" );
+            // $('.catalog .gal-item').attr( "data-wow-delay", "0.25s" );           
 
 
+           $('.gal-container h2').addClass('wow fadeInLeft animated');
+           $('.gal-container h2').attr( "data-wow-duration", "0.5s" ).attr( "data-wow-offset", "25" ).attr( "data-wow-delay", "0.25s" );
 
-            $('.footer').addClass('wow fadeInUp animated').attr( "data-wow-duration", "0.2s" ).attr( "data-wow-offset", "150" ).attr( "data-wow-delay", "0.25s" );
+           $('.gal-item').addClass('wow zoomIn animated');
+           $('.gal-item').attr( "data-wow-duration", "0.5s" ).attr( "data-wow-offset", "50" ).attr( "data-wow-delay", "0.5s" );
+
+            $('.footer').addClass('wow fadeInUp animated').attr( "data-wow-duration", "0.2s" ).attr( "data-wow-offset", "100" ).attr( "data-wow-delay", "0.25s" );
 
 
     $(window).scroll(function () {
