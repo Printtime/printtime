@@ -3,6 +3,8 @@
 
 
            $('.body h1').addClass('wow fadeInLeft animated').attr( "data-wow-duration", "0.5s" ).attr( "data-wow-offset", "200" );
+            $('.top-container .top-contacts-circle').addClass('wow fadeInDown animated').attr( "data-wow-duration", "0.5s" );
+            $('.top-container .top-contacts-circle-text').addClass('wow fadeInDown animated').attr( "data-wow-duration", "0.5s" ).attr( "data-wow-delay", "0.25s" );
 
             $('.page p').addClass('wow fadeInUp animated').attr( "data-wow-duration", "0.25s" ).attr( "data-wow-offset", "100" ).attr( "data-wow-delay", "0.25s" );
 
