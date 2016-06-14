@@ -16,7 +16,7 @@
     @foreach($slider as $key => $slide)
 
       <div class="item {{ ($key == 0 ? 'active' : '') }}">
-        <a href="/home"><img src="/{!! $slide->slider !!}" alt=""></a>
+        <a href="{!! $slide->link !!}"><img src="/{!! $slide->slider !!}" alt=""></a>
       </div>
     @endforeach
 
