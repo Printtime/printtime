@@ -6120,4 +6120,10 @@ https://miketricking.github.io/dist/
   padding-bottom: 20px;
   float: left; }
 
+time {
+  font-size: 9pt; }
+
+a.thumbnail:hover, a.thumbnail:focus, a.thumbnail.active {
+  border-color: #f1672a; }
+
 /*# sourceMappingURL=app.css.map */
