@@ -25,4 +25,10 @@ class CatalogController extends Controller
         	]);
         #return view('catalog.show')->with('catalogs', Catalog::with('products')->orderBy('order', 'asc')->get())->with('catalog', Catalog::find($id));
     }
+
+
+    public function portfolio()
+    {   
+        return view('catalog.portfolio')->with('catalogs', Catalog::orderBy('order', 'asc')->get());
+    }
 }
