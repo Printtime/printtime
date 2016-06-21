@@ -85,6 +85,7 @@ class Catalog extends Model
         #return explode(',', $value);
     }
 
+
     public function setPhotoAttribute($photo)
     {
         $this->attributes['photo'] = implode(',', $photo);

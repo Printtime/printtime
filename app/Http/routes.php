@@ -10,7 +10,29 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+
+
+/*
+	Route::get('image/{image_name}', function ($image_name) {
+
+			$image = File::get(public_path().'/images/uploads/'.$image_name);
+			#$contents = Storage::get(public_path().'/images/uploads/'.$image_name);
+			#return dd($contents);
+
+			$img = Image::cache(function($image) {
+			   return $image->make('public/images/uploads_cache/'.$image_name)->resize(300, 200)->greyscale();
+			});
+		
+	});
+	*/
+	
+
 Route::group(['middleware' => 'web'], function () {
+
+	#Route::get('cache-medium/{?/?/?.jpg}', 'ImgController@getCache');
+
+	#Route::get('cache/{templates}/{path?}', array('as' => 'cache', 'uses' => 'ImgController@getCache'))->where('path', '.+');
+
 
 	Route::get('/', 'CatalogController@index');
 

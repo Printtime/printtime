@@ -30,7 +30,8 @@
  <div class="thumbnail">
    @if($product->avatar)
     <div class="hovereffect">
-        <img class="img-responsive" src="/{{ $product->avatar }}" alt="{{ $product->title }}">
+        
+        <img class="img-responsive" src="{{ route('imagecache', ['avatarmedium', last(explode('/', $product->avatar))]) }}" alt="{{ $product->title }}">
         <div class="overlay">
            <h2>{{ $product->title }}</h2>
            <a class="info btn-send ajax" href="/ajax" data-toggle="modal" data-target="#open-modal">Заказать просчет</a>
@@ -58,7 +59,7 @@
              </div>
             @foreach($catalog->photo as $photo)
             <div class="col-sm-3 col-md-4">
-                <a class="thumbnail" href="/{!! $photo !!}" data-lightbox="photo"><img src="/{!! $photo !!}" alt="{!! $catalog->title !!}"></a>
+                <a class="thumbnail" href="{!! $photo !!}" data-lightbox="photo"><img src="{{ route('imagecache', ['photoedium', last(explode('/', $photo))]) }}" alt="{!! $catalog->title !!}"></a>
             </div>
             @endforeach
   </div>
