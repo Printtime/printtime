@@ -55,6 +55,7 @@ return array(
     'templates' => array(
         'avatarmedium' => 'App\Filters\AvatarMedium',
         'photoedium' => 'App\Filters\PhotoMedium',
+        'portfoliomedium' => 'App\Filters\PortfolioMedium',
         #'small' => 'Intervention\Image\Templates\Small',
         #'medium' => 'Intervention\Image\Templates\Medium',
         #'large' => 'Intervention\Image\Templates\Large',

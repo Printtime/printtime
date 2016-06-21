@@ -12,7 +12,7 @@
 			    <div class="col-md-4 col-sm-6 co-xs-12 gal-item">
 			      <div class="box">
 			        <a title="{{ $catalog->title }}" href="{!! route('catalog.show', ['catalog' => $catalog->id]) !!}">
-			          <img alt="{{ $catalog->title }}" src="{!! $photo !!}">
+			          <img alt="{{ $catalog->title }}" src="{{ route('imagecache', ['portfoliomedium', last(explode('/', $photo))]) }}">
 			        </a>
 			      </div>
 			    </div>
