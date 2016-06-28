@@ -29,7 +29,7 @@ class ProductController extends Controller
 			    $client = new \GuzzleHttp\Client();
 
 			    $qtext = urlencode($request->email.' '.$request->phone.' '.$request->comment);
- 				$q = 'https://api.telegram.org/bot216646741:AAEQO3LJ2ppqumRj6MMv5CAw5VuET2BbQRc/sendMessage?chat_id=138220804&text='.$qtext.'';
+ 				$q = 'https://api.telegram.org/bot'.$_ENV["TELEGRAM_BOT_ID"].'/sendMessage?chat_id='.$_ENV["TELEGRAM_CHAT_ID"].'&text='.$qtext.'';
  				#$response = $client->get($q)->getBody();
                 # chat_id - printtime 201901957
 
