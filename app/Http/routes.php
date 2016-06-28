@@ -42,10 +42,9 @@ Route::group(['middleware' => 'web'], function () {
 	Route::resource('page', 'PageController', ['only' => ['show']]);
 	Route::resource('post', 'PostController', ['only' => ['index', 'show']]);
 
-	Route::resource('product', 'ProductController', ['only' => ['index', 'show']]);
-
-	Route::get('ajax', 'AjaxController@get');
-	Route::post('ajax', 'AjaxController@post');
+	Route::resource('product', 'ProductController', ['only' => ['show']]);
+	Route::get('product/{product}/order', 'ProductController@order')->name('product.order');
+	Route::post('product/{product}/orderSend', 'ProductController@orderSend')->name('product.orderSend');
 
 
 /*	Route::get('/', function () {

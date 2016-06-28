@@ -34,7 +34,8 @@
         <img class="img-responsive" src="{{ route('imagecache', ['avatarmedium', last(explode('/', $product->avatar))]) }}" alt="{{ $product->title }}">
         <div class="overlay">
            <h2>{{ $product->title }}</h2>
-           <a class="info btn-send ajax" href="/ajax" data-toggle="modal" data-target="#open-modal">Заказать просчет</a>
+           {!! link_to_route('product.order', 'Заказать просчет', ['product'=> $product->id], ['class'=>'info btn-send ajax', 'data-toggle'=>'modal', 'data-target'=>'#open-modal']) !!}
+
         </div>
 
     </div>

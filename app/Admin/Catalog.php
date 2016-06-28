@@ -41,7 +41,9 @@ AdminSection::registerModel(Catalog::class, function (ModelConfiguration $model)
             AdminFormElement::textarea('description', 'Краткое описание'),
             AdminFormElement::wysiwyg('content', 'Содержимое'),
             AdminFormElement::image('avatar', 'Аватар'),
-           AdminFormElement::images('photo', 'Фото'),
+            AdminFormElement::images('photo', 'Фото'),
+            #AdminFormElement::upload('avatar', 'Avatar')->addValidationRule('image'),
+            #AdminColumn::image('avatar')->setWidth('150px'),
         ]);
 
 
