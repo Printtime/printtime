@@ -495,3 +495,12 @@ transition-delay:.2s;
 	padding-bottom:20px;
 	float: left;
 }
+
+
+time { font-size:9pt; }
+
+
+
+a.thumbnail:hover, a.thumbnail:focus, a.thumbnail.active {
+    border-color: $brand-color1;
+}

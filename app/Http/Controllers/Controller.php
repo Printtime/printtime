@@ -26,11 +26,4 @@ class Controller extends BaseController
     {   
         return Catalog::with('products')->orderBy('order', 'asc')->get();
     }
-
-/*
-    public function slider()
-    {
-    	return Slider::orderBy('order', 'asc')->get();
-    }
-*/
 }

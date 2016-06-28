@@ -7,6 +7,7 @@
     <title>Printtime</title>
     <link href="{{ elixir('css/all.css') }}" rel="stylesheet">
     <link href="{{ elixir('css/app.css') }}" rel="stylesheet">
+    <base href="/">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 
