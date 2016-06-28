@@ -342,6 +342,17 @@ h1 {  margin-bottom: 20px; }
 
 
 
+.post {
+
+h1 { padding-bottom: 15px; }
+
+		h2 {
+				border-bottom: 1px $brand-color2 solid; font-size:20px; padding-bottom: 5px; 
+				a { color: $brand-color2; }
+		}
+}
+
+
 
 /*
 IMAGE HOVER EFFECTS
@@ -440,9 +451,6 @@ transition-delay:.2s;
 
 
 
-
-
-
 .gal-container{
 	h2 { border-bottom: 1px $brand-color2 solid; font-size:20px; padding-bottom: 5px; 
 
@@ -497,7 +505,10 @@ transition-delay:.2s;
 }
 
 
-time { font-size:9pt; }
+time { 
+font-size: 9pt;
+
+     }
 
 
 

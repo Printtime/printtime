@@ -1,17 +1,19 @@
-<div class="panel panel-primary">
-        <div class="panel-heading">
-            <h3 class="panel-title">Отправить запрос на просчет</h3>
-        </div>
-        <div class="panel-body">
-                 <form method="POST" action="/ajax" data-async="">
-                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+
+<div class="modal-content">
+
+      <form method="POST" action="{{ route('product.orderSend', ['product'=>$product]) }}" data-async="">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Отправить запрос на просчет</h4>
+      </div>
+      <div class="modal-body">
                 <div class="form-group">
                     <label>Email</label>
                     <input type="email"  name="email" placeholder="Введите email" value="" class="form-control">
                 </div>
                 <div class="form-group">
                     <label>Телефон</label>
-                    <input required type="text" placeholder="+380" name="phone" id="phone" class="form-control">
+                    <input required="required" type="text" placeholder="+380" name="phone" class="form-control">
                 </div>
                 <div class="form-group">
                     <label>Комментарий</label>
@@ -20,6 +22,8 @@
                 <div class="form-group">
                     <input type="submit" class="submit form-control btn btn-success" value="Отправить">
                 </div>
-            </form>
-        </div>
+      </div>
+
+      </form>
+
     </div>

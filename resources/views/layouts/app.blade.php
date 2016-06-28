@@ -65,7 +65,9 @@
         @include('slider.index')
     @endif
 
-   <div class="body {{ Request::route()->getName() }}">
+
+
+   <div class="body @foreach (explode('.', Request::route()->getName()) as $post) {{ $post }} @endforeach">
         @yield('page')
         @yield('content')
     </div>

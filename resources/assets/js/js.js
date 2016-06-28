@@ -2,6 +2,13 @@
 (function ($) {
 
 
+$.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+});
+
+
            $('.body h1').addClass('wow fadeInLeft animated').attr( "data-wow-duration", "0.5s" ).attr( "data-wow-offset", "200" );
             $('.top-container .top-contacts-circle').addClass('wow fadeInDown animated').attr( "data-wow-duration", "0.5s" );
             $('.top-container .top-contacts-circle-text').addClass('wow fadeInDown animated').attr( "data-wow-duration", "0.5s" ).attr( "data-wow-delay", "0.25s" );
@@ -15,11 +22,9 @@
 
            $('.catalog .thumbnail').addClass('wow zoomIn animated').attr( "data-wow-duration", "0.5s" ).attr( "data-wow-offset", "100" ).attr( "data-wow-delay", "0.25s" );
            $('.catalog .menu ul, .catalog .menu h3').addClass('wow fadeInLeft animated').attr( "data-wow-duration", "0.5s" ).attr( "data-wow-offset", "30" ).attr( "data-wow-delay", "0.5s" );
-            // $('.catalog .gal-item').addClass('wow fadeInUp animated');
-            // $('.catalog .gal-item').attr( "data-wow-duration", "0.2s" );
-            // $('.catalog .gal-item').attr( "data-wow-offset", "150" );
-            // $('.catalog .gal-item').attr( "data-wow-delay", "0.25s" );           
 
+           $('.post .row').addClass('wow fadeInLeft animated');
+           $('.post .row').attr("data-wow-duration", "0.5s" ).attr( "data-wow-offset", "25" ).attr( "data-wow-delay", "0.25s");
 
            $('.gal-container h2').addClass('wow fadeInLeft animated');
            $('.gal-container h2').attr( "data-wow-duration", "0.5s" ).attr( "data-wow-offset", "25" ).attr( "data-wow-delay", "0.25s" );
@@ -52,8 +57,6 @@
 
 
 
-
-
     $(".ajax").click(function( event ) {
 
         event.preventDefault();
@@ -65,38 +68,28 @@
             }
         });
 
-
     });
 
-           //  $('.front .view-catalog .views-row-odd').addClass('wow fadeInRight animated');
-           //  $('.front .view-catalog .views-row-odd').attr( "data-wow-duration", "0.5s" ).attr( "data-wow-offset", "200" );
+      $( ".modal-dialog" ).submit(function(e) {
 
-           //  $('.front .view-catalog .views-row-even').addClass('wow fadeInLeft animated');
-           //  $('.front .view-catalog .views-row-even').attr( "data-wow-duration", "0.5s" ).attr( "data-wow-offset", "200" );
+        e.preventDefault();
 
-           //  $('.node-teaser .group-header').addClass('wow fadeInLeft animated');
-           //  $('.node-teaser .group-header').attr( "data-wow-duration", "0.5s" ).attr( "data-wow-offset", "200" );
+        var form = $('.modal-dialog form');
+        var formURL = $(form).attr("action");
+        var formmethod = $(form).attr("method");
+        var sendData = $(form).serialize();
 
-           //  $('.node-teaser .group-left').addClass('wow fadeInLeft animated');
-           //  $('.node-teaser .group-left').attr( "data-wow-duration", "0.5s" ).attr( "data-wow-offset", "200" ).attr( "data-wow-offset", "200" ).attr( "data-wow-delay", "0.25s" );
+        $.ajax({
+            type: formmethod,
+            url: formURL,
+            data: sendData,
+            success: function (data, textStatus, errorThrown) {
+                $('.modal-dialog').html(data);
+            }
+        });
 
-           //  $('.node-teaser .group-middle').addClass('wow fadeInUp animated');
-           //  $('.node-teaser .group-middle').attr( "data-wow-duration", "0.5s" ).attr( "data-wow-offset", "200" ).attr( "data-wow-offset", "200" ).attr( "data-wow-delay", "0.5s" );
-
-           //  $('.node-teaser .group-right').addClass('wow fadeInRight animated');
-           //  $('.node-teaser .group-right').attr( "data-wow-duration", "0.5s" ).attr( "data-wow-offset", "200" ).attr( "data-wow-offset", "200" ).attr( "data-wow-delay", "0.75s" );
-
-
-           //  $('.front .view-catalog .field-name-field-image').addClass('wow zoomIn animated');
-           //  $('.front .view-catalog .field-name-field-image').attr( "data-wow-duration", "0.5s" ).attr( "data-wow-offset", "100" ).attr( "data-wow-delay", "0.5s" );
-
-           //  $('.page-header').addClass('wow fadeInRight animated');
-           //  $('.page-header').attr( "data-wow-duration", "0.5s" );
-
-           //  $('.page-taxonomy .field-name-field-slide').addClass('wow flipInX animated');
-           // // $('.page-node .field-name-field-slide').attr( "data-wow-delay", "0.5s" );
-           //  $('.page-taxonomy .field-name-field-slide').attr( "data-wow-duration", "1s" );
-
+        return false;
+    });
 
 })(jQuery);
 
