@@ -305,6 +305,8 @@ h1 {  margin-bottom: 20px; }
 	 		h3 a:hover { text-decoration:none; color: $brand-color2; }
 		}
 
+
+
 #myCarousel {
 	.carousel-control {
 		background: none;
@@ -514,4 +516,13 @@ font-size: 9pt;
 
 a.thumbnail:hover, a.thumbnail:focus, a.thumbnail.active {
     border-color: $brand-color1;
+}
+
+
+
+
+.product {
+	.img-thumbnail {
+			margin-right:20px;
+	}
 }
