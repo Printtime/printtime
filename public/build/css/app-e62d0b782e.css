@@ -6136,4 +6136,7 @@ time {
 a.thumbnail:hover, a.thumbnail:focus, a.thumbnail.active {
   border-color: #f1672a; }
 
+.product .img-thumbnail {
+  margin-right: 20px; }
+
 /*# sourceMappingURL=app.css.map */
