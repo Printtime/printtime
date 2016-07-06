@@ -16,7 +16,13 @@ AdminSection::registerModel(Page::class, function (ModelConfiguration $model) {
         return AdminForm::form()->setItems([
             AdminFormElement::text('title', 'Title')->required(),
             AdminFormElement::textarea('description', 'Краткое описание'),
+           # AdminFormElement::ckeditor('text', 'Содержание')
+
             AdminFormElement::wysiwyg('text', 'Содержание')
+            ->setParameters([
+                'height' => 400,
+            ])
+
         ]);
     });
 })->addMenuPage(Page::class)->setIcon('fa fa-sitemap');
