@@ -1,24 +1,6 @@
 @extends('layouts.app')
 
-@section('content')
-
-<div class="container catalog">
-    <div class="row">
-
-        <div class="col-sm-4 col-md-3 menu">
-                @foreach ($catalogs as $item)
-                    @if($catalog->id == $item->id)
-                    	<h3>{!! link_to_route('catalog.show', $item->title, $item->id, ['class'=>'active']) !!}</h3>
-	                    <ul>
-                        @foreach ($item->products as $product)
-	                        <li>{!! link_to_route('product.show', $product->title, $product->id) !!}</li>
-	                    @endforeach
-                        </ul>
-                    @else
-                    	<h3>{!! link_to_route('catalog.show', $item->title, $item->id) !!}</h3>
-                    @endif
-                @endforeach
-        </div>
+@section('catalog')
 
 
         <div class="col-sm-8 col-md-9">
@@ -41,7 +23,7 @@
     </div>
     @endif
     <div class="caption">
-<h3>{!! link_to_route('product.show', $product->title, $product->id) !!}</h3>
+<h3>{!! link_to_route('catalog.product.show', $product->title, [$catalog->id, $product->id]) !!}</h3>
  <p>{!! str_limit($product->description, 240) !!}</p>
 </div>
 </div></div>
@@ -51,9 +33,11 @@
 
 
 
-</div>
+@endsection
 
+@section('content')
 
+<div class="container">
   <div class="row">
              <div class="col-sm-12 col-md-12">
              {!! $catalog->content !!}
@@ -64,8 +48,6 @@
             </div>
             @endforeach
   </div>
-
-    </div>
-</div>
+  </div>
 
 @endsection

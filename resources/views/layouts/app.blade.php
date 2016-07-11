@@ -69,6 +69,16 @@
 
 
    <div class="body @foreach (explode('.', Request::route()->getName()) as $post) {{ $post }} @endforeach">
+        
+            @if(Request::is('catalog/*'))
+                <div class="container">
+                      <div class="row">
+                        @include('layouts.menu')
+                        @yield('catalog')
+                    </div>
+                </div>
+            @endif
+
         @yield('content')
         @yield('page')
     </div>

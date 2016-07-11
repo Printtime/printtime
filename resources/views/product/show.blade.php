@@ -1,14 +1,13 @@
 @extends('layouts.app')
 
-@section('content')
+@section('catalog')
 
 
-<div class="container">
-    <div class="row">
 
+
+<div class="col-sm-8 col-md-9">
 <h1>{{ $product->title }}</h1>
 
-<div class="col-sm-12 col-md-12">
    @if($product->avatar)
 		<img class="img-thumbnail pull-left" src="{{ route('imagecache', ['avatarmedium', last(explode('/', $product->avatar))]) }}" alt="{{ $product->title }}">
 
@@ -23,8 +22,6 @@
             </div>
             @endforeach
 
-</div>
-</div>
 
 
 @endsection

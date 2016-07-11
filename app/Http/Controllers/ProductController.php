@@ -4,13 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Model\Product;
+use App\Model\Catalog;
+
 
 class ProductController extends Controller
 {
-    public function show($id)
-    {
-        $product = Product::findOrfail($id);
-        return view('product.show', ['product'=> $product]);
+    public function show($catalog, $product)
+    {   
+        $product = Product::findOrfail($product);
+        $catalog = Catalog::findOrfail($catalog);
+        return view('product.show', ['catalog'=> $catalog, 'product'=> $product]);
     }
 
    public function order(Request $request, $product)

@@ -6,7 +6,7 @@ use App\Traits\Upload;
 use Illuminate\Database\Eloquent\Model;
 #use SleepingOwl\Admin\Traits\OrderableModel;
 use Illuminate\Http\UploadedFile;
-
+#use App\Model\Catalog;
 
 class Product extends Model
 {
