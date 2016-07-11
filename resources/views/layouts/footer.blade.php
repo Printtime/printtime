@@ -8,7 +8,7 @@
                 @foreach ($item as $catalog)
                     <h3>{!! link_to_route('catalog.show', $catalog->title, $catalog->id) !!}</h3>
                     @foreach ($catalog->products as $product)
-                        {!! link_to_route('product.show', $product->title, $product->id) !!}<br>
+                        {!! link_to_route('catalog.product.show', $product->title, [$catalog->id, $product->id]) !!}<br>
                     @endforeach
                 @endforeach
             </div>

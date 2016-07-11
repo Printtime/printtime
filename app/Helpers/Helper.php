@@ -12,6 +12,7 @@ public static function setActive($path)
 {
     return Request::is($path.'*') ? ' class=active' :  '';
 }
+
 /*
 public static function testsetActive($path)
 {

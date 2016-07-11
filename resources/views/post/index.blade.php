@@ -2,8 +2,9 @@
 
 @section('content')
 
-<div class="container">
 
+                <div class="container">
+                      <div class="row">
 
           <h1>Новости и события</h1>
           
@@ -17,8 +18,10 @@
 
 @endforeach
 
+
+</div></div>
+
 <div class="text-center">{{ $posts->links() }}</div>
 
-</div>
 
 @endsection

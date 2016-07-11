@@ -2,13 +2,11 @@
 
 @section('content')
 
-
 <div class="container">
 <div class="row">
 
           <h1>{!! $post->title !!}</h1>
           
-
 @if($post->avatar)
 
 
@@ -31,8 +29,9 @@
 @endif 
 
 
-
 </div>
+
+
 
 <div class="row">
 
@@ -43,6 +42,7 @@
             @endforeach
 
 </div>
+
 
 </div>
 

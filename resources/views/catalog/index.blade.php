@@ -1,8 +1,6 @@
 @extends('layouts.app')
 
-	@section('page')
-
-
+@section('page')
 
 <div class="container page">
     <div class="row">
@@ -11,13 +9,14 @@
 			{!! $page->text !!}
         </div>
     </div>
-    </div>
+</div>
 
-	@endsection
+@endsection
 
 
 @section('content')
-<div class="container catalog">
+
+<div class="container">
     <div class="row">
     	@foreach($catalogs as $catalog)
     		<div class="col-xs-12 col-sm-6 col-md-4 text-center">
