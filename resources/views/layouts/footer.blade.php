@@ -22,7 +22,7 @@
 
 <div class="top-container">
     <div class="container">
-            <div class="col-md-12 top-contacts text-center">Украина, г.Кривой Рог, ул. Волгоградская , 12 <i class="icon logo-icon"></i> (067) 812 81 11 
+            <div class="col-md-12 top-contacts text-center">Украина, г.Кривой Рог, ул. Волгоградская, 12 <i class="icon logo-icon"></i> (067) 812 81 11 
 
         </div>
     </div>
