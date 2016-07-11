@@ -9,7 +9,7 @@
 <div class="{{ $class_data }}">
 	<h2><a href="{!! route('post.show', ['post' => $post->id]) !!}">{!! $post->title !!}</a></h2>
 	<time>{!! $post->created_at !!}</time>
-	<p>{!! $post->text !!}</p>
+	<p>{!! $post->description !!}</p>
 </div>
 
 @else
@@ -17,7 +17,7 @@
 <div class="col-xs-12 col-md-12">
 	<h2><a href="{!! route('post.show', ['post' => $post->id]) !!}">{!! $post->title !!}</a></h2>
 	<time>{!! $post->created_at !!}</time>
-	<p>{!! $post->text !!}</p>
+	<p>{!! $post->description !!}</p>
 </div>
 
 @endif 

@@ -69,8 +69,8 @@
 
 
    <div class="body @foreach (explode('.', Request::route()->getName()) as $post) {{ $post }} @endforeach">
-        @yield('page')
         @yield('content')
+        @yield('page')
     </div>
 
 
