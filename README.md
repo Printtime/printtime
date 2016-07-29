@@ -1,4 +1,4 @@
-# Printtime
+# Printtime Shop
 
 ## Laravel PHP Framework | Official Documentation
 
