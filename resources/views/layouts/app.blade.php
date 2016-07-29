@@ -11,7 +11,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 
-
+<!-- DEM.b.Shop -->
 
 <body id="app-layout">
 
