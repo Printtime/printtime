@@ -39,4 +39,5 @@ class Product extends Model
         $this->attributes['photo'] = implode(',', $photo);
     }
 
+
 }

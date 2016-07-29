@@ -1,14 +1,15 @@
 <?php
 
 use App\Role;
+use App\Permission;
 use SleepingOwl\Admin\Model\ModelConfiguration;
 
-AdminSection::registerModel(Role::class, function (ModelConfiguration $model) {
-    $model->setTitle('Roles')->enableAccessCheck();
+AdminSection::registerModel(Permission::class, function (ModelConfiguration $model) {
+    $model->setTitle('Права доступа')->enableAccessCheck();
 
     // Display
     $model->onDisplay(function () {
-        return AdminDisplay::table()->with('users')
+        return AdminDisplay::table()->with('roles')
             ->setHtmlAttribute('class', 'table-primary')
             ->setColumns([
                 AdminColumn::text('id')->setLabel('#')->setWidth('30px'),
@@ -20,8 +21,9 @@ AdminSection::registerModel(Role::class, function (ModelConfiguration $model) {
     // Create And Edit
     $model->onCreateAndEdit(function() {
         return AdminForm::panel()->addBody([
+            AdminFormElement::text('label', 'Label')->required(),
             AdminFormElement::text('name', 'Key')->required(),
-            AdminFormElement::text('label', 'Label')->required()
+            AdminFormElement::multiselect('roles', 'Roles')->setModelForOptions(new Role())->setDisplay('name'),
         ]);
     });
 });

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Gate;
+
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -16,8 +18,16 @@ class PostController extends Controller
 
     public function show($id)
     {
+
+        $post = Post::findOrFail($id);
+
+/*
+        if (Gate::allows('read-post', $post)) {
+            abort(403);
+        }*/
+
         return view('post.show', [
-        	'post' => Post::findOrFail($id)
+        	'post' => $post
         	]);
     }
 }

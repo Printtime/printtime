@@ -14,7 +14,8 @@
         "nesbot/carbon": "^1.21",
         "barryvdh/laravel-debugbar": "^2.2",
         "intervention/imagecache": "^2.3",
-        "guzzlehttp/guzzle": "^6.2"
+        "guzzlehttp/guzzle": "^6.2",
+        "moxiecode/plupload": "^2.1"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

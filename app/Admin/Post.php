@@ -5,7 +5,7 @@ use SleepingOwl\Admin\Model\ModelConfiguration;
 
 AdminSection::registerModel(Post::class, function (ModelConfiguration $model) {
 
-    $model->setTitle('Новости');
+    $model->setTitle('Новости')->enableAccessCheck();
 
     // Display
     $model->onDisplay(function () {

@@ -22,13 +22,14 @@ class RolePolicy
     public function before(User $user, $ability, Role $item)
     {
         if ($user->isSuperAdmin()) {
-            if ($ability != 'display' && $ability != 'create' && $item->id <= 2) {
+            if ($ability != 'display' && $ability != 'create' && $item->id <= 6) {
                 return false;
             }
 
             return true;
         }
     }
+
 
     /**
      * @param User $user
@@ -49,7 +50,7 @@ class RolePolicy
      */
     public function edit(User $user, Role $item)
     {
-        return $item->id > 2;
+        return $item->id > 6;
     }
 
     /**
@@ -60,6 +61,6 @@ class RolePolicy
      */
     public function delete(User $user, Role $item)
     {
-        return $item->id > 2;
+        return $item->id > 6;
     }
 }
