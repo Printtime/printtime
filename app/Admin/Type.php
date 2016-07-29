@@ -7,7 +7,7 @@ use App\Model\Product;
 use SleepingOwl\Admin\Model\ModelConfiguration;
 
 AdminSection::registerModel(Type::class, function (ModelConfiguration $model) {
-    $model->setTitle('Виды товаров');
+    $model->setTitle('Типы товаров');
 
     // Display
     $model->onDisplay(function () {
