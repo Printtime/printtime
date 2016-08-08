@@ -1,4 +1,4 @@
-# Printtime
+# Printtime Master
 
 ## Laravel PHP Framework | Official Documentation
 
