@@ -42,6 +42,12 @@ Route::group(['middleware' => 'web'], function () {
 	Route::resource('page', 'PageController', ['only' => ['show']]);
 	Route::resource('post', 'PostController', ['only' => ['index', 'show']]);
 
+
+	Route::get('printfile/upload', 'PrintFileController@form')->name('printfile.form');
+	Route::post('printfile/upload', 'PrintFileController@upload')->name('printfile.upload');
+	Route::resource('printfile', 'PrintFileController');
+
+
 	Route::resource('catalog.product', 'ProductController', ['only' => ['show']]);
 	#Route::resource('product', 'ProductController', ['only' => ['show']]);
 	Route::get('product/{product}/order', 'ProductController@order')->name('product.order');

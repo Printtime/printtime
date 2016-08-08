@@ -168,6 +168,10 @@ return [
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
+
+        JildertMiedema\LaravelPlupload\LaravelPluploadServiceProvider::class,
+
+
     ],
 
     /*
@@ -216,6 +220,8 @@ return [
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
         'Helper' => App\Helpers\Helper::class,
         'Image' => Intervention\Image\Facades\Image::class,
+        
+        'Plupload' => JildertMiedema\LaravelPlupload\Facades\Plupload::class,
     ],
 
 ];

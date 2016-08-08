@@ -81,7 +81,7 @@
         </div>
     </nav>
 
-    @if($slider and !Request::is('register') and !Request::is('login') and !Request::is('password'))
+    @if($slider and !Request::is('register') and !Request::is('login') and !Request::is('password') and !Request::is('printfile*'))
         @include('slider.index')
     @endif
 
