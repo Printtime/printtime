@@ -1,4 +1,4 @@
-# Printtime Master
+# Printtime Pay
 
 ## Laravel PHP Framework | Official Documentation
 
