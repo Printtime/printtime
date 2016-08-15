@@ -2,7 +2,7 @@
 
 namespace App;
 
-use App\Model\Contact;
+#use App\Model\Contact;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use KodiComponents\Support\Upload;
 use Illuminate\Http\UploadedFile;
@@ -83,6 +83,31 @@ class User extends Authenticatable
     }
 
     /**
+     * @return bool
+     */
+    public function isDesigner()
+    {
+        return $this->hasRole('designer');
+    }
+
+    /**
+     * @return bool
+     */
+    public function isPrinter()
+    {
+        return $this->hasRole('printer');
+    }
+
+    /**
+     * @return bool
+     */
+    public function isStorekeeper()
+    {
+        return $this->hasRole('storekeeper');
+    }
+
+
+    /**
      * @param string $password
      */
     public function setPasswordAttribute($password)
@@ -105,8 +130,8 @@ class User extends Authenticatable
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function contacts()
-    {
-        return $this->belongsToMany(Contact::class, 'contact_id');
-    }
+    // public function contacts()
+    // {
+    //     return $this->belongsToMany(Contact::class, 'contact_id');
+    // }
 }

@@ -59,9 +59,31 @@ return [
         ]
     ],*/
 
+    [
+        'title' => 'Магазин',
+        'icon' => 'fa fa-shopping-bag',
+        'pages' => [
+            (new Page(\App\Model\Catalog::class))
+                ->setIcon('fa fa-th-list')
+                ->setPriority(0),
+            (new Page(\App\Model\Product::class))
+                ->setIcon('fa fa-list-alt')
+                ->setPriority(10),
+            (new Page(\App\Model\Type::class))
+                ->setIcon('fa fa-database')
+                ->setPriority(20),
+            (new Page(\App\Model\Variable::class))
+                ->setIcon('fa fa-database')
+                ->setPriority(30),
+            (new Page(\App\Model\TypeVar::class))
+                ->setIcon('fa fa-database')
+                ->setPriority(40)
+        ]
+    ],
+
 
     [
-        'title' => 'Permissions',
+        'title' => 'Пользователи',
         'icon' => 'fa fa-group',
         'pages' => [
             (new Page(\App\User::class))
@@ -69,7 +91,11 @@ return [
                 ->setPriority(0),
             (new Page(\App\Role::class))
                 ->setIcon('fa fa-group')
-                ->setPriority(100)
+                ->setPriority(100),
+            (new Page(\App\Permission::class))
+                ->setIcon('fa fa-sitemap')
+                ->setTitle('Права')
+                ->setPriority(150)
         ]
     ]
 ];

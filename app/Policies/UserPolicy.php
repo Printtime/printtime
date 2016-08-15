@@ -19,7 +19,7 @@ class UserPolicy
     public function before(User $user, $ability, User $item)
     {
         if ($user->isSuperAdmin()) {
-            if ($ability != 'display' && $ability != 'create' && $item->id <= 2) {
+            if ($ability != 'display' && $ability != 'create' && $item->id <= 1) {
                 return false;
             }
 
@@ -35,7 +35,11 @@ class UserPolicy
      */
     public function display(User $user, User $item)
     {
-        return true;
+        #return true;
+        if ($user->isSuperAdmin() OR $user->isManager()) {
+            return true;
+        }
+        #return $user->isSuperAdmin();
     }
 
     /**
@@ -46,7 +50,8 @@ class UserPolicy
      */
     public function edit(User $user, User $item)
     {
-        return $item->id > 2;
+
+        return $item->id > 1;
     }
 
     /**
@@ -57,6 +62,7 @@ class UserPolicy
      */
     public function delete(User $user, User $item)
     {
-        return $item->id > 2;
+
+        return $item->id > 1;
     }
 }

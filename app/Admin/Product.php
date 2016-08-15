@@ -5,7 +5,7 @@ use App\Model\Catalog;
 use SleepingOwl\Admin\Model\ModelConfiguration;
 
 AdminSection::registerModel(Product::class, function (ModelConfiguration $model) {
-    $model->setTitle('Товары');
+    $model->setTitle('Товары')->enableAccessCheck();
     #$model->setTitle('Products')->enableAccessCheck();
     $model->onDisplay(function () {
         $display = AdminDisplay::table()->paginate(30);
@@ -144,8 +144,8 @@ AdminSection::registerModel(Product::class, function (ModelConfiguration $model)
 //         return $form;
 
 // });
-})
-    ->addMenuPage(Product::class)
-    ->setIcon('fa fa-list-alt')
-    ->setPriority(10);
+});
+    // ->addMenuPage(Product::class)
+    // ->setIcon('fa fa-list-alt')
+    // ->setPriority(10);
 

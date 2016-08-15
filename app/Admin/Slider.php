@@ -4,7 +4,7 @@ use App\Model\Slider;
 use SleepingOwl\Admin\Model\ModelConfiguration;
 
 AdminSection::registerModel(Slider::class, function (ModelConfiguration $model) {
-    $model->setTitle('Слайдер');
+    $model->setTitle('Слайдер')->enableAccessCheck();
 
     $model->onDisplay(function() {
         $display = AdminDisplay::table();

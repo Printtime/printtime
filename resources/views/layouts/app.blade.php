@@ -48,6 +48,7 @@
                     <li{{ Helper::setActive('/') }}><a href="{{ url('/') }}">Услуги</a></li>
                     <li{{ Helper::setActive('post') }}><a title="Новости" href="{!! route('post.index') !!}">Новости</a></li>
                     <li{{ Helper::setActive('portfolio') }}><a href="{!! route('catalog.portfolio') !!}">Наши работы</a></li>
+                    <li{{ Helper::setActive('page/2') }}><a href="{{ url('/page/2') }}">Контакты</a></li>
                 </ul>
 
                 <!-- Right Side Of Navbar -->
@@ -56,13 +57,31 @@
                 </ul>
                 --}}
                 <ul class="nav navbar-nav navbar-right">
-                    <li{{ Helper::setActive('page/2') }}><a href="{{ url('/page/2') }}">Контакты</a></li>
+
+            @if((Auth::check()))
+
+                   {{-- <li @if (Request::is('profile*')) class="active" @endif>
+                        <a href="/profile"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> {{ Auth::user()->name }}</a>
+                    </li> --}}
+
+                    <li>
+                        <a href="/logout"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Выход</a>
+                    </li>
+                @else
+                    <li{{ Helper::setActive('register') }}>
+                        <a href="/register"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Регистрация</a>
+                    </li>
+                    <li{{ Helper::setActive('login') }}>
+                        <a href="/login"><span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> Вход</a>
+                    </li>
+                @endif
+
                 </ul>
             </div>
         </div>
     </nav>
 
-    @if($slider)
+    @if($slider and !Request::is('register') and !Request::is('login') and !Request::is('password'))
         @include('slider.index')
     @endif
 

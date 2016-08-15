@@ -4,7 +4,7 @@ use App\Model\Page;
 use SleepingOwl\Admin\Model\ModelConfiguration;
 
 AdminSection::registerModel(Page::class, function (ModelConfiguration $model) {
-    $model->setTitle('Страницы');
+    $model->setTitle('Страницы')->enableAccessCheck();
 
     // Display
     $model->onDisplay(function () {
