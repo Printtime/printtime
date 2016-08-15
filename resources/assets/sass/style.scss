@@ -81,11 +81,18 @@ a {
   }
 }
 
-
-
+.user {
+	 .nav {
+		a { color: $navbar-default-link-color; }
+		.active {
+	        text-decoration: none;
+        	a { color: $brand-color1; }
+		}
+	}
+}
 
 // Default navbar
-.navbar-default {
+ .navbar-default {
 
     padding-top: 20px;
 	background-color: #fff;

@@ -20,6 +20,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'phone',
     ];
 
     /**
@@ -104,6 +105,12 @@ class User extends Authenticatable
     public function isStorekeeper()
     {
         return $this->hasRole('storekeeper');
+    }
+
+
+    public function isUser()
+    {
+        return $this->hasRole('user');
     }
 
 

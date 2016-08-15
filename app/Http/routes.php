@@ -69,6 +69,10 @@ Route::group(['middleware' => 'web'], function () {
 |
 */
 
-Route::group(['middleware' => 'web'], function () {
+Route::group(['middleware' => ['web']], function () {
     Route::auth();
+
+	Route::get('/user', 'UserController@index');
+	Route::get('/user/order', 'UserController@order');
+	#Route::resource('user', 'UserController', ['only' => ['index']]);
 });
