@@ -525,6 +525,19 @@ $.ajaxSetup({
     });
 
 
+    $(".ajax-pay").click(function( event ) {
+
+        event.preventDefault();
+
+        $.ajax({
+            url: this.href,
+            success: function(data) {
+                $('.modal-dialog-pay').html(data);
+            }
+        });
+
+    });
+
 
     $(".ajax").click(function( event ) {
 

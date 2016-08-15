@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c19ad296a4def19f646b920cb92ec9b7",
-    "content-hash": "78da274315a4c368ac0be57601effd46",
+    "hash": "410c94a0af74805c99971efbd1d17024",
+    "content-hash": "21ace72eecb57faa125d02b11c68fa7a",
     "packages": [
         {
             "name": "barryvdh/laravel-debugbar",
@@ -3384,6 +3384,49 @@
             "time": "2015-05-11 14:41:42"
         },
         {
+            "name": "liqpay/liqpay",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/liqpay/sdk-php.git",
+                "reference": "08c2a2795204563edc89238d7158d670a9557e42"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/liqpay/sdk-php/zipball/08c2a2795204563edc89238d7158d670a9557e42",
+                "reference": "08c2a2795204563edc89238d7158d670a9557e42",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "./LiqPay.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "OSL 3.0"
+            ],
+            "authors": [
+                {
+                    "name": "Liqpay",
+                    "email": "support@liqpay.com",
+                    "homepage": "https://www.liqpay.com/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "SDK for Liqpay",
+            "homepage": "https://github.com/liqpay/sdk-php",
+            "keywords": [
+                "liqpay",
+                "pay"
+            ],
+            "time": "2016-06-04 07:55:03"
+        },
+        {
             "name": "mockery/mockery",
             "version": "0.9.5",
             "source": {
@@ -4611,7 +4654,8 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "laravelrus/sleepingowl": 20
+        "laravelrus/sleepingowl": 20,
+        "liqpay/liqpay": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

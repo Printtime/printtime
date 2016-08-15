@@ -22,7 +22,8 @@
         "mockery/mockery": "^0.9.4",
         "phpunit/phpunit": "~4.0",
         "symfony/css-selector": "2.8.*|3.0.*",
-        "symfony/dom-crawler": "2.8.*|3.0.*"
+        "symfony/dom-crawler": "2.8.*|3.0.*",
+        "liqpay/liqpay": "dev-master"
     },
     "autoload": {
         "classmap": [

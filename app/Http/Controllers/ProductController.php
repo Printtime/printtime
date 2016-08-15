@@ -36,9 +36,6 @@ class ProductController extends Controller
 
 				$obj = json_decode($body);
 				
-				/*if($obj->ok == true)  {
- 					return redirect()->back()->with('status', 'Отправлено успешно!');
- 				}*/
 
  				if($obj->ok == true)  {
  					return view('product.order.success');

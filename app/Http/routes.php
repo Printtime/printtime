@@ -1,38 +1,6 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Routes File
-|--------------------------------------------------------------------------
-|
-| Here is where you will register all of the routes in an application.
-| It's a breeze. Simply tell Laravel the URIs it should respond to
-| and give it the controller to call when that URI is requested.
-|
-*/
-
-
-/*
-	Route::get('image/{image_name}', function ($image_name) {
-
-			$image = File::get(public_path().'/images/uploads/'.$image_name);
-			#$contents = Storage::get(public_path().'/images/uploads/'.$image_name);
-			#return dd($contents);
-
-			$img = Image::cache(function($image) {
-			   return $image->make('public/images/uploads_cache/'.$image_name)->resize(300, 200)->greyscale();
-			});
-		
-	});
-	*/
-	
-
 Route::group(['middleware' => 'web'], function () {
-
-	#Route::get('cache-medium/{?/?/?.jpg}', 'ImgController@getCache');
-
-	#Route::get('cache/{templates}/{path?}', array('as' => 'cache', 'uses' => 'ImgController@getCache'))->where('path', '.+');
-
 
 	Route::get('/', 'CatalogController@index');
 
@@ -43,36 +11,69 @@ Route::group(['middleware' => 'web'], function () {
 	Route::resource('post', 'PostController', ['only' => ['index', 'show']]);
 
 	Route::resource('catalog.product', 'ProductController', ['only' => ['show']]);
-	#Route::resource('product', 'ProductController', ['only' => ['show']]);
+
 	Route::get('product/{product}/order', 'ProductController@order')->name('product.order');
 	Route::post('product/{product}/orderSend', 'ProductController@orderSend')->name('product.orderSend');
-
-
-
-
-/*	Route::get('/', function () {
-	    return view('home');
-	});*/
-	
-
-    #Route::get('/', 'HomeController@index');
     
 	});
-/*
-|--------------------------------------------------------------------------
-| Application Routes
-|--------------------------------------------------------------------------
-|
-| This route group applies the "web" middleware group to every route
-| it contains. The "web" middleware group is defined in your HTTP
-| kernel and includes session state, CSRF protection, and more.
-|
-*/
 
-Route::group(['middleware' => ['web']], function () {
+
+Route::group(['middleware' => ['api']], function () {
+	Route::post('user/pay/api', 'PayController@api');
+
+		Route::post('/user/pay/redirect', [
+		'uses'=>'PayController@redirect',
+		'as'=> 'pay.redirect',
+		]);
+
+});
+
+Route::group(['middleware' => 'web'], function () {
     Route::auth();
+	});
 
-	Route::get('/user', 'UserController@index');
-	Route::get('/user/order', 'UserController@order');
-	#Route::resource('user', 'UserController', ['only' => ['index']]);
+Route::group(['middleware' => ['web', 'roles']], function () {
+
+	Route::get('/user', [
+		'uses'=>'UserController@index',
+		'as'=> 'user.index',
+		'roles'=> ['admin', 'user'],
+		]);
+
+	Route::get('/user/order', [
+		'uses'=>'UserController@order',
+		'as'=> 'user.order',
+		'roles'=> ['admin', 'user'],
+		]);
+
+	Route::get('/user/profile', [
+		'uses'=>'UserController@profile',
+		'as'=> 'user.profile',
+		'roles'=> ['admin', 'user'],
+		]);
+
+	Route::get('/user/transfer', [
+		'uses'=>'UserController@transfer',
+		'as'=> 'user.transfer',
+		'roles'=> ['admin', 'user'],
+		]);
+	
+
+	/*LiqPay Route*/
+	Route::post('/user/pay/create', [
+		'uses'=>'PayController@create',
+		'as'=> 'pay.create',
+		'roles'=> ['admin', 'user'],
+		]);
+	Route::get('/user/pay/product_url', [
+		'uses'=>'PayController@product_url',
+		'as'=> 'pay.product_url',
+		'roles'=> ['admin', 'user'],
+		]);
+	Route::get('/user/pay/result_url', [
+		'uses'=>'PayController@result_url',
+		'as'=> 'pay.result_url',
+		'roles'=> ['admin', 'user'],
+		]);
+	
 });

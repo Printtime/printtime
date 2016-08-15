@@ -6147,4 +6147,8 @@ a.thumbnail:hover, a.thumbnail:focus, a.thumbnail.active {
 .product .img-thumbnail {
   margin-right: 20px; }
 
+.modal-dialog-pay {
+  width: 400px;
+  margin: 30px auto; }
+
 /*# sourceMappingURL=app.css.map */

@@ -6,10 +6,13 @@
 <div class="row">
 <div class="col-sm-12 col-md-12">
 
-Order
+
+@include('pay.form')
 
 </div>
 </div>
 </div>
 
 @endsection
+
+

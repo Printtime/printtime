@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Gate;
+#use Gate;
 use Auth;
 
 use Illuminate\Http\Request;
@@ -22,5 +22,18 @@ class UserController extends Controller
     public function order()
     {   
     	return view('user.order');
+    }
+    public function profile()
+    {   
+    	return view('user.profile');
+    }
+
+   public function transfer(Request $request)
+    {
+        if($request->ajax()){
+            return view('pay.form');
+        } 
+
+        return view('pay.transfer');
     }
 }
