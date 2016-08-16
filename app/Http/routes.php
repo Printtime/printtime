@@ -15,13 +15,16 @@ Route::group(['middleware' => 'web'], function () {
 	Route::get('product/{product}/order', 'ProductController@order')->name('product.order');
 	Route::post('product/{product}/orderSend', 'ProductController@orderSend')->name('product.orderSend');
     
+
+    //Route::get('debit/{user_id}/{amount}', 'PayController@debit');
+
 	});
 
 
 Route::group(['middleware' => ['api']], function () {
 	Route::post('user/pay/api', 'PayController@api');
 
-		Route::post('/user/pay/redirect', [
+		Route::get('/user/pay/redirect', [
 		'uses'=>'PayController@redirect',
 		'as'=> 'pay.redirect',
 		]);

@@ -77,12 +77,30 @@ class PayController extends Controller
 
     public function createPay(Request $request)
     {
-	    $pay = new Pay();
-	    $pay->status = 'local';
-	    $pay->user_id = auth()->user()->id;
-    	$pay->amount = $request->amount; 
-	    $pay->save();
-	    return $pay;
+        $pay = new Pay();
+        $pay->status = 'local';
+        $pay->user_id = auth()->user()->id;
+        $pay->amount = $request->amount; 
+        $pay->save();
+        return $pay;
+    }
+
+    //Списать
+    public function debit($user_id, $amount)
+    {
+        $user = User::find($user_id);
+        $user->balance = $user->balance - $amount;
+        $user->save();
+        #return true;
+    }
+
+    //Зачислить
+    public function deposit($user_id, $amount)
+    {   
+        $user = User::find($user_id);
+        $user->balance = $user->balance + $amount;
+        $user->save();
+        return $user;
     }
 
     public function api(Request $request)
@@ -121,6 +139,10 @@ Pay::where('id', $data->order_id)->update([
 	'is_3ds' => $data->is_3ds,
 	'transaction_id' => $data->transaction_id,
 	]);
+
+    if($data->status == 'success' AND $data->type == 'buy') {
+        $this->deposit(auth()->user()->id, $data->amount);
+    }
 
     return 'good';
     
