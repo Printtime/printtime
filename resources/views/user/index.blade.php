@@ -8,7 +8,8 @@
 
 <div class="col-sm-12 col-md-12">
 
-{!! Auth::user() !!}
+В разработке...
+{{-- !! Auth::user() !! --}}
 
 </div>
 </div>

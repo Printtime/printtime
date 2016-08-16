@@ -11,7 +11,7 @@
                 <div class="form-group">
 				<div class="input-group">
 				  <span class="input-group-addon">Сумма пополнения</span>
-				  <input required name="amount" type="number" class="form-control" aria-label="Сумма (в гривне)" min="0" value="" max="5000" step="10" placeholder="0.00">
+				  <input name="amount" type="text" style="text-align: center;" class="form-control input-lg" aria-label="Сумма (в гривне)"  required="" pattern="\d+(\.\d{2})?" value="" placeholder="0.00">
 				  <span class="input-group-addon"> грн.</span>
 				</div>
 				</div>

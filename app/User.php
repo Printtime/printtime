@@ -42,6 +42,10 @@ class User extends Authenticatable
         'avatar' => 'image',
     ];
     
+
+
+
+
     /**
      * @return array
      */

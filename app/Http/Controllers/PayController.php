@@ -12,12 +12,27 @@ use App\User;
 
 class PayController extends Controller
 {
-    private $public_key = $_ENV["LIQPAY_PUBLIC_KEY"];
-    private $private_key = $_ENV["LIQPAY_PRIVATE_KEY"];
+    #private $public_key = $getkey->public_key;
+    #private $private_key = $getkey->private_key;
 
    public function __construct()
     {
         $this->middleware('api', ['only' => ['api']]);
+        $this->getkey();
+    }
+
+   private function getkey()
+    {
+        $this->public_key = getenv('LIQPAY_PUBLIC_KEY');
+        $this->private_key = getenv('LIQPAY_PRIVATE_KEY');
+    }
+
+
+
+    public function index()
+    {   
+        $pays = Pay::where('user_id', auth()->user()->id)->orderBy('created_at', 'desc')->paginate(15);
+        return view('pay.index',  compact('pays'));
     }
 
     public function redirect(Request $request)
@@ -30,7 +45,7 @@ class PayController extends Controller
     {
         #return dd($request);
     }
-
+ 
     public function result_url(Request $request)
     {
         #return dd($request);
@@ -38,7 +53,7 @@ class PayController extends Controller
 
 
     public function create(Request $request)
-    {
+    {   
 
     	$createPay = $this->createPay($request);
 

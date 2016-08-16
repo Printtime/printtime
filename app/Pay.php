@@ -39,4 +39,6 @@ class Pay extends Model
 	'is_3ds', 
 	'transaction_id', 
 	];
+
+	
 }

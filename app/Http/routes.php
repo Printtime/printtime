@@ -46,7 +46,13 @@ Route::group(['middleware' => ['web', 'roles']], function () {
 		'roles'=> ['admin', 'user'],
 		]);
 
-	Route::get('/user/profile', [
+	Route::post('user/profile', [
+		'uses'=>'UserController@profileUpdate',
+		'as'=> 'user.profileUpdate',
+		'roles'=> ['admin', 'user'],
+		]);
+
+	Route::get('user/profile', [
 		'uses'=>'UserController@profile',
 		'as'=> 'user.profile',
 		'roles'=> ['admin', 'user'],
@@ -75,5 +81,11 @@ Route::group(['middleware' => ['web', 'roles']], function () {
 		'as'=> 'pay.result_url',
 		'roles'=> ['admin', 'user'],
 		]);
-	
+
+
+	Route::get('pays', [
+		'uses'=>'PayController@index',
+		'as'=> 'pays',
+		'roles'=> ['admin', 'user'],
+		]);	
 });

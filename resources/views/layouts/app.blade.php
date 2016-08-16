@@ -47,9 +47,8 @@
                         <a href="/profile"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> {{ Auth::user()->name }}</a>
                     </li> --}}
 
-                    <li @if (Request::is('user*')) class="active" @endif>
-                        <a href="/user"> {{ Auth::user()->balance }} грн.</a>
-                    </li>
+<li{{ Helper::setActive('user/transfer') }}><a href="{!! route('user.transfer') !!}" class="ajax-pay" data-toggle="modal" data-target="#open-modal-pay"><span class="glyphicon glyphicon-transfer"></span> {{ Auth::user()->balance }} грн.</a></li>
+
 
                     <li>
                         <a href="/logout"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Выход</a>
@@ -81,6 +80,19 @@
    @include('user.nav')
 @endif
 
+
+@if (count($errors) > 0)
+<div class="container">
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+    </div>
+</div>
+@endif
+
             @if(Request::is('catalog/*'))
                 <div class="container">
                       <div class="row">
@@ -94,6 +106,7 @@
         @yield('page')
     </div>
 
+<hr>
 
     @include('layouts.footer')
 
