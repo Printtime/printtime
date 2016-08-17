@@ -6,7 +6,7 @@ use App\Traits\Upload;
 use Illuminate\Database\Eloquent\Model;
 #use SleepingOwl\Admin\Traits\OrderableModel;
 use Illuminate\Http\UploadedFile;
-#use App\Model\Catalog;
+use App\Model\Type;
 
 class Product extends Model
 {
@@ -21,17 +21,19 @@ class Product extends Model
     ];
     
 
-
     public function catalog()
     {
         return $this->belongsTo(Catalog::class);
     }
 
+    public function types()
+    {
+        return $this->hasMany(Type::class);
+    }
 
     public function getPhotoAttribute($value)
     {
         return preg_split('/,/', $value, -1, PREG_SPLIT_NO_EMPTY);
-        #return explode(',', $value);
     }
 
     public function setPhotoAttribute($photo)

@@ -83,9 +83,16 @@ Route::group(['middleware' => ['web', 'roles']], function () {
 		]);
 
 
+
 	Route::get('pays', [
 		'uses'=>'PayController@index',
 		'as'=> 'pays',
+		'roles'=> ['admin', 'user'],
+		]);	
+
+	Route::get('products', [
+		'uses'=>'ProductController@products',
+		'as'=> 'products',
 		'roles'=> ['admin', 'user'],
 		]);	
 });

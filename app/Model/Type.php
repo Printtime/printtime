@@ -16,6 +16,7 @@ class Type extends Model
         return $this->belongsTo(Product::class);
     }
 
+
     // public function variables()
     // {
 	   //  return $this->belongsToMany(TypeVar::class, 'type_var', 'type_id', 'var_id')->withPivot('price', 'quantity');

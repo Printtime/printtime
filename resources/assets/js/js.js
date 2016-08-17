@@ -56,6 +56,8 @@ $.ajaxSetup({
     });
 
 
+    $('[data-toggle="tooltip"]').tooltip();
+    
     $(".ajax-pay").click(function( event ) {
 
         event.preventDefault();
