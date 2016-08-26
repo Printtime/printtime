@@ -15,7 +15,6 @@ class TypeVar extends Model
         return $this->belongsTo(Type::class);
     }
 
-
     public function variable()
     {
         return $this->belongsTo(Variable::class, 'var_id');

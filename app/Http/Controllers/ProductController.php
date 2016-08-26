@@ -46,28 +46,42 @@ class ProductController extends Controller
         }
     }
 
+   public function product($product)
+    {   
+        #$typevars = TypeVar::all();
+        $vars = Variable::get();
+        $typevars = TypeVar::get();
+        $types = Type::where('product_id', $product)->get();
+        #$headers = TypeVar::where('type_id', $product)->groupby('var_id')->get();
+        return view('product.table',  compact('types', 'vars', 'typevars'));
+
+    }
+
    public function products()
     {   
 
         $products = Product::has('types')->get();
-        foreach ($products as $product) {
-            return dd($product->types);
-        }
+        return view('product.index',  compact('products'));
+
+        // $products = Product::has('types')->get();
+        // foreach ($products as $product) {
+        //     return dd($product->types);
+        // }
          
 
-        $collection = collect($products);
-        #$filtered = $collection->whereIn('price', [150, 200]);
-        #$filtered->all();
-        return dd($collection->all());
+        // $collection = collect($products);
+        // #$filtered = $collection->whereIn('price', [150, 200]);
+        // #$filtered->all();
+        // return dd($collection->all());
 
 
-        $products = Product::has('types')->get();
-        $typevarsHeaders = TypeVar::groupby('var_id')->get();
-        $typevarsBody = TypeVar::groupby('type_id')->get();
-        $typevars = TypeVar::all();
-        $vars = Variable::all();
-        $types = Type::all();
-        return view('product.index',  compact('products', 'typevars', 'vars', 'types', 'typevarsHeaders'));
+        // $products = Product::has('types')->get();
+        // $typevarsHeaders = TypeVar::groupby('var_id')->get();
+        // $typevarsBody = TypeVar::groupby('type_id')->get();
+        // $typevars = TypeVar::all();
+        // $vars = Variable::all();
+        // $types = Type::all();
+        // return view('product.index',  compact('products', 'typevars', 'vars', 'types', 'typevarsHeaders'));
     }
 
 

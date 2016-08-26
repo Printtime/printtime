@@ -95,4 +95,10 @@ Route::group(['middleware' => ['web', 'roles']], function () {
 		'as'=> 'products',
 		'roles'=> ['admin', 'user'],
 		]);	
+
+	Route::get('products/{product}', [
+		'uses'=>'ProductController@product',
+		'as'=> 'products.product',
+		'roles'=> ['admin', 'user'],
+		]);	
 });
