@@ -64,6 +64,12 @@ Route::group(['middleware' => ['web', 'roles']], function () {
 		'roles'=> ['admin', 'user'],
 		]);
 	
+	//Order
+	Route::get('order/create/{id}', [
+		'uses'=>'OrderController@create',
+		'as'=> 'order.create',
+		'roles'=> ['admin', 'user'],
+		]);
 
 	/*LiqPay Route*/
 	Route::post('/user/pay/create', [

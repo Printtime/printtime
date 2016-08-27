@@ -8,5 +8,8 @@ use App\Http\Requests;
 
 class OrderController extends Controller
 {
-    //
+   public function create($id)
+    {
+    	return $id;
+    }
 }

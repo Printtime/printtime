@@ -8,6 +8,7 @@ use App\Model\Catalog;
 use App\Model\Type;
 use App\Model\TypeVar;
 use App\Model\Variable;
+use DB;
 
 class ProductController extends Controller
 {
@@ -48,40 +49,48 @@ class ProductController extends Controller
 
    public function product($product)
     {   
-        #$typevars = TypeVar::all();
-        $vars = Variable::get();
-        $typevars = TypeVar::get();
-        $types = Type::where('product_id', $product)->get();
-        #$headers = TypeVar::where('type_id', $product)->groupby('var_id')->get();
-        return view('product.table',  compact('types', 'vars', 'typevars'));
 
+        $types = DB::table('types')->where('product_id', $product)->get();
+
+        $rows = DB::table('type_var')
+            ->Join('types', 'type_var.type_id', '=', 'types.id')
+            ->Join('vars', 'type_var.var_id', '=', 'vars.id')
+            ->where('types.product_id', $product)
+            ->select('*', 'type_var.id as type_var_id')
+            ->get();
+
+        $headers = DB::table('types')
+            ->where('types.product_id', $product)
+            ->Join('type_var', 'type_var.type_id', '=', 'types.id')
+            ->Join('vars', 'vars.id', '=', 'type_var.var_id')
+            ->groupby('vars.id')
+            ->get();
+
+
+            foreach ($types as $type) {
+                foreach ($rows as $row) {
+                    if($type->id == $row->type_id)
+                    {   
+                        $type->data[$row->var_id] = $row;
+                    }
+                }
+
+                foreach($headers as $header) {
+
+                    $type->res[$header->id] = 'no-data';
+
+                    if(isset($type->data[$header->id])) {
+                        $type->res[$header->id] = $type->data[$header->id];
+                    }
+                }
+            }
+        return view('product.table',  compact('rows', 'types', 'headers'));
     }
 
    public function products()
     {   
-
         $products = Product::has('types')->get();
         return view('product.index',  compact('products'));
-
-        // $products = Product::has('types')->get();
-        // foreach ($products as $product) {
-        //     return dd($product->types);
-        // }
-         
-
-        // $collection = collect($products);
-        // #$filtered = $collection->whereIn('price', [150, 200]);
-        // #$filtered->all();
-        // return dd($collection->all());
-
-
-        // $products = Product::has('types')->get();
-        // $typevarsHeaders = TypeVar::groupby('var_id')->get();
-        // $typevarsBody = TypeVar::groupby('type_id')->get();
-        // $typevars = TypeVar::all();
-        // $vars = Variable::all();
-        // $types = Type::all();
-        // return view('product.index',  compact('products', 'typevars', 'vars', 'types', 'typevarsHeaders'));
     }
 
 
