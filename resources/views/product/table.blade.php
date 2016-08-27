@@ -22,6 +22,7 @@
 		@foreach($types as $type)
 			<tr>
 				<td>{!! $type->title !!}</td>
+						@if(isset($type->res))
 						@foreach($type->res as $r)
 							@if($r != 'no-data')
 											<td>
@@ -35,6 +36,7 @@
 								<td>-</td>
 							@endif
 						@endforeach
+						@endif
 			</tr>
 		@endforeach
 	</tbody>
