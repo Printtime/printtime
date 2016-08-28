@@ -34,6 +34,26 @@ Route::group(['middleware' => 'web'], function () {
 
 Route::group(['middleware' => ['web', 'roles']], function () {
 
+	
+	Route::get('printfile/upload', [
+		'uses'=>'PrintFileController@form',
+		'as'=> 'printfile.form',
+		'roles'=> ['admin', 'user'],
+		]);
+	#Route::get('printfile/upload', 'PrintFileController@form')->name('printfile.form');
+	Route::post('printfile/upload', [
+		'uses'=>'PrintFileController@upload',
+		'as'=> 'printfile.upload',
+		'roles'=> ['admin', 'user'],
+		]);
+/*		Route::post('printfile/upload3', [
+		'uses'=>'PrintFileController@upload3',
+		'as'=> 'printfile.upload',
+		'roles'=> ['admin', 'user'],
+		]);*/
+	#Route::resource('printfile', 'PrintFileController');
+
+
 	Route::get('/user', [
 		'uses'=>'UserController@index',
 		'as'=> 'user.index',
@@ -68,6 +88,11 @@ Route::group(['middleware' => ['web', 'roles']], function () {
 	Route::get('order/create/{id}', [
 		'uses'=>'OrderController@create',
 		'as'=> 'order.create',
+		'roles'=> ['admin', 'user'],
+		]);
+	Route::post('order/create/{id}', [
+		'uses'=>'OrderController@save',
+		'as'=> 'order.save',
 		'roles'=> ['admin', 'user'],
 		]);
 
