@@ -29,7 +29,7 @@
 												@if(auth()->user()->discount > 0)
 													<a data-toggle="tooltip" data-html="true" href="{!! route('order.create', $r->type_var_id) !!}" data-placement="top" title="<span class='label label-success'>-{!! auth()->user()->discount !!}% скидка</span> <h4>{!! $r->price -  $r->price * auth()->user()->discount / 100 !!} грн.</h4>">{!! $r->price !!}</a>
 												@else
-													<a href="#">{!! $r->price !!}</a>
+													<a href="{!! route('order.create', $r->type_var_id) !!}">{!! $r->price !!}</a>
 												@endif
 											</td>
 								@else
