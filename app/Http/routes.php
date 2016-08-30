@@ -60,11 +60,7 @@ Route::group(['middleware' => ['web', 'roles']], function () {
 		'roles'=> ['admin', 'user'],
 		]);
 
-	Route::get('/user/order', [
-		'uses'=>'UserController@order',
-		'as'=> 'user.order',
-		'roles'=> ['admin', 'user'],
-		]);
+
 
 	Route::post('user/profile', [
 		'uses'=>'UserController@profileUpdate',
@@ -85,6 +81,11 @@ Route::group(['middleware' => ['web', 'roles']], function () {
 		]);
 	
 	//Order
+	Route::get('order', [
+		'uses'=>'OrderController@index',
+		'as'=> 'order.index',
+		'roles'=> ['admin', 'user'],
+		]);
 	Route::get('order/create/{id}', [
 		'uses'=>'OrderController@create',
 		'as'=> 'order.create',
