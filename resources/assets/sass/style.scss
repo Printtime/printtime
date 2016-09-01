@@ -546,3 +546,14 @@ a.thumbnail:hover, a.thumbnail:focus, a.thumbnail.active {
 	width: 400px;
     margin: 30px auto;
 }
+
+
+
+/* Status */
+	.status1 { background-color: #ffc000; } //Проверяется
+	.status2 { background-color: #a600a4; } //В работе
+	.status3 { background-color: #00a6eb; } //Готово
+	.status4 { background-color: #00bc96; } //На складе
+	.status5 { background-color: #04bb00; } //Отправлено
+	.status6 { background-color: #437028; } //Получено
+	.status7 { background-color: #bc0000; } //Отмена

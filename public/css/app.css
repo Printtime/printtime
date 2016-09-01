@@ -6151,4 +6151,26 @@ a.thumbnail:hover, a.thumbnail:focus, a.thumbnail.active {
   width: 400px;
   margin: 30px auto; }
 
+/* Status */
+.status1 {
+  background-color: #ffc000; }
+
+.status2 {
+  background-color: #a600a4; }
+
+.status3 {
+  background-color: #00a6eb; }
+
+.status4 {
+  background-color: #00bc96; }
+
+.status5 {
+  background-color: #04bb00; }
+
+.status6 {
+  background-color: #437028; }
+
+.status7 {
+  background-color: #bc0000; }
+
 /*# sourceMappingURL=app.css.map */

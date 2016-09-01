@@ -10,7 +10,7 @@
 
       <ul class="nav navbar-nav">
         <li{{ Helper::setActive('products') }}><a href="{!! route('products') !!}"><span class="glyphicon glyphicon-shopping-cart"></span> Сделать заказ</a></li>
-        <li{{ Helper::setActive('user') }}><a href="/user"><span class="glyphicon glyphicon-th-list"></span> Мои заказы</a></li>
+        <li{{ Helper::setActive('order') }}><a href="{!! route('order.index') !!}"><span class="glyphicon glyphicon-th-list"></span> Мои заказы</a></li>
         <li{{ Helper::setActive('user/profile') }}><a href="{!! route('user.profile') !!}"><span class="glyphicon glyphicon glyphicon-user"></span> Профиль</a></li>
       </ul>
 
