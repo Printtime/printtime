@@ -32,6 +32,21 @@ $(function(){
         $("#sumPay").val(sum.toFixed(2));
 
     });
+
+
+var calc = function() {
+  var n = $( "input:checked" );
+  alert(n.val())
+  var n = $( "input:checked" ).length;
+  $( ".console").text( n + (n === 1 ? " is" : " are") + " checked!" );
+};
+
+calc();
+
+$( "input[type=checkbox]" ).on( "click", calc );
+
+
+
 });
 
 
@@ -42,7 +57,7 @@ $(function(){
 <h1>{{ $typevar->type->title }}</h1>
 <h3>{{ $typevar->variable->title }}</h3>
 
-<div class="hidden" id="price">{{ $typevar->price }}</div>
+<div class="text" id="price">{{ $typevar->price }}</div>
 
 <div class="row">
 	<div class="col-sm-12">
@@ -134,7 +149,7 @@ $(function(){
 </tr>
 </table>
 
-     <input id="sumPay" type="hidden" name="sum" value="{{ $typevar->price - $typevar->price * Auth::user()->discount / 100 }}">
+     <input id="sumPay" type="text" name="sum" value="{{ $typevar->price - $typevar->price * Auth::user()->discount / 100 }}">
 
 {!! Form::submit('Оплатить и оформить заказ', ['class' => 'btn btn-success btn-lg']) !!}
 

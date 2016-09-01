@@ -6173,4 +6173,10 @@ a.thumbnail:hover, a.thumbnail:focus, a.thumbnail.active {
 .status7 {
   background-color: #bc0000; }
 
+/* postpress */
+.postpress-background {
+  background: url("/images/postpress.png") no-repeat center center;
+  width: 580px;
+  height: 300px; }
+
 /*# sourceMappingURL=app.css.map */
