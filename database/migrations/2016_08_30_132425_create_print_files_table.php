@@ -32,6 +32,10 @@ class CreatePrintFilesTable extends Migration
             $table->integer('height')->nullable()->change();
         });
 
+        Schema::table('users', function ($table) {
+            $table->decimal('balance', 7, 2)->default('0.00')->change();
+        });
+
     }
 
     /**
