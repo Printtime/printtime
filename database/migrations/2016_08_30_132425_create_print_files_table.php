@@ -33,7 +33,7 @@ class CreatePrintFilesTable extends Migration
         });
 
         Schema::table('users', function ($table) {
-            $table->decimal('balance', 7, 2)->default('0.00')->change();
+            $table->decimal('balance', 8, 2)->default('0.00')->change();
         });
 
     }
