@@ -1,15 +1,13 @@
-<script type="text/javascript">
-	
-</script>
-
+<style type="text/css">
+	.file2_block { display: none;  }
+</style>
 
 <label>Постработы</label>
 <div class="row">
 	<div class="col-sm-12">
-		В разработке...
-		(ширина + подворот)  (высота + подворот)  цена за 1 м2 = цена
 
-<div class="console"></div>
+
+<div class="hidden" id="eyelet">2</div>
 
 	<center>
 		<table>
@@ -17,10 +15,10 @@
 					<td></td>
 					<td class="text-center">
 						<label class="checkbox-inline">
-						  <input type="checkbox" id="eyelets1" value="eyelets1"> Люверсы
+						  <input type="checkbox" id="widthE" name="eyelets1" value="1"> Люверсы
 						</label>
 						<label class="checkbox-inline">
-						  <input type="checkbox" id="podvorot1" value="podvorot1"> Подворот
+						  <input type="checkbox" id="widthP" name="podvorot1" value="1"> Подворот
 						</label>
    					</td>
 					<td></td>
@@ -28,21 +26,21 @@
 				<tr>
 					<td>
 						<label class="checkbox-inline">
-						  <input type="checkbox" id="eyelets4" value="eyelets4"> Люверсы
+						  <input type="checkbox" value="1"  id="heightE" name="eyelets4"> Люверсы
 						</label>
 							<br>
 						<label class="checkbox-inline">
-						  <input type="checkbox" id="podvorot4" value="podvorot4"> Подворот
+						  <input type="checkbox" value="1"  id="heightP" name="podvorot4"> Подворот
 						</label>
 					</td>
 					<td class="postpress-background"></td>
 					<td>
 						<label class="checkbox-inline">
-						  <input type="checkbox" id="eyelets2" value="eyelets2"> Люверсы
+						  <input type="checkbox" value="1"  id="heightE" name="eyelets2"> Люверсы
 						</label>
 							<br>
 						<label class="checkbox-inline">
-						  <input type="checkbox" id="podvorot2" value="podvorot2"> Подворот
+						  <input type="checkbox" value="1"  id="heightP" name="podvorot2"> Подворот
 						</label>
 					</td>
 				</tr>
@@ -50,10 +48,10 @@
 					<td></td>
 					<td class="text-center">
 							<label class="checkbox-inline">
-							  <input type="checkbox" id="eyelets3" value="eyelets3"> Люверсы
+							  <input type="checkbox" id="widthE" value="1" name="eyelets3"> Люверсы
 							</label>
 							<label class="checkbox-inline">
-							  <input type="checkbox" id="podvorot3" value="podvorot3"> Подворот
+							  <input type="checkbox" id="widthP" value="1" name="podvorot3"> Подворот
 							</label>
 						</td>
 					<td></td>

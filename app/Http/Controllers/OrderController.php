@@ -11,6 +11,7 @@ use App\Model\PrintFile;
 use App\Model\Type;
 use App\Model\TypeVar;
 use App\Model\Variable;
+use App\Pay;
 use Validator;
 
 class OrderController extends Controller
@@ -61,6 +62,10 @@ class OrderController extends Controller
             $order->height = $request->height;
             $order->sum = $request->sum;
             $order->save();
+
+            $user = auth()->user();
+            $user->balance = $user->balance - $request->sum;
+            $user->save();
 
             PrintFile::where('filename', $request->file1)->update(['order_id' => $order->id, 'side' => '1']);
             PrintFile::where('filename', $request->file2)->update(['order_id' => $order->id, 'side' => '2']);

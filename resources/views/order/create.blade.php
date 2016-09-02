@@ -6,9 +6,38 @@
   
 
 $(function(){
+
+
+
     $('.calc').change(function(e) {
         e.preventDefault();
-        
+        CalcPrint();
+    });
+
+
+function caclEyelet(length) {
+        eyelet = $("#eyelet").text();
+        count = $("#count").val();
+        postpress = $("#postpress");
+        res = parseInt(((length * count) / 300) * eyelet);
+        postpress_now = parseInt(postpress.text());
+        data = parseInt(postpress_now+res);
+        postpress.text(data);
+ }
+
+function caclPodvorot(length) {
+        count = $("#count").val();
+        postpress = $("#postpress");
+        price = $("#price").text();
+        area = (((length / 1000) * 40) * count)/1000;
+        res = area * price;
+        postpressnow = postpress.text() * 1;
+        postpressnow = (postpressnow+res).toFixed(2);
+        postpress.text(postpressnow);
+ }
+
+function CalcPrint() {
+
         price = $("#price").text();
         discount = $("#discount").text();
         postpress = $("#postpress").text();
@@ -30,22 +59,44 @@ $(function(){
         sum = ((print-economy)+postpress*1);
         $("#sum").text(sum.toFixed(2));
         $("#sumPay").val(sum.toFixed(2));
+}
 
-    });
+function CalcPostpress() {
 
+    this.widthE = function() {
+        caclEyelet($("#width").val());
+    }
+    this.widthP = function() {
+        caclPodvorot($("#width").val());
+    }
+    this.heightE = function() {
+        caclEyelet($("#height").val());
+    }
+    this.heightP = function() {
+        caclPodvorot($("#height").val());
+    }
+}
+
+
+var CalcPostpress = new CalcPostpress();
 
 var calc = function() {
-  var n = $( "input:checked" );
-  alert(n.val())
-  var n = $( "input:checked" ).length;
-  $( ".console").text( n + (n === 1 ? " is" : " are") + " checked!" );
+
+    var SumPostpress = "";
+    $("#postpress").text(0);
+
+    $("input:checkbox:checked").each(function () {
+        if ($(this).is(':checked')) {
+              var CalcPostpressFunc = CalcPostpress[$(this).attr('id')];
+              CalcPostpressFunc();
+          }
+    });
+              CalcPrint();
+
 };
 
-calc();
-
 $( "input[type=checkbox]" ).on( "click", calc );
-
-
+$( ".calc" ).on( "change", calc );
 
 });
 
@@ -57,7 +108,7 @@ $( "input[type=checkbox]" ).on( "click", calc );
 <h1>{{ $typevar->type->title }}</h1>
 <h3>{{ $typevar->variable->title }}</h3>
 
-<div class="text" id="price">{{ $typevar->price }}</div>
+<div class="hidden" id="price">{{ $typevar->price }}</div>
 
 <div class="row">
 	<div class="col-sm-12">
@@ -128,7 +179,7 @@ $( "input[type=checkbox]" ).on( "click", calc );
 	<td><span id="print">{{ $typevar->price }}</span> грн. (<span id="area">1.00</span> м2)</td>
 </tr>
 <tr>
-	<td>Постпресс</td>
+	<td>Постработы</td>
 	<td><span id="postpress">0</span> грн.</td>
 </tr>
 <tr>
@@ -149,7 +200,7 @@ $( "input[type=checkbox]" ).on( "click", calc );
 </tr>
 </table>
 
-     <input id="sumPay" type="text" name="sum" value="{{ $typevar->price - $typevar->price * Auth::user()->discount / 100 }}">
+     <input id="sumPay" type="hidden" name="sum" value="{{ $typevar->price - $typevar->price * Auth::user()->discount / 100 }}">
 
 {!! Form::submit('Оплатить и оформить заказ', ['class' => 'btn btn-success btn-lg']) !!}
 
