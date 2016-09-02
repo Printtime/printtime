@@ -38,8 +38,7 @@ class PayController extends Controller
 
     public function redirect(Request $request)
     {	
-
-        return redirect('/user');
+        return redirect()->route('pays');
     }
 
     public function product_url(Request $request)
@@ -51,6 +50,9 @@ class PayController extends Controller
     {
         #return dd($request);
     }
+
+
+
 
 
     public function create(Request $request)
@@ -90,6 +92,9 @@ class PayController extends Controller
 	    return $pay;
     }
 
+
+
+
     public function api(Request $request)
     {
 
@@ -101,7 +106,6 @@ Pay::where('id', $data->order_id)->update([
 	'payment_id' => $data->payment_id,
 	'status' => $data->status,
 	'version' => $data->version,
-	//'status' => $data->status,
 	'type' => $data->type,
 	'acq_id' => $data->acq_id,
 	'liqpay_order_id' => $data->liqpay_order_id,
@@ -129,7 +133,7 @@ Pay::where('id', $data->order_id)->update([
 
 
     if($data->status == $this->liqpay_status) {
-        $pay = Pay::where('id', $data->order_id)->where('status', $this->liqpay_status)->get();
+        $pay = Pay::where('id', $data->order_id)->where('status', $this->liqpay_status)->where('action', 'pay')->first();
         if($pay) {
             $user = User::find($pay->user_id);
             $user->balance = $user->balance + $data->amount;
