@@ -25,6 +25,7 @@ class PayController extends Controller
     {
         $this->public_key = getenv('LIQPAY_PUBLIC_KEY');
         $this->private_key = getenv('LIQPAY_PRIVATE_KEY');
+        $this->liqpay_status = getenv('LIQPAY_STATUS');
     }
 
 
@@ -57,6 +58,8 @@ class PayController extends Controller
 
     	$createPay = $this->createPay($request);
 
+
+
         $data =     [
         'version'       => '3', 
         'action'         => 'pay',
@@ -64,10 +67,12 @@ class PayController extends Controller
         'currency'       => 'UAH',
         'description'    => 'Пополение счета пользователя '.auth()->user()->name.', на сумму '.$createPay->amount,
         'order_id'       => $createPay->id,
-        'sandbox'       => '1',
+        #'sandbox'       => '1',
         #'product_url'       => 'http://printtime.dev/user',
         #'result_url'       => 'http://printtime.dev/user'
         ];
+
+        if($this->liqpay_status == 'sandbox') { $data['sandbox'] = '1'; }
 
         $liqpay = new LiqPay($this->public_key, $this->private_key);
         $form = $liqpay->cnb_form($data);
@@ -96,7 +101,7 @@ Pay::where('id', $data->order_id)->update([
 	'payment_id' => $data->payment_id,
 	'status' => $data->status,
 	'version' => $data->version,
-	'status' => $data->status,
+	//'status' => $data->status,
 	'type' => $data->type,
 	'acq_id' => $data->acq_id,
 	'liqpay_order_id' => $data->liqpay_order_id,
@@ -121,6 +126,16 @@ Pay::where('id', $data->order_id)->update([
 	'is_3ds' => $data->is_3ds,
 	'transaction_id' => $data->transaction_id,
 	]);
+
+
+    if($data->status == $this->liqpay_status) {
+        $pay = Pay::where('id', $data->order_id)->where('status', $this->liqpay_status)->get();
+        if($pay) {
+            $user = User::find($pay->user_id);
+            $user->balance = $user->balance + $data->amount;
+            $user->save();
+        }
+    }
 
     return 'good';
     
