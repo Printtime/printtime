@@ -21,10 +21,11 @@ Route::group(['middleware' => 'web'], function () {
 Route::group(['middleware' => ['api']], function () {
 	Route::post('user/pay/api', 'PayController@api');
 
-		Route::post('/user/pay/redirect', [
+		Route::get('/user/pay/redirect', [
 		'uses'=>'PayController@redirect',
 		'as'=> 'pay.redirect',
 		]);
+
 
 });
 
