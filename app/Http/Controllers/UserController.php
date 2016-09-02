@@ -19,27 +19,13 @@ class UserController extends Controller
     	return view('user.index');
     }
 
-    public function order()
-    {   
-    	return view('user.order');
-    }
-
-
     public function profileUpdate(Request $request)
     {   
-
-
        $user = User::findOrFail(Auth::id());
-       #$user->name = $request->name;
-       #$user->phone = $request->phone;
-       #$user->password = $request->password;
-
-
 
     $this->validate($request, [
         'name' => 'required',
         'phone' => 'required',
-        #'email' => 'required|unique:users',
         'password' => 'min:6|confirmed',
         'password_confirmation' => 'min:6'
     ]);

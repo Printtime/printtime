@@ -15,20 +15,20 @@
 <div class="container">
 	<div class="row">
 
-<div class="col-md-6">
+<div class="col-md-6 file1_block">
 
     <div id="console"></div>
 
 
     <div id="container1">
         <button type="button" class="btn btn-lg" id="pickfiles1" href="javascript:;">
-          <span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span> <div id="filelist1">Загрузить лицевую сторону</div>
+          <span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span> <div id="filelist1">Загрузить лицевую сторону *</div>
         </button>
     </div>
 
 </div>
 
-<div class="col-md-6">
+<div class="col-md-6 file2_block">
 
     <div id="console2"></div>
 
