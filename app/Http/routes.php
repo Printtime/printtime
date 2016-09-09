@@ -34,7 +34,22 @@ Route::group(['middleware' => 'web'], function () {
 	});
 
 Route::group(['middleware' => ['web', 'roles']], function () {
-	
+
+
+//Designer Start
+	Route::get('designer', [
+		'uses'=>'DesignerController@index',
+		'as'=> 'designer.index',
+		'roles'=> ['admin', 'designer'],
+		]);
+
+	Route::get('designer/{id}', [
+		'uses'=>'DesignerController@show',
+		'as'=> 'designer.show',
+		'roles'=> ['admin', 'designer'],
+		]);
+//Designer End
+
 	Route::get('send2server/{id}', [
 		'uses'=>'PrintFileController@send2server',
 		'as'=> 'printfile.send2server',

@@ -11,9 +11,6 @@ use Plupload;
 use File;
 use Storage;
 
-use League\Flysystem\Sftp\SftpAdapter;
-use League\Flysystem\Filesystem;
-
 
 class PrintFileController extends Controller
 {
