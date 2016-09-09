@@ -25,6 +25,13 @@ class PrintFileController extends Controller
         return view('printfile.form');
     }
 
+    public function download($id, $server = 'local')
+    {
+        $localfile = PrintFile::find($id);
+        $pathToFile = storage_path('print/'.$localfile->filename); 
+        return response()->download($pathToFile);
+    }
+
     public function upload(Request $request)
     {   
 
@@ -102,22 +109,24 @@ class PrintFileController extends Controller
 
             $this->commands('check', $server);
             if(!$server->check) {
-                return response()->json(['res'=>'Сервер '.$server->login.'@'.$server->ip.' не отвечает или закончилось дисковое пространство']);
+                return response('Сервер '.$server->login.'@'.$server->ip.' не отвечает или закончилось дисковое пространство', 401);
             }
 
             $localfile = PrintFile::find($id);
             if(!$localfile) {
-                return response()->json(['res'=>'Файла нет в базе']);
+                return response('Файла нет в базе', 401);
             }
 
             $file =  Storage::disk('print')->exists($localfile->filename);
             if(!$file) {
-                return response()->json(['res'=>'Файла нет в storage']);
+                return response('Файла нет в storage', 401);
             }
-
+            $localfile->confirmed = 1;
+            $localfile->save();
+            
             $filepath = storage_path('print/'.$localfile->filename); 
             $this->commands('scp', $server, $filepath);
-            return response()->json(['res'=>'Файл отправлен']);
+            return response('Файл отправлен', 200);
     }
 
 }

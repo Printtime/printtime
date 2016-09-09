@@ -50,6 +50,19 @@ Route::group(['middleware' => ['web', 'roles']], function () {
 		]);
 //Designer End
 
+//All Managment
+	Route::get('download/{id}/{server}', [
+		'uses'=>'PrintFileController@download',
+		'as'=> 'printfile.download',
+		'roles'=> ['admin', 'designer'],
+		]);
+	Route::get('order/{id}/{status}', [
+		'uses'=>'OrderController@status',
+		'as'=> 'order.status',
+		'roles'=> ['admin', 'designer'],
+		]);
+//All Managment
+
 	Route::get('send2server/{id}', [
 		'uses'=>'PrintFileController@send2server',
 		'as'=> 'printfile.send2server',

@@ -18,14 +18,14 @@ class DesignerController extends Controller
     public function index()
     {   	
 
-        $orders = Order::with('typevar', 'status')->where('status_id', '1')->orderBy('id', 'desc')->paginate('20');
+        $orders = Order::with('typevar')->where('status_id', '1')->orderBy('id', 'desc')->paginate('20');
         return view('designer.index',  compact('orders'));
 
     }
 
     public function show($id)
     {   	
-        $order = Order::find($id);
+        $order = Order::with('files')->find($id);
         return view('designer.show',  compact('order'));
 
     }

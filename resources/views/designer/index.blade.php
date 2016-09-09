@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('designer.app')
 
 @section('content')
 
@@ -9,7 +9,7 @@
 
 <div class="col-sm-12 col-md-12">
 
-<h1>Заказы на проверку дизайнеру</h1>
+<h3>Новые заказы на проверку</h3>
 
 <table class="table table-hover table-striped">
 	<thead>

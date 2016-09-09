@@ -526,7 +526,11 @@ $.ajaxSetup({
 
 
     $('[data-toggle="tooltip"]').tooltip();
-    
+
+
+
+
+
     $(".ajax-pay").click(function( event ) {
 
         event.preventDefault();
@@ -539,6 +543,33 @@ $.ajaxSetup({
         });
 
     });
+
+$('.send2server').click(function( event ) {
+
+    event.preventDefault();
+
+    var $this = $(this);
+    $this.button('loading');
+
+          $.ajax({
+            url: this.href,
+            error: function(data) {
+                $this.button('reset');
+                $('.alert-dismissible').addClass('alert-danger');
+                $('.alert-dismissible').show();
+                $('.alert-dismissible .responseText').html(data.responseText);
+           },
+            success: function(data) {
+                $this.button('reset');
+                $this.hide();
+                $('.alert-dismissible').addClass('alert-success');
+                $('.alert-dismissible').show();
+                $('.alert-dismissible .responseText').html(data.responseText);
+           }
+        });
+
+
+});
 
 
     $(".ajax").click(function( event ) {
