@@ -34,6 +34,12 @@ Route::group(['middleware' => 'web'], function () {
 	});
 
 Route::group(['middleware' => ['web', 'roles']], function () {
+	
+	Route::get('send2server/{id}', [
+		'uses'=>'PrintFileController@send2server',
+		'as'=> 'printfile.send2server',
+		'roles'=> ['admin'],
+		]);
 
 	
 	Route::get('printfile/upload', [
