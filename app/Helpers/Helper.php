@@ -14,6 +14,15 @@ public static function setActive($path)
     #return Request::is($path.'*') ? ' class=active' :  '';
 }
 
+    public static function human_filesize($bytes, $decimals = 2)
+    {
+        $size = [' байт', ' Кбайт', ' Мбайт', ' GB', ' TB', ' PB'];
+        $factor = floor((strlen($bytes) - 1) / 3);
+
+        return sprintf("%.{$decimals}f", $bytes / pow(1024, $factor)) .
+        @$size[$factor];
+    }
+    
 /*
 public static function testsetActive($path)
 {
