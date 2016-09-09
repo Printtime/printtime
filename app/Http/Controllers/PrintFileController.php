@@ -75,7 +75,7 @@ class PrintFileController extends Controller
 
             $pcent= trim(end($output));
                if($pcent) {
-                echo $free = 100 - $pcent;
+                $free = 100 - $pcent;
                     if($free > 90) { $obj->$command = true; } else { $obj->$command = false; }
                 } else { $obj->$command = false; }
         }
@@ -86,7 +86,7 @@ class PrintFileController extends Controller
         }
 
         if($command == 'scp') {
-            exec("scp ".$var." ".$obj->login."@".$obj->ip.":~/".$obj->dir."");
+            exec("scp ".$var." ".$obj->login."@".$obj->ip.":~/".$obj->dir." &");
         }
 
         return $obj;
