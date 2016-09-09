@@ -11,6 +11,10 @@ use Plupload;
 use File;
 use Storage;
 
+use League\Flysystem\Sftp\SftpAdapter;
+use League\Flysystem\Filesystem;
+
+
 class PrintFileController extends Controller
 {
     public function index()
@@ -48,4 +52,23 @@ class PrintFileController extends Controller
             return ['fname'=>$fname];
         });
     }
+
+    // public function flysystem()
+    // {   
+    //     $adapter = new SftpAdapter([
+    //         'host' => '',
+    //         'port' => 22,
+    //         'username' => '',
+    //         'password' => '',
+    //         'privateKey' => '',
+    //         'root' => '/',
+    //         'timeout' => 10,
+    //         'agent' => true,
+    //         'directoryPerm' => 0755
+    //     ]);
+
+    //     #$filesystem = new Filesystem($adapter);
+    //     return dd($adapter);
+    // }
+
 }

@@ -148,6 +148,8 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
 
+
+
         
         #App\Helpers\Helper::class,
 
@@ -170,6 +172,8 @@ return [
         Intervention\Image\ImageServiceProvider::class,
 
         JildertMiedema\LaravelPlupload\LaravelPluploadServiceProvider::class,
+
+        
     ],
 
     /*

@@ -34,6 +34,12 @@ Route::group(['middleware' => 'web'], function () {
 	});
 
 Route::group(['middleware' => ['web', 'roles']], function () {
+	
+	// Route::get('printfile/flysystem', [
+	// 	'uses'=>'PrintFileController@flysystem',
+	// 	'as'=> 'printfile.flysystem',
+	// 	'roles'=> ['admin', 'user'],
+	// 	]);
 
 	
 	Route::get('printfile/upload', [
