@@ -86,7 +86,7 @@ class PrintFileController extends Controller
         }
 
         if($command == 'scp') {
-            exec("scp ".$var." ".$obj->login."@".$obj->ip.":~/".$obj->dir." &");
+            exec("scp ".$var." ".$obj->login."@".$obj->ip.":~/".$obj->dir." & >/dev/null 2>/dev/null");
         }
 
         return $obj;
