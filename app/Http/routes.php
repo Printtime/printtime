@@ -88,71 +88,71 @@ Route::group(['prefix' => 'management'], function () {
 	Route::get('printfile/upload', [
 		'uses'=>'PrintFileController@form',
 		'as'=> 'printfile.form',
-		'roles'=> ['admin', 'user'],
+		'roles'=> ['admin', 'user', 'designer', 'printer'],
 		]);
 
 	Route::post('printfile/upload', [
 		'uses'=>'PrintFileController@upload',
 		'as'=> 'printfile.upload',
-		'roles'=> ['admin', 'user'],
+		'roles'=> ['admin', 'user', 'designer', 'printer'],
 		]);
 
 	Route::get('/user', [
 		'uses'=>'UserController@index',
 		'as'=> 'user.index',
-		'roles'=> ['admin', 'user'],
+		'roles'=> ['admin', 'user', 'designer', 'printer'],
 		]);
 
 	Route::post('user/profile', [
 		'uses'=>'UserController@profileUpdate',
 		'as'=> 'user.profileUpdate',
-		'roles'=> ['admin', 'user'],
+		'roles'=> ['admin', 'user', 'designer', 'printer'],
 		]);
 
 	Route::get('user/profile', [
 		'uses'=>'UserController@profile',
 		'as'=> 'user.profile',
-		'roles'=> ['admin', 'user'],
+		'roles'=> ['admin', 'user', 'designer', 'printer'],
 		]);
 
 	Route::get('/user/transfer', [
 		'uses'=>'UserController@transfer',
 		'as'=> 'user.transfer',
-		'roles'=> ['admin', 'user'],
+		'roles'=> ['admin', 'user', 'designer', 'printer'],
 		]);
 	
 	//Order
 	Route::get('order', [
 		'uses'=>'OrderController@index',
 		'as'=> 'order.index',
-		'roles'=> ['admin', 'user'],
+		'roles'=> ['admin', 'user', 'designer', 'printer'],
 		]);
 	Route::get('order/create/{id}', [
 		'uses'=>'OrderController@create',
 		'as'=> 'order.create',
-		'roles'=> ['admin', 'user'],
+		'roles'=> ['admin', 'user', 'designer', 'printer'],
 		]);
 	Route::post('order/create/{id}', [
 		'uses'=>'OrderController@save',
 		'as'=> 'order.save',
-		'roles'=> ['admin', 'user'],
+		'roles'=> ['admin', 'user', 'designer', 'printer'],
 		]);
 
 	/*LiqPay Route*/
 	Route::post('/user/pay/create', [
 		'uses'=>'PayController@create',
 		'as'=> 'pay.create',
-		'roles'=> ['admin', 'user'],
+		'roles'=> ['admin', 'user', 'designer', 'printer'],
 		]);
 	Route::get('/user/pay/product_url', [
 		'uses'=>'PayController@product_url',
 		'as'=> 'pay.product_url',
-		'roles'=> ['admin', 'user'],
+		'roles'=> ['admin', 'user', 'designer', 'printer'],
 		]);
 	Route::get('/user/pay/result_url', [
 		'uses'=>'PayController@result_url',
 		'as'=> 'pay.result_url',
-		'roles'=> ['admin', 'user'],
+		'roles'=> ['admin', 'user', 'designer', 'printer'],
 		]);
 
 
@@ -160,18 +160,18 @@ Route::group(['prefix' => 'management'], function () {
 	Route::get('pays', [
 		'uses'=>'PayController@index',
 		'as'=> 'pays',
-		'roles'=> ['admin', 'user'],
+		'roles'=> ['admin', 'user', 'designer', 'printer'],
 		]);	
 
 	Route::get('products', [
 		'uses'=>'ProductController@products',
 		'as'=> 'products',
-		'roles'=> ['admin', 'user'],
+		'roles'=> ['admin', 'user', 'designer', 'printer'],
 		]);	
 
 	Route::get('products/{product}', [
 		'uses'=>'ProductController@product',
 		'as'=> 'products.product',
-		'roles'=> ['admin', 'user'],
+		'roles'=> ['admin', 'user', 'designer', 'printer'],
 		]);	
 });
