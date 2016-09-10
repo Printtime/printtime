@@ -36,13 +36,15 @@ Route::group(['middleware' => 'web'], function () {
 Route::group(['middleware' => ['web', 'roles']], function () {
 
 
+//All Management
+Route::group(['prefix' => 'management'], function () {
+
 //Designer Start
 	Route::get('designer', [
 		'uses'=>'DesignerController@index',
 		'as'=> 'designer.index',
 		'roles'=> ['admin', 'designer'],
 		]);
-
 	Route::get('designer/{id}', [
 		'uses'=>'DesignerController@show',
 		'as'=> 'designer.show',
@@ -50,24 +52,37 @@ Route::group(['middleware' => ['web', 'roles']], function () {
 		]);
 //Designer End
 
-//All Managment
+//printer Start
+	Route::get('printer', [
+		'uses'=>'PrinterController@index',
+		'as'=> 'printer.index',
+		'roles'=> ['admin', 'printer'],
+		]);
+	Route::get('printer/{id}', [
+		'uses'=>'PrinterController@show',
+		'as'=> 'printer.show',
+		'roles'=> ['admin', 'printer'],
+		]);
+//printer End
+
 	Route::get('download/{id}/{server}', [
 		'uses'=>'PrintFileController@download',
 		'as'=> 'printfile.download',
-		'roles'=> ['admin', 'designer'],
+		'roles'=> ['admin', 'designer', 'printer'],
 		]);
 	Route::get('order/{id}/{status}', [
-		'uses'=>'OrderController@status',
+		'uses'=>'OrderController@setStatus',
 		'as'=> 'order.status',
 		'roles'=> ['admin', 'designer'],
 		]);
-//All Managment
-
 	Route::get('send2server/{id}', [
 		'uses'=>'PrintFileController@send2server',
 		'as'=> 'printfile.send2server',
 		'roles'=> ['admin'],
 		]);
+});
+//All Management
+
 
 	
 	Route::get('printfile/upload', [
