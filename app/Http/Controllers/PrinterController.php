@@ -8,6 +8,7 @@ use App\Http\Requests;
 
 use App\Model\Order;
 use App\Model\PrintFile;
+use App\Model\Servers;
 use App\Model\Type;
 use App\Model\TypeVar;
 use App\Model\Variable;
@@ -23,6 +24,23 @@ class PrinterController extends Controller
     public function show($id)
     {   	
         $order = Order::with('files')->find($id);
+
+        foreach ($order->files as $file) {
+
+            if($file->server_id >= 1 and $file->side >= 1) {
+             $obj = Servers::find($file->server_id);
+             
+             $size = file_get_contents('http://'.$obj->remote_ip.':'.$obj->web_remote_port.'/'.$obj->web_remote_dir.'/?filename='.$file->filename.'');
+
+             if($size == $file->size) {
+                $file->confirmed = '1';
+                $file->save();
+             }
+
+            }
+            
+        }
+
         return view('printer.show',  compact('order'));
 
     }
