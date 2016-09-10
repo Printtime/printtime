@@ -73,12 +73,12 @@ Route::group(['prefix' => 'management'], function () {
 	Route::get('order/{id}/{status}', [
 		'uses'=>'OrderController@setStatus',
 		'as'=> 'order.status',
-		'roles'=> ['admin', 'designer'],
+		'roles'=> ['admin', 'designer', 'printer'],
 		]);
 	Route::get('send2server/{id}', [
 		'uses'=>'PrintFileController@send2server',
 		'as'=> 'printfile.send2server',
-		'roles'=> ['admin'],
+		'roles'=> ['admin', 'designer'],
 		]);
 });
 //All Management
