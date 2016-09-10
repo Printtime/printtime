@@ -95,7 +95,7 @@ $('.send2server').click(function( event ) {
                 $this.hide();
                 $('.alert-dismissible').addClass('alert-success');
                 $('.alert-dismissible').show();
-                $('.alert-dismissible .responseText').html(data.responseText);
+                $('.alert-dismissible .responseText').html('Отправлено успешно');
            }
         });
 

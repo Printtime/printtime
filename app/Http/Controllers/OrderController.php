@@ -29,7 +29,7 @@ class OrderController extends Controller
     	return view('order.create',  compact('typevar'));
     }
 
-   public function status($id, $status)
+   public function setStatus($id, $status)
     {   
         $order = Order::find($id);
         $order->status_id = $status;
