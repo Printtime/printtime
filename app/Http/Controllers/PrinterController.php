@@ -13,6 +13,8 @@ use App\Model\Type;
 use App\Model\TypeVar;
 use App\Model\Variable;
 
+use Storage;
+
 class PrinterController extends Controller
 {
     public function index()
@@ -33,8 +35,13 @@ class PrinterController extends Controller
              $size = file_get_contents('http://'.$obj->remote_ip.':'.$obj->web_remote_port.'/'.$obj->web_remote_dir.'/?filename='.$file->filename.'');
 
              if($size == $file->size) {
-                $file->confirmed = '1';
-                $file->save();
+                    $file->confirmed = '1';
+                    $file->save();
+
+                    $storage = Storage::disk('print');
+                    if($storage->exists($file->filename)) {
+                        $storage->delete($file->filename);
+                    }
              }
 
             }
