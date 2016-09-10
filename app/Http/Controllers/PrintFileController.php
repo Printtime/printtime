@@ -36,11 +36,6 @@ class PrintFileController extends Controller
             return response()->download($pathToFile);
         }
 
-        #if($server != 'local') {
-        #$server = $this->getServer($server);
-        #echo $server->local.'/'.$server->dir.'/'.$localfile->filename;
-        #return header('http://'.$server->local.'/'.$server->dir.'/'.$localfile->filename);
-        #}
     }
 
     public function upload(Request $request)
@@ -69,21 +64,6 @@ class PrintFileController extends Controller
         });
     }
 
-    // public function ServerList()
-    // {
-    //      $servers = (object) [
-    //         's1' => (object) [
-    //             'login' => 's1',
-    //             'ip' => '77.239.164.37',
-    //             'local' => '192.168.1.8',
-    //             'dir' => 'files'
-    //             ],
-    //     ];
-
-    //     return $servers;
-    // }
-
-
     public function commands($command, $obj, $var = null)
     {   
         if($command == 'check') {
@@ -107,17 +87,9 @@ class PrintFileController extends Controller
 
         return $obj;
     }
-    
-    // public function getServer($servername)
-    // {       
-    //     $server = $this->ServerList()->$servername;
-    //     return $server;
-    // }   
-
 
     public function send2server($id)
     {
-            #$server = $this->getServer('s1');
             $server = Servers::find(1);
 
             $this->commands('check', $server);
@@ -135,7 +107,7 @@ class PrintFileController extends Controller
             if(!$file) {
                 return response('Файла нет в storage', 401);
             }
-            #$localfile->confirmed = 1;
+
             $localfile->server_id = $server->id;
             $localfile->save();
 
