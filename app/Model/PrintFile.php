@@ -13,7 +13,6 @@ class PrintFile extends Model
     public function server()
     {
         return $this->belongsTo(Servers::class, 'server_id');
-    
-       # return $this->belongsTo(Variable::class, 'type_var', 'var_id', 'type_id')->withPivot('price', 'quantity');
     }
+
 }
