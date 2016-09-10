@@ -12,7 +12,8 @@
 			<th>Товары и услуги</th>
 			@foreach($headers as $header)
 				<th>
-					{!! $header->title !!}
+					{!! $header->label !!}<br>
+					<small>{!! $header->title !!}</small>
 				</th>
 			@endforeach
 			</tr>
