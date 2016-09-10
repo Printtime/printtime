@@ -135,7 +135,7 @@ class PrintFileController extends Controller
             if(!$file) {
                 return response('Файла нет в storage', 401);
             }
-            $localfile->confirmed = 1;
+            #$localfile->confirmed = 1;
             $localfile->server_id = $server->id;
             $localfile->save();
 
