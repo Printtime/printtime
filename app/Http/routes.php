@@ -138,6 +138,14 @@ Route::group(['prefix' => 'management'], function () {
 		'roles'=> ['admin', 'user', 'designer', 'printer'],
 		]);
 
+	Route::get('order/show/{id}', [
+		'uses'=>'OrderController@show',
+		'as'=> 'order.show',
+		'roles'=> ['admin','user'],
+		]);
+
+
+
 	/*LiqPay Route*/
 	Route::post('/user/pay/create', [
 		'uses'=>'PayController@create',

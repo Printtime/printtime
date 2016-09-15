@@ -11,6 +11,7 @@ use App\Model\PrintFile;
 use App\Model\Type;
 use App\Model\TypeVar;
 use App\Model\Variable;
+use App\Model\Postpress;
 use App\Pay;
 use Validator;
 
@@ -23,10 +24,34 @@ class OrderController extends Controller
         return view('order.index', compact('orders'));
     }
 
+   public function show($id)
+    {   
+        $order = Order::with('typevar', 'status')->where('user_id', auth()->user()->id)->find($id);
+        /*
+        foreach(json_decode($order->postpress) as $key => $e) {
+            
+            //Люверсы
+            if($key == 'e') {
+                $a = array("top", "right", "bottom", "left");
+                $b = array("Верх", "Право", "Низ", "Лево");
+                $a = array('green', 'red', 'yellow');
+                $b = array('avocado', 'apple', 'banana');
+                $c = array_combine($a, $b);
+                return $c;
+            }
+        }
+        */
+
+        return view('user.order', compact('order'));
+    }
+
    public function create($id)
     {	
-    	$typevar = TypeVar::findOrFail($id);
-    	return view('order.create',  compact('typevar'));
+        $typevar = TypeVar::findOrFail($id);
+        $postpress = Postpress::where('product_id', $typevar->type->product_id)->get();
+        $postpressview = Postpress::where('product_id', $typevar->type->product_id)->groupBy('view')->get();
+        
+    	return view('order.create',  compact('typevar', 'postpress', 'postpressview'));
     }
 
    public function setStatus($id, $status)
@@ -42,7 +67,7 @@ class OrderController extends Controller
 
 
         $messages = [
-            'file1.required' => 'Загрузите файл макета, кликнув на "Загрузить лицевю сторону"',
+            'file1.required' => 'Загрузите файл макета, кликнув на "Загрузить лицевую сторону"',
         ];
 
         $validator = Validator::make($request->all(), [
@@ -69,6 +94,7 @@ class OrderController extends Controller
             $order->width = $request->width;
             $order->height = $request->height;
             $order->sum = $request->sum;
+            #$order->postpress = json_encode($request->postpress);
             $order->save();
 
             $user = auth()->user();

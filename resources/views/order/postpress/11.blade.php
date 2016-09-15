@@ -15,10 +15,10 @@
 					<td></td>
 					<td class="text-center">
 						<label class="checkbox-inline">
-						  <input type="checkbox" id="widthE" name="eyelets1" value="1"> Люверсы
+						  <input type="checkbox" id="widthE" name="postpress[e][]" value="top"> Люверсы
 						</label>
 						<label class="checkbox-inline">
-						  <input type="checkbox" id="widthP" name="podvorot1" value="1"> Подворот
+						  <input type="checkbox" id="widthP" name="postpress[p][]" value="top"> Подворот
 						</label>
    					</td>
 					<td></td>
@@ -26,21 +26,21 @@
 				<tr>
 					<td>
 						<label class="checkbox-inline">
-						  <input type="checkbox" value="1"  id="heightE" name="eyelets4"> Люверсы
+						  <input type="checkbox" value="left"  id="heightE" name="postpress[e][]"> Люверсы
 						</label>
 							<br>
 						<label class="checkbox-inline">
-						  <input type="checkbox" value="1"  id="heightP" name="podvorot4"> Подворот
+						  <input type="checkbox" value="left"  id="heightP" name="postpress[p][]"> Подворот
 						</label>
 					</td>
 					<td class="postpress-background"></td>
 					<td>
 						<label class="checkbox-inline">
-						  <input type="checkbox" value="1"  id="heightE" name="eyelets2"> Люверсы
+						  <input type="checkbox" value="right"  id="heightE" name="postpress[e][]"> Люверсы
 						</label>
 							<br>
 						<label class="checkbox-inline">
-						  <input type="checkbox" value="1"  id="heightP" name="podvorot2"> Подворот
+						  <input type="checkbox" value="right"  id="heightP" name="postpress[p][]"> Подворот
 						</label>
 					</td>
 				</tr>
@@ -48,10 +48,10 @@
 					<td></td>
 					<td class="text-center">
 							<label class="checkbox-inline">
-							  <input type="checkbox" id="widthE" value="1" name="eyelets3"> Люверсы
+							  <input type="checkbox" id="widthE" value="bottom" name="postpress[e][]"> Люверсы
 							</label>
 							<label class="checkbox-inline">
-							  <input type="checkbox" id="widthP" value="1" name="podvorot3"> Подворот
+							  <input type="checkbox" id="widthP" value="bottom" name="postpress[p][]"> Подворот
 							</label>
 						</td>
 					<td></td>

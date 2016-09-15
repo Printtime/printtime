@@ -24,4 +24,9 @@ class Order extends Model
     {
         return $this->belongsTo(Status::class);
     }
+
+    public function postpress()
+    {
+        return $this->hasMany(Postpress::class);
+    }
 }

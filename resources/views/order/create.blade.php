@@ -162,9 +162,13 @@ $( ".calc" ).on( "change", calc );
 </div>
 
 <br>
-@if($typevar->type->product_id == '11') 
-  @include('order.postpress.'.$typevar->type->product_id)
+@if($postpressview)
+  @foreach($postpressview as $view)
+    @include($view->view)
+  @endforeach
 @endif
+
+
 
 <br>
 
