@@ -13,12 +13,22 @@
 		<p>Название: {!! $order->title !!}</p>
 		<p>Комментарий: {!! $order->comment !!}</p>
 		<p>Дата: {!! $order->created_at !!}</p>
+
+		@if($order->getPostpress)
+			<h3>Постработы</h3>
+			@foreach($order->getPostpress as $postpress)
+			<p>{!! $postpress->label !!}: {!! $postpress_data[$postpress->name][$postpress->pivot->var] !!}</p>
+			@endforeach
+		@endif
+		
 		<p>
 		<a class="btn btn btn-default @if($order->status_id == '3') btn-success @endif btn-sm" href="{!! route('order.status', ['id' => $order->id, 'status' => '3']) !!}">Готово</a>
 		<a class="btn btn btn-default @if($order->status_id == '4') btn-success @endif btn-sm" href="{!! route('order.status', ['id' => $order->id, 'status' => '4']) !!}">На складе</a>
 		<a class="btn btn btn-default @if($order->status_id == '5') btn-success @endif btn-sm" href="{!! route('order.status', ['id' => $order->id, 'status' => '5']) !!}">Отправлено</a>
 		<a class="btn btn btn-default @if($order->status_id == '6') btn-success @endif btn-sm" href="{!! route('order.status', ['id' => $order->id, 'status' => '6']) !!}">Получено</a>
 		</p>
+
+
 	</div>
 
 	<div class="col-sm-6 col-md-6">

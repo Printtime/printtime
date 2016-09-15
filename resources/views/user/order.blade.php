@@ -16,7 +16,13 @@
 		<p>Название: {!! $order->title !!}</p>
 		<p>Комментарий: {!! $order->comment !!}</p>
 		<p>Дата: {!! $order->created_at !!}</p>
-		
+
+		@if(count($order->getPostpress) >= 1)
+			<h3>Постработы</h3>
+			@foreach($order->getPostpress as $postpress)
+			<p>{!! $postpress->label !!}: {!! $postpress_data[$postpress->name][$postpress->pivot->var] !!}</p>
+			@endforeach
+		@endif
 	</div>
 
 	<div class="col-sm-6 col-md-6">

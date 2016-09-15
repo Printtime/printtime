@@ -5,40 +5,143 @@
 <script type="text/javascript">
 $(function(){
 
-function calcPostpress(e) {
 
-    e.preventDefault();
-    $this = $(this);
+$('.file2_block').hide();
 
-    var width = $("#width").val();
-    var height = $("#height").val();
-    var count = $("#count").val();
+    $("input, select").each(function () {
 
-    var val = $this.val();
-    var name = $this.attr('name');
-    var price = $this.parent().next().find('#price');
-    var f = $this.parent().next().find('#f').text();
+      $(this).change(function () {
 
-    if(name == 'obrezka' && val == '1') {
-      price.text(((width*2+height*2)*2)/1000*f);
-    } else {
-      price.text(0);
-    }
+        price = $("#price").text();
 
-}
+        width = $("#width").val();
+        height = $("#height").val();
+        count = $("#count").val();
 
-$( "select" ).on( "change", calcPostpress );
-$( ".calc" ).on( "change", calcPostpress );
+        obrezka = $("#obrezka").val();
+        fobrezka = $("#fobrezka").text();
 
-// $("select :selected").html();
+        luvers = $("#luvers").val();
+        fluvers = $("#fluvers").text();
 
-//     $('select option:selected').change(function(e) {
-//         e.preventDefault();
-//         // var str = this.text();
-//         // var val = $(this).val();
-//         console.log(this.text());
-//         console.log(this.val());
-//     });
+        podvorot = $("#podvorot").val();
+
+        discount = $("#discount").text();
+
+        length_sides = 0;
+        length_podvorot = 40;
+        
+        if(obrezka == 1) {
+            $("#podvorot").prop( "disabled", true );
+            priceobrezka = (((width*2 + height*2)*count)/1000*fobrezka).toFixed(2);
+        } else {
+            $("#podvorot").prop( "disabled", false );
+            priceobrezka = '0.00';
+        }
+
+
+        if (luvers == 1) {
+         //По углам
+          priceluvers = fluvers*4;
+          length_sides = (width*2 + height*2)*count;
+        } else if (luvers == 2) {
+          //По периметру
+          countluvers = (Math.ceil((width*2 + height*2)/300))+2;
+          priceluvers = countluvers*count*fluvers;
+          length_sides = (width*2 + height*2)*count;
+        } else if (luvers == 3) {
+          //верх
+          countluvers = (Math.ceil((width/300)))+1;
+          priceluvers = countluvers*count*fluvers;
+          length_sides = (width)*count;
+        } else if (luvers == 4) {
+          //Верх и низ
+          countluvers = (Math.ceil((width/300)))+1;
+          priceluvers = countluvers*count*fluvers*2;
+          length_sides = (width*2)*count;
+        } else if (luvers == 5) {
+          //Лево и право
+          countluvers = (Math.ceil((height/300)))+1;
+          priceluvers = countluvers*count*fluvers*2;
+          length_sides = (height*2)*count;
+        } else {
+          priceluvers = '0.00';
+        }
+        
+        if(podvorot == 1) {
+
+            $("#obrezka").prop( "disabled", true );
+
+            if(length_sides > 1) {
+              m2_pricepodvorot = (length_sides*length_podvorot)/1000;
+            } else {
+              m2_pricepodvorot = (((width*2 + height*2)*count)*length_podvorot/1000);
+            }
+            pricepodvorot = ((m2_pricepodvorot/1000)*price).toFixed(2);
+
+        } else {
+            $("#obrezka").prop( "disabled", false );
+
+            pricepodvorot = '0.00';
+        }
+
+
+        priceobrezka = parseFloat(priceobrezka, 10);
+        priceluvers = parseFloat(priceluvers, 10);
+        pricepodvorot = parseFloat(pricepodvorot, 10);
+
+        $('#priceobrezka').text(priceobrezka);
+        $('#priceluvers').text(priceluvers);
+        $('#pricepodvorot').text(pricepodvorot);
+
+        PricePostpress = (priceobrezka+priceluvers+pricepodvorot).toFixed(2);
+        $('#PricePostpress').text(PricePostpress);
+
+        //Сумма общая
+        area = (width / 1000) * (height / 1000);
+        area =  area * count;
+        $("#area").text(area.toFixed(2));
+
+        print = area * price;
+        $("#print").text(print.toFixed(2));
+
+        economy = (print * discount) / 100;
+        $("#economy").text(economy.toFixed(2));
+        
+        sum = ((print-economy)+PricePostpress*1);
+        $("#sum").text(sum.toFixed(2));
+        $("#sumPay").val(sum.toFixed(2));
+
+        /*
+        resdata = {};
+        resdata.print = {};
+        resdata.print.area = area.toFixed(2);
+        resdata.print.sum = print.toFixed(2);
+
+        resdata.economy = economy.toFixed(2);
+        resdata.discount = discount;
+
+        resdata.postpress = {};
+        resdata.postpress.obrezka = priceobrezka;
+        resdata.postpress.luvers = priceluvers;
+        resdata.postpress.podvorot = pricepodvorot;
+        resdata.postpress.sum = PricePostpress;
+
+        resdata.sum = sum.toFixed(2);
+
+        data = JSON.stringify(resdata);
+
+        $('#data').val(data);
+        */
+
+       });
+
+
+
+    });
+
+
+
 
 });
 
@@ -51,73 +154,31 @@ $( ".calc" ).on( "change", calcPostpress );
     <tr>
       <td>{!! $pp->label !!}</td>
       
-        @if($pp->id == 1)
+        @if($pp->name == 'obrezka')
         <td>
-          {!! Form::select($pp->name, array('0' => 'Без обрезки', '1' => 'Обрезать в размер'), '0', ['class'=>'form-control']) !!}
+          {!! Form::select($pp->name, $postpress_data[$pp->name], '0', ['class'=>'form-control', 'id'=>$pp->name]) !!}
           
        </td>
-       <td><span id="price">0</span><span id="f">{!! $pp->f !!}</span> грн/м погонный</td>
+       <td><span style="display:none" id="price{!! $pp->name !!}">0</span><span id="f{!! $pp->name !!}">{!! $pp->f !!}</span> грн/м погонный</td>
         @endif
 
-        @if($pp->id == 2)
+        @if($pp->name == 'luvers')
         <td>
-        {!! Form::select($pp->name, [
-          '0' => 'Нет',
-          '1' => 'По углам',
-          '2' => 'По периметру',
-          '3' => 'Верх',
-          '4' => 'Верх и низ',
-          '5' => 'Лево и право',
-        ], '0', ['class'=>'form-control']) !!}
+        {!! Form::select($pp->name, $postpress_data[$pp->name], '0', ['class'=>'form-control', 'id'=>$pp->name]) !!}
         </td>
-        <td><span id="price">0</span><span id="f">{!! $pp->f !!}</span> грн/шт.</td>
+        <td><span style="display:none" id="price{!! $pp->name !!}">0</span><span id="f{!! $pp->name !!}">{!! $pp->f !!}</span> грн/шт.</td>
         
         @endif
 
-        @if($pp->id == 3)
+        @if($pp->name == 'podvorot')
         <td>
-        {!! Form::select($pp->name, [
-          '0' => 'Нет',
-          '1' => 'Есть',
-        ], '0', ['class'=>'form-control']) !!}
+        {!! Form::select($pp->name, $postpress_data[$pp->name], '0', ['class'=>'form-control', 'id'=>$pp->name]) !!}
         </td>
-        <td><span id="price">0</span>+4 см с каждой стороны</td>
-        @endif
-
-        @if($pp->id == 4)
-        <td>
-        {!! Form::select($pp->name, [
-          '0' => 'Нет',
-          '1' => 'Только сверху',
-          '2' => 'Только снизу',
-          '3' => 'Только слева',
-          '4' => 'Только справа',
-          '5' => 'Сверху и снизу',
-          '5' => 'Слева и справа',
-          '5' => 'По периметру',
-        ], '0', ['class'=>'form-control']) !!}
-        </td>
-        <td><span id="price">0</span><span id="f">{!! $pp->f !!}</span> грн/м погонный</td>
-        @endif
-
-        @if($pp->id == 5)
-        <td>
-        {!! Form::select($pp->name, [
-          '0' => 'Нет',
-          '1' => 'По вертикали',
-          '2' => 'По горизонтали',
-        ], '0', ['class'=>'form-control']) !!}
-        </td>
-        <td><span id="price">0</span><span id="f">{!! $pp->f !!}</span> грн/м погонный</td>
+        <td><span style="display:none" id="price{!! $pp->name !!}">0</span>4 см на сторону</td>
         @endif
       
     </tr>
   @endforeach
-  <tr>
-    <td>Стоимость постработ</td>
-    <td><span id="PricePostpress">0</span> грн.</td>
-    <td></td>
-  </tr>
 </table>
 
 

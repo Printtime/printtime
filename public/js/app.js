@@ -606,6 +606,52 @@ $('.send2server').click(function( event ) {
         return false;
     });
 
+
+
+
+
+
+
+//START calc order and postpress
+    $('.calc').change(function(e) {
+        e.preventDefault();
+        CalcPrint();
+    });
+
+function CalcPrint() {
+
+        price = $("#price").text();
+        discount = $("#discount").text();
+        postpress = $("#PricePostpress").text();
+
+        width = $("#width").val();
+        height = $("#height").val();
+        count = $("#count").val();
+        
+        area = (width / 1000) * (height / 1000);
+        area =  area * count;
+        $("#area").text(area.toFixed(2));
+
+        print = area * price;
+        $("#print").text(print.toFixed(2));
+
+        economy = (print * discount) / 100;
+        $("#economy").text(economy.toFixed(2));
+        
+        sum = ((print-economy)+postpress*1);
+        $("#sum").text(sum.toFixed(2));
+        $("#sumPay").val(sum.toFixed(2));
+
+}
+//END calc order and postpress
+
+
+
+
+
+
+
+
 })(jQuery);
 
 

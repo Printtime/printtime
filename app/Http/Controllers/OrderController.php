@@ -17,6 +17,29 @@ use Validator;
 
 class OrderController extends Controller
 {
+   public static function postpress_data()
+    {
+        $postpress_data['obrezka'] = [
+          '0' => 'Без обрезки',
+          '1' => 'Обрезать в размер'
+        ];
+
+        $postpress_data['luvers'] = [
+          '0' => 'Нет',
+          '1' => 'По углам',
+          '2' => 'По периметру',
+          '3' => 'Верх',
+          '4' => 'Верх и низ',
+          '5' => 'Лево и право',
+        ];
+
+        $postpress_data['podvorot'] = [
+          '0' => 'Нет',
+          '1' => 'Есть',
+        ];
+
+        return $postpress_data;
+    }
 
    public function index()
     {   
@@ -26,32 +49,19 @@ class OrderController extends Controller
 
    public function show($id)
     {   
+        $postpress_data = $this->postpress_data();
         $order = Order::with('typevar', 'status')->where('user_id', auth()->user()->id)->find($id);
-        /*
-        foreach(json_decode($order->postpress) as $key => $e) {
-            
-            //Люверсы
-            if($key == 'e') {
-                $a = array("top", "right", "bottom", "left");
-                $b = array("Верх", "Право", "Низ", "Лево");
-                $a = array('green', 'red', 'yellow');
-                $b = array('avocado', 'apple', 'banana');
-                $c = array_combine($a, $b);
-                return $c;
-            }
-        }
-        */
-
-        return view('user.order', compact('order'));
+        return view('user.order', compact('order', 'postpress_data'));
     }
 
    public function create($id)
     {	
         $typevar = TypeVar::findOrFail($id);
+        $postpress_data = $this->postpress_data();
         $postpress = Postpress::where('product_id', $typevar->type->product_id)->get();
         $postpressview = Postpress::where('product_id', $typevar->type->product_id)->groupBy('view')->get();
         
-    	return view('order.create',  compact('typevar', 'postpress', 'postpressview'));
+    	return view('order.create',  compact('typevar', 'postpress', 'postpressview', 'postpress_data'));
     }
 
    public function setStatus($id, $status)
@@ -65,7 +75,6 @@ class OrderController extends Controller
    public function save(Request $request, $id)
     {	
 
-
         $messages = [
             'file1.required' => 'Загрузите файл макета, кликнув на "Загрузить лицевую сторону"',
         ];
@@ -73,7 +82,7 @@ class OrderController extends Controller
         $validator = Validator::make($request->all(), [
             'title' => 'required',
             'file1' => 'required',
-            'sum' => 'required',
+            'sum' => 'required|min:1',
         ], $messages);
 
         if ($validator->fails()) {
@@ -94,8 +103,22 @@ class OrderController extends Controller
             $order->width = $request->width;
             $order->height = $request->height;
             $order->sum = $request->sum;
-            #$order->postpress = json_encode($request->postpress);
             $order->save();
+
+
+            if($request->obrezka) {
+                $obrezka_obj = Postpress::where('name', 'obrezka')->first();
+                $order->postpress()->attach([ $obrezka_obj->id =>['var'=>$request->obrezka]]);
+            }
+            if($request->luvers) {
+                $luvers_obj = Postpress::where('name', 'luvers')->first();
+                $order->postpress()->attach([ $luvers_obj->id =>['var'=>$request->luvers]]);
+            }
+            if($request->podvorot) {
+                $podvorot_obj = Postpress::where('name', 'podvorot')->first();
+                $order->postpress()->attach([ $podvorot_obj->id =>['var'=>$request->podvorot]]);
+            }
+
 
             $user = auth()->user();
             $user->balance = $user->balance - $request->sum;

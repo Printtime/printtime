@@ -25,6 +25,7 @@ class Postpress extends Migration
             $table->integer('postpress_id');
             $table->integer ('postpressgable_id');
             $table->string('postpressgable_type');
+            $table->string('var');
             $table->timestamps();
         });
     }

@@ -7,97 +7,6 @@
 
 $(function(){
 
-
-
-    $('.calc').change(function(e) {
-        e.preventDefault();
-        CalcPrint();
-    });
-
-
-function caclEyelet(length) {
-        eyelet = $("#eyelet").text();
-        count = $("#count").val();
-        postpress = $("#postpress");
-        res = parseInt(((length * count) / 300) * eyelet);
-        postpress_now = parseInt(postpress.text());
-        data = parseInt(postpress_now+res);
-        postpress.text(data);
- }
-
-function caclPodvorot(length) {
-        count = $("#count").val();
-        postpress = $("#postpress");
-        price = $("#price").text();
-        area = (((length / 1000) * 40) * count)/1000;
-        res = area * price;
-        postpressnow = postpress.text() * 1;
-        postpressnow = (postpressnow+res).toFixed(2);
-        postpress.text(postpressnow);
- }
-
-function CalcPrint() {
-
-        price = $("#price").text();
-        discount = $("#discount").text();
-        postpress = $("#postpress").text();
-
-        width = $("#width").val();
-        height = $("#height").val();
-        count = $("#count").val();
-        
-        area = (width / 1000) * (height / 1000);
-        area =  area * count;
-        $("#area").text(area.toFixed(2));
-
-        print = area * price;
-        $("#print").text(print.toFixed(2));
-
-        economy = (print * discount) / 100;
-        $("#economy").text(economy.toFixed(2));
-        
-        sum = ((print-economy)+postpress*1);
-        $("#sum").text(sum.toFixed(2));
-        $("#sumPay").val(sum.toFixed(2));
-}
-
-function CalcPostpress() {
-
-    this.widthE = function() {
-        caclEyelet($("#width").val());
-    }
-    this.widthP = function() {
-        caclPodvorot($("#width").val());
-    }
-    this.heightE = function() {
-        caclEyelet($("#height").val());
-    }
-    this.heightP = function() {
-        caclPodvorot($("#height").val());
-    }
-}
-
-
-var CalcPostpress = new CalcPostpress();
-
-var calc = function() {
-
-    var SumPostpress = "";
-    $("#postpress").text(0);
-
-    $("input:checkbox:checked").each(function () {
-        if ($(this).is(':checked')) {
-              var CalcPostpressFunc = CalcPostpress[$(this).attr('id')];
-              CalcPostpressFunc();
-          }
-    });
-              CalcPrint();
-
-};
-
-$( "input[type=checkbox]" ).on( "click", calc );
-$( ".calc" ).on( "change", calc );
-
 });
 
 
@@ -184,7 +93,7 @@ $( ".calc" ).on( "change", calc );
 </tr>
 <tr>
 	<td>Постработы</td>
-	<td><span id="postpress">0</span> грн.</td>
+	<td><span id="PricePostpress">0.00</span> грн.</td>
 </tr>
 <tr>
 	<td>Доставка</td>

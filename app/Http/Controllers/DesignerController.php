@@ -25,8 +25,9 @@ class DesignerController extends Controller
 
     public function show($id)
     {   	
+        $postpress_data = OrderController::postpress_data();
         $order = Order::with('files')->find($id);
-        return view('designer.show',  compact('order'));
+        return view('designer.show',  compact('order', 'postpress_data'));
 
     }
 }
