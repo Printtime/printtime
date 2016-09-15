@@ -13,6 +13,8 @@
 		<p>Название: {!! $order->title !!}</p>
 		<p>Комментарий: {!! $order->comment !!}</p>
 		<p>Дата: {!! $order->created_at !!}</p>
+
+
 		@if($order->status_id == 1)
 		<p>
 				<a class="btn btn-success btn-sm" href="{!! route('order.status', ['id' => $order->id, 'status' => '2']) !!}">Подтвердить</a>
@@ -21,6 +23,15 @@
 		@else
 		<p>Статус: {!! $order->status->title !!}</p>
 		@endif
+
+
+		@if($order->getPostpress)
+			<h3>Постработы</h3>
+			@foreach($order->getPostpress as $postpress)
+			<p>{!! $postpress->label !!}: {!! $postpress_data[$postpress->name][$postpress->pivot->var] !!}</p>
+			@endforeach
+		@endif
+		
 	</div>
 
 	<div class="col-sm-6 col-md-6">

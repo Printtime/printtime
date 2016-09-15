@@ -22,7 +22,7 @@
 @foreach($orders as $order)
 	<tr>
 		<td>{{ $order->id }}</td>
-		<td>{{ $order->title }}</td>
+		<td><a href="{{ route('order.show', $order->id) }}">{{ $order->title }}</a></td>
 		<td>{{ $order->sum }}</td>
 		<td><span class="label label-default status{{ $order->status->id }}">{{ $order->status->title }}</span></td>
 		<td>{{ $order->typevar->type->title }}, {{ $order->typevar->variable->title }}</td>

@@ -38,5 +38,9 @@ class CreateServersTable extends Migration
     public function down()
     {
         Schema::drop('servers');
+
+        Schema::table('print_files', function ($table) {
+            $table->dropColumn('server_id');
+        });
     }
 }
