@@ -12,7 +12,7 @@ class Product extends Model
 {
  	use Upload;
  	
-    protected $fillable = ['title', 'slug', 'description', 'content', 'avatar', 'photo', 'catalog_id'];
+    protected $fillable = ['title', 'slug', 'description', 'content', 'avatar', 'photo', 'catalog_id', 'order_name', 'order_vis'];
 
 
     protected $casts = [

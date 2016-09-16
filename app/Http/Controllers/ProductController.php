@@ -89,8 +89,12 @@ class ProductController extends Controller
 
    public function products()
     {   
-        $products = Product::has('types')->get();
-        return view('product.index',  compact('products'));
+
+       $catalogs = Catalog::with('products2order')->orderBy('order', 'asc')->get();
+
+
+
+        return view('product.index',  compact('catalogs'));
     }
 
 

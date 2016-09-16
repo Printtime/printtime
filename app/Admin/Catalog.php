@@ -29,6 +29,7 @@ AdminSection::registerModel(Catalog::class, function (ModelConfiguration $model)
                 ->setLabel('Порядок')
                 ->setHtmlAttribute('class', 'text-center')
                 ->setWidth('100px'),
+
         ]);
 
         return $display;
@@ -42,14 +43,10 @@ AdminSection::registerModel(Catalog::class, function (ModelConfiguration $model)
             AdminFormElement::wysiwyg('content', 'Содержимое'),
             AdminFormElement::image('avatar', 'Аватар'),
             AdminFormElement::images('photo', 'Фото'),
-            #AdminFormElement::upload('avatar', 'Avatar')->addValidationRule('image'),
-            #AdminColumn::image('avatar')->setWidth('150px'),
         ]);
 
 
         return $form;
     });
 });
-    // ->addMenuPage(Catalog::class)
-    // ->setIcon('fa fa-th-list')
-    // ->setPriority(0);
+

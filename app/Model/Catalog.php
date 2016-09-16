@@ -103,5 +103,9 @@ class Catalog extends Model
         return $this->hasMany(Product::class);
     }
 
+    public function products2order()
+    {
+        return $this->hasMany(Product::class)->where('order_vis', 1);
+    }
 
 }
