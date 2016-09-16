@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
+use App\User;
 use App\Model\Order;
 use App\Model\PrintFile;
 use App\Model\Type;
@@ -69,6 +70,12 @@ class OrderController extends Controller
         $order = Order::find($id);
         $order->status_id = $status;
         $order->save();
+
+        if($status == '7') {
+            $user = User::find($order->user_id);
+            $user->balance = $user->balance + $order->sum;
+            $user->save();
+        }
         return back();
     }
 
