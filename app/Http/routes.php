@@ -21,6 +21,11 @@ Route::group(['middleware' => 'web'], function () {
 Route::group(['middleware' => ['api']], function () {
 	Route::post('user/pay/api', 'PayController@api');
 
+	Route::get('cleaner', [
+		'uses'=>'Controller@cleaner',
+		'as'=> 'system.cleaner',
+		]);
+	
 		Route::get('/user/pay/redirect', [
 		'uses'=>'PayController@redirect',
 		'as'=> 'pay.redirect',
@@ -38,6 +43,8 @@ Route::group(['middleware' => ['web', 'roles']], function () {
 
 //All Management
 Route::group(['prefix' => 'management'], function () {
+
+
 
 //Designer Start
 	Route::get('designer', [
