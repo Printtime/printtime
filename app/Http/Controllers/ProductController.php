@@ -87,14 +87,70 @@ class ProductController extends Controller
         return view('product.table',  compact('rows', 'types', 'headers'));
     }
 
-   public function products()
+
+   public function product_all($catalog)
     {   
 
-       $catalogs = Catalog::with('products2order')->orderBy('order', 'asc')->get();
+        $types = DB::table('products')
+            ->Join('types', 'types.product_id', '=', 'products.id')
+            ->where('products.catalog_id', $catalog)
+            ->get();
+
+        $rows = DB::table('type_var')
+            ->Join('types', 'type_var.type_id', '=', 'types.id')
+                ->Join('products', 'types.product_id', '=', 'products.id')
+            ->Join('vars', 'type_var.var_id', '=', 'vars.id')
+            ->select('*', 'type_var.id as type_var_id')
+                ->where('products.catalog_id', $catalog)
+            ->get();
+            
+
+        $rows = DB::table('type_var')
+            ->Join('types', 'type_var.type_id', '=', 'types.id')
+            ->Join('vars', 'type_var.var_id', '=', 'vars.id')
+            ->select('*', 'type_var.id as type_var_id')
+            ->get();
 
 
+        $headers = DB::table('types')
+            ->Join('products', 'types.product_id', '=', 'products.id')
+            ->where('products.catalog_id', $catalog)
+            ->Join('type_var', 'type_var.type_id', '=', 'types.id')
+            ->Join('vars', 'vars.id', '=', 'type_var.var_id')
+            ->groupby('vars.id')
+            ->get();
 
-        return view('product.index',  compact('catalogs'));
+
+            foreach ($types as $type) {
+                foreach ($rows as $row) {
+                    if($type->id == $row->type_id)
+                    {   
+                        $type->data[$row->var_id] = $row;
+                    }
+                }
+
+                foreach($headers as $header) {
+
+                    $type->res[$header->id] = 'no-data';
+
+                    if(isset($type->data[$header->id])) {
+                        $type->res[$header->id] = $type->data[$header->id];
+                    }
+                }
+            }
+
+            $catalog = Catalog::findOrfail($catalog);
+            $title = $catalog->title;
+
+        return view('product.table',  compact('rows', 'types', 'headers', 'title'));
+    }
+
+
+   public function products()
+    {   
+       #$catalogs = Catalog::with('products2order')->orderBy('order', 'asc')->get();
+       $catalogs = Catalog::orderBy('order', 'asc')->get();
+       return view('product.index',  compact('catalogs'));
     }
 
 

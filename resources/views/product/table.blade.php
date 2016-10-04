@@ -6,6 +6,8 @@
 <div class="row">
 <div class="col-sm-12 col-md-12">
 
+<h1>{{ $title or '' }}</h1>
+
 	<table class="table table-hover">
 		<thead>
 			<tr>
@@ -22,7 +24,7 @@
 	<tbody>
 		@foreach($types as $type)
 			<tr>
-				<td>{!! $type->title !!}</td>
+				<td><a style="color:#000" data-toggle="tooltip" data-html="true" data-placement="top" title="Что такое «{!! $type->order_name !!}»?" href="{!! route('catalog.product.show', ['catalog'=>$type->catalog_id, 'product'=>$type->product_id]) !!}">{!! $type->title !!}</a></td>
 						@if(isset($type->res))
 						@foreach($type->res as $r)
 							@if($r != 'no-data')
