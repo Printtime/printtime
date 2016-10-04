@@ -189,4 +189,11 @@ Route::group(['prefix' => 'management'], function () {
 		'as'=> 'products.product',
 		'roles'=> ['admin', 'user', 'designer', 'printer'],
 		]);	
+
+	Route::get('product_all/{catalog}', [
+		'uses'=>'ProductController@product_all',
+		'as'=> 'products.product_all',
+		'roles'=> ['admin', 'user', 'designer', 'printer'],
+		]);	
+
 });
