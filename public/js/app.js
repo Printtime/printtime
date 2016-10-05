@@ -628,10 +628,16 @@ function CalcPrint() {
         height = $("#height").val();
         count = $("#count").val();
         
+        coef_width = $("#coef_width").text();
+        coef_height = $("#coef_height").text();
+        coef = (coef_width*coef_height)/1000000;
+        // console.log(coef_height);
+
         area = (width / 1000) * (height / 1000);
         area =  area * count;
         $("#area").text(area.toFixed(2));
 
+        price = price/coef;
         print = area * price;
         $("#print").text(print.toFixed(2));
 
