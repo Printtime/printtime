@@ -94,6 +94,7 @@ class ProductController extends Controller
         $types = DB::table('products')
             ->Join('types', 'types.product_id', '=', 'products.id')
             ->where('products.catalog_id', $catalog)
+             ->orderBy('products.title', 'asc')
             ->get();
 
         $rows = DB::table('type_var')
@@ -105,11 +106,11 @@ class ProductController extends Controller
             ->get();
             
 
-        $rows = DB::table('type_var')
-            ->Join('types', 'type_var.type_id', '=', 'types.id')
-            ->Join('vars', 'type_var.var_id', '=', 'vars.id')
-            ->select('*', 'type_var.id as type_var_id')
-            ->get();
+        // $rows = DB::table('type_var')
+        //     ->Join('types', 'type_var.type_id', '=', 'types.id')
+        //     ->Join('vars', 'type_var.var_id', '=', 'vars.id')
+        //     ->select('*', 'type_var.id as type_var_id')
+        //     ->get();
 
 
         $headers = DB::table('types')
