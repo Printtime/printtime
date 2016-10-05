@@ -17,7 +17,10 @@ $(function(){
 <h1>{{ $typevar->type->title }}</h1>
 <h3>{{ $typevar->variable->title }}</h3>
 
+
 <div class="hidden" id="price">{{ $typevar->price }}</div>
+<div class="hidden" id="coef_width">{{ $typevar->type->width }}</div>
+<div class="hidden" id="coef_height">{{ $typevar->type->height }}</div>
 
 <div class="row">
 	<div class="col-sm-12">
@@ -47,7 +50,7 @@ $(function(){
     <label class="sr-only" for="width">Ширина</label>
     <div class="input-group">
       <div class="input-group-addon">Ширина</div>
-      <input name="width" type="number" step="1" class="calc form-control text-center input-lg" id="width" value="1000">
+      <input name="width" type="number" step="1" class="calc form-control text-center input-lg" id="width" value="{{ $typevar->type->width }}">
       <div class="input-group-addon"> мм.</div>
     </div>
   </div>
@@ -55,7 +58,7 @@ $(function(){
     <label class="sr-only" for="height">Высота</label>
     <div class="input-group">
       <div class="input-group-addon">Высота</div>
-      <input name="height" type="number" step="1" class="calc form-control text-center input-lg" id="height" value="1000">
+      <input name="height" type="number" step="1" class="calc form-control text-center input-lg" id="height" value="{{ $typevar->type->height }}">
       <div class="input-group-addon"> мм.</div>
     </div>
   </div>
@@ -89,7 +92,7 @@ $(function(){
 <table class="table table-striped">
 <tr>
 	<td>Печать</td>
-	<td><span id="print">{{ $typevar->price }}</span> грн. (<span id="area">1.00</span> м2)</td>
+	<td><span id="print">{{ $typevar->price }}</span> грн. (<span id="area">{{ ($typevar->type->height * $typevar->type->width)/1000000 }}</span> м2)</td>
 </tr>
 <tr>
 	<td>Постработы</td>
