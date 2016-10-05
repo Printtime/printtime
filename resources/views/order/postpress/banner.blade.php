@@ -102,6 +102,11 @@ $('.file2_block').hide();
         area =  area * count;
         $("#area").text(area.toFixed(2));
 
+        coef_width = $("#coef_width").text();
+        coef_height = $("#coef_height").text();
+        coef = (coef_width*coef_height)/1000000;
+        price = price/coef;
+        
         print = area * price;
         $("#print").text(print.toFixed(2));
 
