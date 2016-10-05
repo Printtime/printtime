@@ -91,10 +91,10 @@ class ProductController extends Controller
    public function product_all($catalog)
     {   
 
-        $types = DB::table('products')
+        $types = DB::table('products')->orderBy('products.title', 'asc')
             ->Join('types', 'types.product_id', '=', 'products.id')
             ->where('products.catalog_id', $catalog)
-             ->orderBy('products.title', 'asc')
+             
             ->get();
 
         $rows = DB::table('type_var')
