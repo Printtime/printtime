@@ -110,10 +110,16 @@ $('.file2_block').hide();
         print = area * price;
         $("#print").text(print.toFixed(2));
 
-        economy = (print * discount) / 100;
+
+        PricePostpress = PricePostpress*1;
+
+        sum = print+PricePostpress;
+        economy = (sum * discount) / 100;
         $("#economy").text(economy.toFixed(2));
         
-        sum = ((print-economy)+PricePostpress*1);
+        ///sum = (print+PricePostpress*1)-economy;
+        sum = sum - economy;
+
         $("#sum").text(sum.toFixed(2));
         $("#sumPay").val(sum.toFixed(2));
 
