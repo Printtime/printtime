@@ -26,6 +26,11 @@ Route::group(['middleware' => ['api']], function () {
 		'as'=> 'system.cleaner',
 		]);
 	
+	Route::get('tiff/{filename?}', [
+		'uses'=>'Controller@tiff',
+		'as'=> 'system.tiff',
+		]);
+
 		Route::get('/user/pay/redirect', [
 		'uses'=>'PayController@redirect',
 		'as'=> 'pay.redirect',
