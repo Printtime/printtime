@@ -91,11 +91,15 @@ class ProductController extends Controller
    public function product_all($catalog)
     {   
 
-        $types = DB::table('products')->orderBy('products.title', 'asc')
+        $types = DB::table('products')
+            ->orderBy('products.order_group', 'asc')->orderBy('products.title', 'asc')
             ->Join('types', 'types.product_id', '=', 'products.id')
+            ->select('products.*', 'products.title as products_title', 'types.*')
             ->where('products.catalog_id', $catalog)
-             
+            
             ->get();
+
+
 
         $rows = DB::table('type_var')
             ->Join('types', 'type_var.type_id', '=', 'types.id')
@@ -106,12 +110,6 @@ class ProductController extends Controller
             ->get();
             
 
-        // $rows = DB::table('type_var')
-        //     ->Join('types', 'type_var.type_id', '=', 'types.id')
-        //     ->Join('vars', 'type_var.var_id', '=', 'vars.id')
-        //     ->select('*', 'type_var.id as type_var_id')
-        //     ->get();
-
 
         $headers = DB::table('types')
             ->Join('products', 'types.product_id', '=', 'products.id')
@@ -119,6 +117,7 @@ class ProductController extends Controller
             ->Join('type_var', 'type_var.type_id', '=', 'types.id')
             ->Join('vars', 'vars.id', '=', 'type_var.var_id')
             ->groupby('vars.id')
+            ->orderBy('vars.order', 'asc')
             ->get();
 
 
