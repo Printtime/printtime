@@ -60,9 +60,14 @@ class PrintFileController extends Controller
             $printfile->size = $storage->size($fname);
             $printfile->save();
 
-            return ['fname'=>$fname];
+            return $tiffinfo = $this->tiff($printfile->filename);
+            //return ['fname'=>$printfile->filename, $tiffinfo];
         });
     }
+
+
+
+
 
     public function commands($command, $obj, $var = null)
     {   
@@ -88,9 +93,11 @@ class PrintFileController extends Controller
         return $obj;
     }
 
+
+
     public function send2server($id)
     {
-            $server = Servers::find(1);
+            $server = Servers::find($id);
 
             $this->commands('check', $server);
             

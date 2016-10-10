@@ -26,6 +26,8 @@
         </button>
     </div>
 
+    <ul id="valid_file1"></ul>
+
 </div>
 
 <div class="col-md-6 file2_block">
@@ -37,6 +39,8 @@
           <span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span> <div id="filelist2">Загрузить обратную сторону</div>
         </button>
     </div>
+
+    <ul id="valid_file2"></ul>
 
 </div>
 
@@ -63,7 +67,7 @@ var uploader = new plupload.Uploader({
         max_file_size : '2048000kb',
         mime_types: [
             {title : "Tiff files", extensions : "tif,tiff"},
-            {title : "Image files", extensions : "jpg,gif,png"}
+            //{title : "Image files", extensions : "jpg,gif,png"}
         ]
     },
 
@@ -92,6 +96,11 @@ var uploader = new plupload.Uploader({
             
         res = JSON.parse(response.response);
             $( "#file1" ).val( res.result.fname );
+
+            $( "#valid_file1" ).html('');
+            $.each( res.result, function( key, value ) {
+                $( "#valid_file1" ).append( '<li>'+key+': '+value+'</li>' );
+            });
         },
 
         Error: function(up, err) {
@@ -121,7 +130,7 @@ var uploader2 = new plupload.Uploader({
         max_file_size : '2048000kb',
         mime_types: [
             {title : "Tiff files", extensions : "tif,tiff"},
-            {title : "Image files", extensions : "jpg,gif,png"}
+            //{title : "Image files", extensions : "jpg,gif,png"}
         ]
     },
 
@@ -150,6 +159,12 @@ var uploader2 = new plupload.Uploader({
             
         res = JSON.parse(response.response);
             $( "#file2" ).val( res.result.fname );
+
+            
+            $( "#valid_file2" ).html('');
+            $.each( res.result, function( key, value ) {
+                $( "#valid_file2" ).append( '<li>'+key+': '+value+'</li>' );
+            });
         },
 
         Error: function(up, err) {
