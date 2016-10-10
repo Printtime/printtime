@@ -61,6 +61,7 @@ class Controller extends BaseController
 
             $path = storage_path('print/'.$filename);
             $EXIF = exif_read_data($path, 'IFD0');
+            //dd($EXIF);
             //$data['Имя'] = $EXIF['FileName'];
             //$data['Размер (байт)'] = $EXIF['FileSize'];
             //$data['FileType'] = $EXIF['FileType'];
@@ -81,6 +82,27 @@ class Controller extends BaseController
 
             $data['Точек на дюйм'] = $data['XResolution']; 
 
+            //$data['Compression'] = $EXIF['Compression'];
+
+            if($EXIF['Compression'] == 1) {
+                $data['Сжатие'] = 'Нет'; 
+            }
+            if($EXIF['Compression'] == 5) {
+                $data['Сжатие'] = 'LZW'; 
+            }
+            if($EXIF['Compression'] == 8) {
+                $data['Сжатие'] = 'ZIP'; 
+            }
+            
+
+            if($EXIF['SamplesPerPixel'] == 3) {
+                $data['Цветовая модель'] = 'RGB';
+            }
+
+            if($EXIF['SamplesPerPixel'] == 4) {
+                $data['Цветовая модель'] = 'CMYK';
+            }
+            
             unset($data['XResolution']);
             unset($data['YResolution']);
 
