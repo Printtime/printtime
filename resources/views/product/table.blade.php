@@ -25,7 +25,8 @@ tr.group:hover {
 		<thead>
 			<tr>
 			<th style="width: 400px;">Товары и услуги</th>
-			<th>Название</th>
+			<th>products_title</th>
+			<th>order_group</th>
 			@foreach($headers as $header)
 				<th>
 					{!! $header->label !!}<br>
@@ -42,6 +43,7 @@ tr.group:hover {
 					<td><a style="color:#000" data-toggle="tooltip" data-html="true" data-placement="top" title="Что такое «{!! $type->products_title !!}»?" href="{!! route('catalog.product.show', ['catalog'=>$type->catalog_id, 'product'=>$type->product_id]) !!}">{!! $type->title !!}</a></td>
 					
 					<td>{!! $type->products_title !!}</td>
+					<td>{!! $type->order_group !!}</td>
 
 							@if(isset($type->res))
 							@foreach($type->res as $r)
@@ -84,9 +86,11 @@ tr.group:hover {
 
 
         "columnDefs": [
-            { "visible": false, "targets": 1 }
+            { "visible": false, "targets": 1 },
+            { "targets": [0],  "orderable": false, },
+            { "targets": [2], "visible": false, }
         ],
-        "order": [[ 1, 'asc' ]],
+        "order": [[ 2, 'asc' ]],
         "displayLength": 100,
         "drawCallback": function ( settings ) {
             var api = this.api();
@@ -105,19 +109,21 @@ tr.group:hover {
         }
     } );
  
-    // Order by the grouping
-  /*
-    $('#example tbody').on( 'click', 'tr.group', function () {
-        var currentOrder = table.order()[0];
-        if ( currentOrder[0] === 1 && currentOrder[1] === 'asc' ) {
-            table.order( [ 1, 'desc' ] ).draw();
-        }
-        else {
-            table.order( [ 1, 'asc' ] ).draw();
-        }
-    } );
 
-    */
+
+    // Order by the grouping
+  
+    // $('#example tbody').on( 'click', 'tr.group', function () {
+    //     var currentOrder = table.order()[0];
+    //     if ( currentOrder[0] === 1 && currentOrder[1] === 'asc' ) {
+    //         table.order( [ 1, 'desc' ] ).draw();
+    //     }
+    //     else {
+    //         table.order( [ 1, 'asc' ] ).draw();
+    //     }
+    // } );
+
+    
   </script>
 
 
