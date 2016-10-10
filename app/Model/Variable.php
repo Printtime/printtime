@@ -3,10 +3,12 @@
 namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
+use SleepingOwl\Admin\Traits\OrderableModel;
 #use App\Model\TypeVar;
 
 class Variable extends Model
 {
+    use OrderableModel;
 	protected $table = 'vars';
     protected $fillable = ['title', 'label'];
     public $timestamps = false;

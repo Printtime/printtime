@@ -4,15 +4,16 @@ namespace App\Model;
 
 use App\Traits\Upload;
 use Illuminate\Database\Eloquent\Model;
-#use SleepingOwl\Admin\Traits\OrderableModel;
+use SleepingOwl\Admin\Traits\OrderableModel;
 use Illuminate\Http\UploadedFile;
 use App\Model\Type;
 
 class Product extends Model
 {
+    use OrderableModel;
  	use Upload;
  	
-    protected $fillable = ['title', 'slug', 'description', 'content', 'avatar', 'photo', 'catalog_id', 'order_name', 'order_vis'];
+    protected $fillable = ['title', 'slug', 'description', 'content', 'avatar', 'photo', 'catalog_id', 'order_name', 'order_vis', 'order_group'];
 
 
     protected $casts = [
@@ -24,6 +25,11 @@ class Product extends Model
     public function catalog()
     {
         return $this->belongsTo(Catalog::class);
+    }
+    
+    public function getOrderField()
+    {
+        return 'order_group';
     }
 
     public function types()

@@ -13,9 +13,17 @@ AdminSection::registerModel(Variable::class, function (ModelConfiguration $model
             ->setHtmlAttribute('class', 'table-primary')
             ->setColumns([
                 AdminColumn::text('id')->setLabel('#')->setWidth('30px'),
+                AdminColumn::order()
+                    ->setLabel('Порядок')
+                    ->setHtmlAttribute('class', 'text-center')
+                    ->setWidth('100px'),
                 AdminColumn::link('title')->setLabel('Название'),
-                AdminColumn::text('label')->setLabel('Label'),
-            ])->paginate(20);
+                AdminColumn::text('label')->setLabel('Лейбл'),
+            ])
+            ->setApply(function ($query) {
+            $query->orderBy('order', 'asc');
+            })
+            ->paginate(20);
     });
 
     // Create And Edit

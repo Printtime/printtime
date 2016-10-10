@@ -12,6 +12,11 @@ AdminSection::registerModel(Product::class, function (ModelConfiguration $model)
 
         $display->setHtmlAttribute('class', 'table-bordered table-success table-hover');
 
+        $display->setApply(function ($query) {
+            $query->orderBy('order_group', 'asc');
+        });
+
+
      $display->with('catalog');
         $display->setFilters([
             AdminDisplayFilter::related('catalog_id')->setModel(Catalog::class),
@@ -39,6 +44,11 @@ AdminSection::registerModel(Product::class, function (ModelConfiguration $model)
                 ->append(
                     AdminColumn::filter('catalog_id')
                 ),
+
+            AdminColumn::order()
+                ->setLabel('Порядок')
+                ->setHtmlAttribute('class', 'text-center')
+                ->setWidth('100px'),
                 
                 #php artisan vendor:publish --tag=assets --force
                 AdminColumnEditable::checkbox('order_vis')->setLabel('Published'),
