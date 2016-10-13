@@ -66,8 +66,8 @@ class Controller extends BaseController
         $path = storage_path('print/'.$filename);
 
         if (file_exists($path)) {
-            exec("convert -profile storage/icc/CMYK_Profiles/CoatedFOGRA27.icc ".$path." -strip -quality 80 -resize 256x256 -profile storage/icc/RGB_Profiles/AdobeRGB1998.icc ".$jpg." >/dev/null 2>/dev/null");
-            sleep(1);
+
+            exec("printtime@demhost:~/www/printtime$ convert -profile storage/icc/CMYK_Profiles/CoatedFOGRA27.icc ".$path." -profile storage/icc/RGB_Profiles/AppleRGB.icc -quality 80 -resize 256x256 ".$jpg."");
         }
 
     }
