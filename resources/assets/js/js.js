@@ -140,6 +140,118 @@ $('.send2server').click(function( event ) {
 
 
 
+function uploaderFileUploaded(up, file, response) {
+                        
+        res = JSON.parse(response.response);
+
+        $( "#file1" ).val( res.result.fname );
+
+        consoledata = '<div class="console alert alert-success" role="alert"><div id="res"></div></div>';
+
+        $("#console").html(consoledata);
+
+            $.each( res.result, function( key, value ) {
+
+                if(value.valid == true) {
+                    var status_class = 'glyphicon-ok success';
+                }
+                if(value.valid == false) {
+                    var status_class = 'glyphicon-remove';
+                    $( "#console .alert" ).removeClass("alert-success").addClass("alert-danger");
+                }
+
+                $("#console #res").append( '<div><span class="glyphicon '+status_class+'" style="margin-right:5px"></span> '+value.title+'</div>' );
+            });
+
+         if(res.result.width.valid == true && res.result.height.valid == true) {
+
+            $( "#width" ).val(res.result.width.data);
+            $( "#height" ).val(res.result.height.data);
+        
+            $( "#width_file1" ).val(res.result.width.data);
+            $( "#height_file1" ).val(res.result.height.data);
+        }
+
+        CalcPrint();
+        
+}
+
+
+
+
+
+
+
+var uploader = new plupload.Uploader({
+    runtimes : 'html5,flash,silverlight,html4',
+     
+    browse_button : 'pickfiles1',
+    container: document.getElementById('container1'), 
+     
+        url : '/printfile/upload',
+    
+        chunk_size: '1mb',
+
+         headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+     
+    filters : {
+
+        max_file_size : '2048000kb',
+        mime_types: [
+            {title : "Tiff files", extensions : "tif,tiff"},
+            //{title : "Image files", extensions : "jpg,gif,png"}
+        ]
+    },
+
+    flash_swf_url : '/vendor/jildertmiedema/laravel-plupload/js/Moxie.swf',
+    silverlight_xap_url : '/vendor/jildertmiedema/laravel-plupload/js/Moxie.xap',
+     
+    multi_selection: false,
+ 
+    init: {
+        PostInit: function() {
+        },
+ 
+        FilesAdded: function(up, files) {
+            res_data = '<div id="' + files[0].id + '">' + files[0].name + ' - ' + plupload.formatSize(files[0].size) + ' - <b></b></div>';
+            $('#filelist1').html(res_data);
+            up.start();
+        },
+ 
+        UploadProgress: function(up, file) {
+            document.getElementById(file.id).getElementsByTagName('b')[0].innerHTML = '<span>' + file.percent + "%</span>";
+            document.getElementById('console').innerHTML = '';
+        },
+    
+
+        FileUploaded: function(up, file, response) {
+
+        uploaderFileUploaded(up, file, response);
+
+        },
+
+        Error: function(up, err) {
+
+            document.getElementById('console').innerHTML = '<div class="console alert alert-danger" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>'+ err.message +'</div>';
+        }
+    }
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -148,6 +260,44 @@ $('.send2server').click(function( event ) {
         e.preventDefault();
         CalcPrint();
     });
+
+function validFile2Calc(width, height) {
+
+    width_file1 = $('#width_file1').val();
+    height_file1 = $('#height_file1').val();
+
+    if(width_file1 > 10 && height_file1 > 10) {
+
+        if(width_file1 == width && height_file1 == height) {
+                
+                $('#validFile2Calc').css('display', 'none');
+
+                $('#height').css('color', '#3c763d');
+                $('#width').css('color', '#3c763d');
+
+                $('#confirm_size').removeAttr("required");
+
+        } else {
+
+            $('#confirm_size').attr("required", "required");
+
+            $('#validFile2Calc').css('display', '');
+
+            if(width_file1 != width) {
+                $('#width').css('color', '#a94442');
+            } else {
+                $('#width').css('color', '#3c763d');
+            }
+
+            if(height_file1 != height) {
+                $('#height').css('color', '#a94442');
+            } else {
+                $('#height').css('color', '#3c763d');
+            }
+        }
+    }
+
+}
 
 function CalcPrint() {
 
@@ -158,6 +308,8 @@ function CalcPrint() {
         width = $("#width").val();
         height = $("#height").val();
         count = $("#count").val();
+
+        validFile2Calc(width, height);
         
         coef_width = $("#coef_width").text();
         coef_height = $("#coef_height").text();
@@ -188,7 +340,16 @@ function CalcPrint() {
 
 
 
+
+
+
+
+uploader.init();
+
+
+
 })(jQuery);
 
 
-new WOW().init();
+//new WOW().init();
+

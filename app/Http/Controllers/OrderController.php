@@ -44,7 +44,7 @@ class OrderController extends Controller
 
    public function index()
     {   
-        $orders = Order::with('typevar', 'status')->where('user_id', auth()->user()->id)->orderBy('id', 'desc')->paginate('10');
+        $orders = Order::with('typevar', 'status')->where('user_id', auth()->user()->id)->orderBy('id', 'desc')->paginate('20');
         return view('order.index', compact('orders'));
     }
 
@@ -88,24 +88,27 @@ class OrderController extends Controller
 
         $validator = Validator::make($request->all(), [
             'title' => 'required',
-            'file1' => 'required',
+            //'file1' => 'required',
             'sum' => 'required|min:1',
         ], $messages);
 
         if ($validator->fails()) {
                 return back()->withErrors($validator)->withInput();
         }
-            
+           
+           /*
             if ($request->sum > auth()->user()->balance) {
                 $no_money = auth()->user()->balance - $request->sum;
                 return back()->withErrors(['sum'=>'На вашем балансе нехватает '.$no_money.' грн.'])->withInput();
             }
+            */
 
             $order = new Order;
             $order->title = $request->title;
             $order->comment = $request->comment;
             $order->user_id = auth()->user()->id;
             $order->type_var_id = $id;
+            $order->status_id = 8;
             $order->count = $request->count;
             $order->width = $request->width;
             $order->height = $request->height;
@@ -127,9 +130,9 @@ class OrderController extends Controller
             }
 
 
-            $user = auth()->user();
-            $user->balance = $user->balance - $request->sum;
-            $user->save();
+            #$user = auth()->user();
+            #$user->balance = $user->balance - $request->sum;
+            #$user->save();
 
             PrintFile::where('filename', $request->file1)->update(['order_id' => $order->id, 'side' => '1']);
             PrintFile::where('filename', $request->file2)->update(['order_id' => $order->id, 'side' => '2']);

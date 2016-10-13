@@ -2,16 +2,6 @@
 
 @section('content')
 
-<script type="text/javascript">
-  
-
-$(function(){
-
-});
-
-
-
-</script>
 
 <div class="container">
 <h1>{{ $typevar->type->title }}</h1>
@@ -71,7 +61,16 @@ $(function(){
       <div class="input-group-addon"> шт.</div>
     </div>
   </div>
+
+<div id="validFile2Calc" class="col-sm-12" style="display:none">
+  <div class="alert alert-danger" style="margin-top:5px">
+      <input id="confirm_size" type="checkbox" name="confirm_size">
+      <label for="confirm_size"> Я знаю о несовпадении размеров файла-макета и разрешаю изменить макет дизайнером компании под установленые мною размеры.</label>
+  </div>
 </div>
+
+</div>
+
 
 <br>
 @if($postpressview)
@@ -118,7 +117,7 @@ $(function(){
 
      <input id="sumPay" type="hidden" name="sum" value="{{ $typevar->price - $typevar->price * Auth::user()->discount / 100 }}">
 
-{!! Form::submit('Оплатить и оформить заказ', ['class' => 'btn btn-success btn-lg']) !!}
+{!! Form::submit('Оформить заказ', ['class' => 'submit btn btn-success btn-lg']) !!}
 
 {!! Form::close() !!}
 

@@ -54,6 +54,37 @@ class Controller extends BaseController
         return Catalog::with('products')->orderBy('order', 'asc')->get();
     }
 
+
+    public function tiff2jpg_convert($filename, $jpg)
+    {   
+
+        $path = storage_path('print/'.$filename);
+
+        if (file_exists($path)) {
+            exec("convert ".$path." -strip -quality 80 -resize 256x256 ".$jpg." >/dev/null 2>/dev/null");
+            sleep(1);
+        }
+
+        return $jpg;
+    }
+
+   public function tiff2jpg($filename = null)
+    {   
+        header('Content-Type: image/jpeg');
+
+        $name=explode(".", $filename, 2); 
+        $jpg = 'images/print_preview/'.$name[0].'.jpg';
+
+        if (file_exists($jpg)) {
+                return readfile($jpg);
+        } else {
+            tiff2jpg_convert($filename, $jpg);
+        }
+            
+            return false;
+
+    }
+
    public function tiff($filename = null)
     {   
         
@@ -61,53 +92,117 @@ class Controller extends BaseController
 
             $path = storage_path('print/'.$filename);
             $EXIF = exif_read_data($path, 'IFD0');
-            //dd($EXIF);
-            //$data['Имя'] = $EXIF['FileName'];
-            //$data['Размер (байт)'] = $EXIF['FileSize'];
-            //$data['FileType'] = $EXIF['FileType'];
-            //$data['MimeType'] = $EXIF['MimeType'];
-
-            $data['Ширина (px)'] = $EXIF['ImageWidth'];
-            $data['Высота (px)'] = $EXIF['ImageLength'];
 
             $data['XResolution'] = explode('/', $EXIF['XResolution']);
             $data['XResolution'] = $data['XResolution'][0] / $data['XResolution'][1];
-            #$data['Ширина (DPI)'] = $data['XResolution'];
-            $data['Ширина (mm)'] = round($EXIF['ImageWidth']/($data['XResolution']/25.4), 2);
+            $width = round(round($EXIF['ImageWidth']/($data['XResolution']/25.4)));
 
             $data['YResolution'] = explode('/', $EXIF['YResolution']);
             $data['YResolution'] = $data['YResolution'][0] / $data['YResolution'][1];
-            #$data['Высота (DPI)'] = $data['YResolution'];
-            $data['Высота (mm)'] = round($EXIF['ImageLength']/($data['YResolution']/25.4), 2);
+            $height = round(round($EXIF['ImageLength']/($data['YResolution']/25.4)));
 
-            $data['Точек на дюйм'] = $data['XResolution']; 
+            $resolution = ceil(($data['XResolution']+$data['YResolution'])/2); 
 
-            //$data['Compression'] = $EXIF['Compression'];
-
-            if($EXIF['Compression'] == 1) {
-                $data['Сжатие'] = 'Нет'; 
-            }
-            if($EXIF['Compression'] == 5) {
-                $data['Сжатие'] = 'LZW'; 
-            }
-            if($EXIF['Compression'] == 8) {
-                $data['Сжатие'] = 'ZIP'; 
-            }
-            
-
-            if($EXIF['SamplesPerPixel'] == 3) {
-                $data['Цветовая модель'] = 'RGB';
-            }
-
-            if($EXIF['SamplesPerPixel'] == 4) {
-                $data['Цветовая модель'] = 'CMYK';
-            }
-            
             unset($data['XResolution']);
             unset($data['YResolution']);
 
+            switch ($EXIF['MimeType']) {
+                case 'image/tiff':
+                    $data['mimetype']['title'] = 'Тип файла: TIFF';
+                    $data['mimetype']['valid'] = true;
+                    $data['mimetype']['data'] = $EXIF['MimeType'];
+                    break;
+                default:
+                    $data['mimetype']['title'] = 'Загрузите TIFF файл';
+                    $data['mimetype']['valid'] = false;
+                    $data['mimetype']['data'] = $EXIF['MimeType'];
+            }
+
+            switch ($width) {
+                case ($width < 40):
+                    $data['width']['title'] = 'Ширина макета: '.$width.'мм, допустимо не менее 40 мм';
+                    $data['width']['valid'] = false;
+                    break;
+                case ($width > 40):
+                    $data['width']['title'] = 'Ширина макета: '.$width.' мм';
+                    $data['width']['valid'] = true;
+                    $data['width']['data'] = $width;
+                    break;
+                default:
+                    $data['width']['title'] = 'Ширина не определена';
+                    $data['width']['valid'] = false;
+            }
+
+            switch ($height) {
+                case ($height < 40):
+                    $data['height']['title'] = 'Высота макета: '.$height.' мм, допустимо не менее 40 мм';
+                    $data['height']['valid'] = false;
+                    break;
+                case ($height > 40):
+                    $data['height']['title'] = 'Высота макета: '.$height.' мм';
+                    $data['height']['valid'] = true;
+                    $data['height']['data'] = $height;
+                    break;
+                default:
+                    $data['height']['title'] = 'Высота не определена';
+                    $data['height']['valid'] = false;
+            }
+
+
+            switch ($EXIF['SamplesPerPixel']) {
+                case 3:
+                    $data['color']['title'] = 'Цветовая модель: RGB, допустимо только CMYK';
+                    $data['color']['valid'] = false;
+                    break;
+                case 4:
+                    $data['color']['title'] = 'Цветовая модель: CMYK';
+                    $data['color']['valid'] = true;
+                    break;
+                default:
+                    $data['color']['title'] = 'Цветовая модель не определена';
+                    $data['color']['valid'] = false;
+            }
+
+            switch ($resolution) {
+                case ($resolution < 45):
+                    $data['resolution']['title'] = 'Разрешение макета: '.$resolution.' dpi, допустимо не менее 45 dpi';
+                    $data['resolution']['valid'] = false;
+                    break;
+                case ($resolution > 45):
+                    $data['resolution']['title'] = 'Разрешение макета: '.$resolution.' dpi';
+                    $data['resolution']['valid'] = true;
+                    $data['resolution']['data'] = $resolution;
+                    break;
+                default:
+                    $data['resolution']['title'] = 'Разрешение не определено';
+                    $data['resolution']['valid'] = false;
+            }
+
+            switch ($EXIF['Compression']) {
+                case 1:
+                    $data['compression']['title'] = 'Без сжатия';
+                    $data['compression']['valid'] = true;
+                    break;
+                case 5:
+                    $data['compression']['title'] = 'Сжатие: LZW';
+                    $data['compression']['valid'] = true;
+                    break;
+                case 8:
+                    $data['compression']['title'] = 'Сжатие: ZIP';
+                    $data['compression']['valid'] = true;
+                    break;
+                default:
+                    $data['compression']['title'] = 'Сжатие не определено';
+                    $data['compression']['valid'] = false;
+            }
+
+            $data['fname'] = $filename;
+
             return $data;
         }
+
+
+
 
         $files = Storage::disk('print')->files();
 
