@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\User;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests;
 use App\Model\PrintFile;
@@ -53,14 +54,21 @@ class PrintFileController extends Controller
                 return abort('404');
             }
 
+            $tiffinfo = $this->tiff($fname);
+
             $printfile = new PrintFile;
             $printfile->name = $file->getClientOriginalName();
             $printfile->extension = $file->getClientOriginalExtension();
             $printfile->filename = $fname;
             $printfile->size = $storage->size($fname);
+            $printfile->user_id = auth()->user()->id;
+            $printfile->width = $tiffinfo['width']['data'];
+            $printfile->height = $tiffinfo['height']['data'];
+            $printfile->resolution = $tiffinfo['resolution']['data'];
+            $printfile->mimetype = $tiffinfo['mimetype']['data'];
             $printfile->save();
 
-            return $tiffinfo = $this->tiff($printfile->filename);
+            return $tiffinfo;
             //return ['fname'=>$printfile->filename, $tiffinfo];
         });
     }

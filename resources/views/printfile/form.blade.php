@@ -1,5 +1,5 @@
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js" integrity="sha384-I6F5OKECLVtK/BL+8iSLDEHowSAfUo76ZL9+kGAgTRdiByINKJaqTPH/QVNS1VDb" crossorigin="anonymous"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js" integrity="sha384-I6F5OKECLVtK/BL+8iSLDEHowSAfUo76ZL9+kGAgTRdiByINKJaqTPH/QVNS1VDb" crossorigin="anonymous"></script> -->
 
 <script type="text/javascript" src="/vendor/jildertmiedema/laravel-plupload/js/plupload.full.min.js"></script>
 <script type="text/javascript" src="/vendor/jildertmiedema/laravel-plupload/js/i18n/ru.js"></script>
@@ -16,21 +16,20 @@
 	<div class="row">
 
 <div class="col-md-6 file1_block">
-
     <div id="console"></div>
 
-
     <div id="container1">
-        <button type="button" class="btn btn-lg" id="pickfiles1" href="javascript:;">
-          <span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span> <div id="filelist1">Загрузить лицевую сторону *</div>
+        <button type="button" class="btn btn-lg" style="width:100%" id="pickfiles1" href="javascript:;">
+          <span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span> <div id="filelist1">Загрузить лицевую сторону</div>
         </button>
     </div>
 
-    <ul id="valid_file1"></ul>
+<input id="width_file1" type="hidden" name="width_file1">
+<input id="height_file1" type="hidden" name="height_file1">
 
 </div>
 
-<div class="col-md-6 file2_block">
+<!-- <div class="col-md-6 file2_block">
 
     <div id="console2"></div>
 
@@ -42,12 +41,13 @@
 
     <ul id="valid_file2"></ul>
 
-</div>
+</div> -->
 
 </div></div>
- 
-<script type="text/javascript">
 
+
+<script type="text/javascript">
+/*
 
 
 
@@ -180,5 +180,5 @@ var uploader2 = new plupload.Uploader({
 uploader.init();
 uploader2.init();
  
-
+*/
 </script>
