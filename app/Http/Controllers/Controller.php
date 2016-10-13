@@ -84,7 +84,7 @@ class Controller extends BaseController
             $this->tiff2jpg_convert($filename, $jpg);
         }
             
-            return false;
+            return readfile($jpg);
     }
 
    public function tiff($filename = null)
