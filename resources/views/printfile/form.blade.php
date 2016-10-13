@@ -48,6 +48,14 @@
  
 <script type="text/javascript">
 
+
+
+
+
+
+
+
+
 var uploader = new plupload.Uploader({
     runtimes : 'html5,flash,silverlight,html4',
      
@@ -93,14 +101,9 @@ var uploader = new plupload.Uploader({
     
 
         FileUploaded: function(up, file, response) {
-            
-        res = JSON.parse(response.response);
-            $( "#file1" ).val( res.result.fname );
 
-            $( "#valid_file1" ).html('');
-            $.each( res.result, function( key, value ) {
-                $( "#valid_file1" ).append( '<li>'+key+': '+value+'</li>' );
-            });
+        uploaderFileUploaded(up, file, response);
+
         },
 
         Error: function(up, err) {
@@ -177,4 +180,5 @@ var uploader2 = new plupload.Uploader({
 uploader.init();
 uploader2.init();
  
+
 </script>

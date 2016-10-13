@@ -609,6 +609,21 @@ $('.send2server').click(function( event ) {
 
 
 
+function uploaderFileUploaded(up, file, response) {
+                        
+        res = JSON.parse(response.response);
+            $( "#file1" ).val( res.result.fname );
+
+            $( "#valid_file1" ).html('');
+            $( "#width" ).val(res.result.width);
+            $( "#height" ).val(res.result.height);
+
+            $.each( res.result, function( key, value ) {
+                $( "#valid_file1" ).append( '<li>'+key+': '+value+'</li>' );
+            });
+        
+}
+
 
 
 
@@ -650,6 +665,14 @@ function CalcPrint() {
 
 }
 //END calc order and postpress
+
+
+
+
+
+
+
+
 
 
 

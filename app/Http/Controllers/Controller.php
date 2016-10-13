@@ -73,12 +73,12 @@ class Controller extends BaseController
             $data['XResolution'] = explode('/', $EXIF['XResolution']);
             $data['XResolution'] = $data['XResolution'][0] / $data['XResolution'][1];
             #$data['Ширина (DPI)'] = $data['XResolution'];
-            $data['Ширина (mm)'] = round($EXIF['ImageWidth']/($data['XResolution']/25.4), 2);
+            $data['width'] = ceil(round($EXIF['ImageWidth']/($data['XResolution']/25.4), 2));
 
             $data['YResolution'] = explode('/', $EXIF['YResolution']);
             $data['YResolution'] = $data['YResolution'][0] / $data['YResolution'][1];
             #$data['Высота (DPI)'] = $data['YResolution'];
-            $data['Высота (mm)'] = round($EXIF['ImageLength']/($data['YResolution']/25.4), 2);
+            $data['height'] = ceil(round($EXIF['ImageLength']/($data['YResolution']/25.4), 2));
 
             $data['Точек на дюйм'] = $data['XResolution']; 
 
