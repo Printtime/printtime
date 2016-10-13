@@ -54,6 +54,11 @@ class Controller extends BaseController
         return Catalog::with('products')->orderBy('order', 'asc')->get();
     }
 
+    public function print_preview_path_file($filename)
+    {
+        $name=explode(".", $filename, 2); 
+        return 'images/print_preview/'.$name[0].'.jpg';
+    }
 
     public function tiff2jpg_convert($filename, $jpg)
     {   
@@ -61,28 +66,25 @@ class Controller extends BaseController
         $path = storage_path('print/'.$filename);
 
         if (file_exists($path)) {
-            exec("convert ".$path." -strip -quality 80 -resize 256x256 ".$jpg." >/dev/null 2>/dev/null");
+            exec("convert -profile storage/icc/CMYK_Profiles/CoatedFOGRA27.icc ".$path." -strip -quality 80 -resize 256x256 -profile storage/icc/RGB_Profiles/AdobeRGB1998.icc ".$jpg." >/dev/null 2>/dev/null");
             sleep(1);
         }
 
-        return $jpg;
     }
 
    public function tiff2jpg($filename = null)
     {   
         header('Content-Type: image/jpeg');
 
-        $name=explode(".", $filename, 2); 
-        $jpg = 'images/print_preview/'.$name[0].'.jpg';
+        $jpg = $this->print_preview_path_file($filename);
 
         if (file_exists($jpg)) {
                 return readfile($jpg);
         } else {
-            tiff2jpg_convert($filename, $jpg);
+            $this->tiff2jpg_convert($filename, $jpg);
         }
             
             return false;
-
     }
 
    public function tiff($filename = null)
@@ -105,6 +107,9 @@ class Controller extends BaseController
 
             unset($data['XResolution']);
             unset($data['YResolution']);
+
+            $jpg = $this->print_preview_path_file($filename);
+            $this->tiff2jpg_convert($filename, $jpg);
 
             switch ($EXIF['MimeType']) {
                 case 'image/tiff':
