@@ -1,6 +1,7 @@
+{!! dd('Ремонт') !!}
+    
 
-
-@if($duplex)
+@if($order->typevar->type->product->order_vis)
 	2 file
 @else
 	1 file
@@ -9,10 +10,14 @@
 
 	<hr>
 
-@foreach($postpress_views as $postpress_view)
+@foreach($order->typevar->type->product->postpresss as $postpress_view)
+
+	{{ $postpress_view->name }}
+	{!! Form::select($postpress_view->name, $postpress_view->getData(), ['1','2','7']) !!}
+
 	{{ $postpress_view->id }}
 	<br>
-	{{ $postpress_view->name }}
+	
 	<br>
 	{{ $postpress_view->label }}
 	<br>

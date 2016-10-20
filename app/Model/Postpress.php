@@ -6,14 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Postpress extends Model
 {	
-	protected $table = 'postpress';
+  
+    protected $table = 'postpress';
     protected $fillable = ['name', 'label', 'f', 'view'];
-    
 
-
-   // public function order()
-   //  {
-   //      return $this->morphedByMany(Order::class, 'taggable');
-   //  }
+    public function getData()
+    {
+      $collection = $this->hasMany(PostpressData::class)->pluck('name', 'id');
+    	return $collection->prepend('Нет', 0);
+    }
 
 }

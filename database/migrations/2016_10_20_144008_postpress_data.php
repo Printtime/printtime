@@ -12,12 +12,14 @@ class PostpressData extends Migration
      */
     public function up()
     {
-        Schema::table('postpress_data', function ($table) {
+
+        Schema::create('postpress_data', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('postpress_id')->unsigned()->index();
-            $table->foreign('postpress_id')->references('id')->on('postpress');
             $table->string('name');
+            $table->integer('postpress_id')->unsigned();
+            $table->foreign('postpress_id')->references('id')->on('postpress');
         });
+
     }
 
     /**

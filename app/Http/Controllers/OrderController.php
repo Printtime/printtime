@@ -18,29 +18,6 @@ use Validator;
 
 class OrderController extends Controller
 {
-   public static function postpress_data()
-    {
-        $postpress_data['obrezka'] = [
-          '0' => 'Без обрезки',
-          '1' => 'Обрезать в размер'
-        ];
-
-        $postpress_data['luvers'] = [
-          '0' => 'Нет',
-          '1' => 'По углам',
-          '2' => 'По периметру',
-          '3' => 'Верх',
-          '4' => 'Верх и низ',
-          '5' => 'Лево и право',
-        ];
-
-        $postpress_data['podvorot'] = [
-          '0' => 'Нет',
-          '1' => 'Есть',
-        ];
-
-        return $postpress_data;
-    }
 
    public function index()
     {   
@@ -50,41 +27,28 @@ class OrderController extends Controller
 
    public function show($id)
     {   
-        $postpress_data = $this->postpress_data();
         $order = Order::with('typevar', 'status')->where('user_id', auth()->user()->id)->find($id);
-        return view('user.order.show', compact('order', 'postpress_data'));
+        return view('user.order.show', compact('order'));
     }
 
    public function edit($id)
     {   
 
         $order = Order::with('typevar', 'status')->where('user_id', auth()->user()->id)->find($id);
-
+        
         return view('user.order.edit', [
             'order'=>$order,
-            'postpress_views'=>$order->typevar->type->product->postpresss,
-            'duplex'=>$order->typevar->type->product->order_vis,
+            #'postpress_views'=>$order->typevar->type->product->postpresss,
+            #'duplex'=>$order->typevar->type->product->order_vis,
             ]);
         
-        dd($order->typevar->type->product->postpresss);
-
-        $typevar = Type::findOrFail('1');
-        dd($typevar->product->postpresss);
-        #$postpress_data = $this->postpress_data();
-        $order = Order::with('typevar', 'status')->where('user_id', auth()->user()->id)->find($id);
-        dd($order->typevar->type->product->postpresss);
-        #return view('user.order.edit', compact('order', 'postpress_data'));
     }
 
 
    public function create($id)
     {	
-        $typevar = TypeVar::findOrFail($id);
-        $postpress_data = $this->postpress_data();
-        $postpress = Postpress::where('product_id', $typevar->type->product_id)->get();
-        $postpressview = Postpress::where('product_id', $typevar->type->product_id)->groupBy('view')->get();
-        
-    	return view('user.order.create',  compact('typevar', 'postpress', 'postpressview', 'postpress_data'));
+        $value = TypeVar::findOrFail($id);
+        return view('user.order.create', compact('value'));
     }
 
    public function setStatus($id, $status)

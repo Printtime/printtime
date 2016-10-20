@@ -25,11 +25,11 @@ class Order extends Model
         return $this->belongsTo(Status::class);
     }
 
+
     public function getPostpress()
     {
         return $this->morphToMany(Postpress::class, 'postpressgable', 'postpressgables',  'postpress_id', 'postpressgable_id')->withPivot('var');
     }
-
 
     public function postpress()
     {

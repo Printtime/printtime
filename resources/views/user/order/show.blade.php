@@ -21,9 +21,11 @@
 
 		@if(count($order->getPostpress) >= 1)
 			<h3>Постработы</h3>
-			@foreach($order->getPostpress as $postpress)
-			<p>{!! $postpress->label !!}: {!! $postpress_data[$postpress->name][$postpress->pivot->var] !!}</p>
-			@endforeach
+
+				@foreach($order->getPostpress as $postpress_view)
+						<p>{!! $postpress_view->label !!}: {{ $postpress_view->getData()[$postpress_view->pivot->var] }}</p>
+				@endforeach
+				
 		@endif
 
 
