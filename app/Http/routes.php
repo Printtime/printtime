@@ -161,6 +161,17 @@ Route::group(['prefix' => 'management'], function () {
 		'roles'=> ['admin','user'],
 		]);
 
+	Route::get('order/edit/{id}', [
+		'uses'=>'OrderController@edit',
+		'as'=> 'order.edit',
+		'roles'=> ['admin','user'],
+		]);
+
+	Route::get('/order/pay/{order_id}/{confirm?}', [
+		'uses'=>'PayController@orderPay',
+		'as'=> 'pay.orderPay',
+		'roles'=> ['admin', 'user', 'designer', 'printer'],
+		]);
 
 
 	/*LiqPay Route*/
@@ -179,7 +190,6 @@ Route::group(['prefix' => 'management'], function () {
 		'as'=> 'pay.result_url',
 		'roles'=> ['admin', 'user', 'designer', 'printer'],
 		]);
-
 
 
 	Route::get('pays', [

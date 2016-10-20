@@ -45,15 +45,26 @@ class OrderController extends Controller
    public function index()
     {   
         $orders = Order::with('typevar', 'status')->where('user_id', auth()->user()->id)->orderBy('id', 'desc')->paginate('20');
-        return view('order.index', compact('orders'));
+        return view('user.order.index', compact('orders'));
     }
 
    public function show($id)
     {   
         $postpress_data = $this->postpress_data();
         $order = Order::with('typevar', 'status')->where('user_id', auth()->user()->id)->find($id);
-        return view('user.order', compact('order', 'postpress_data'));
+        return view('user.order.show', compact('order', 'postpress_data'));
     }
+
+   public function edit($id)
+    {   
+        $typevar = Type::findOrFail('1');
+        dd($typevar->product->postpresss);
+        #$postpress_data = $this->postpress_data();
+        $order = Order::with('typevar', 'status')->where('user_id', auth()->user()->id)->find($id);
+        dd($order->typevar->type->product->postpresss);
+        #return view('user.order.edit', compact('order', 'postpress_data'));
+    }
+
 
    public function create($id)
     {	
@@ -62,7 +73,7 @@ class OrderController extends Controller
         $postpress = Postpress::where('product_id', $typevar->type->product_id)->get();
         $postpressview = Postpress::where('product_id', $typevar->type->product_id)->groupBy('view')->get();
         
-    	return view('order.create',  compact('typevar', 'postpress', 'postpressview', 'postpress_data'));
+    	return view('user.order.create',  compact('typevar', 'postpress', 'postpressview', 'postpress_data'));
     }
 
    public function setStatus($id, $status)

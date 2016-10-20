@@ -548,17 +548,18 @@ a.thumbnail:hover, a.thumbnail:focus, a.thumbnail.active {
 }
 
 
-
 /* Status */
+	.status0 { background-color: #EEEEEE; } //Нет
 	.status1 { background-color: #ffc000; } //Проверяется
 	.status2 { background-color: #a600a4; } //В работе
 	.status3 { background-color: #00a6eb; } //Готово
 	.status4 { background-color: #00bc96; } //На складе
 	.status5 { background-color: #04bb00; } //Отправлено
-	.status6 { background-color: #437028; } //Получено
+	.status6 { background-color: #4f9e20; } //Получено
 	.status7 { background-color: #bc0000; } //Отмена
+	.status8 { background-color: #777777; } //Ждет оплаты
 
-
+	.statusGreen { background-color: #4f9e20; }
 
 
 /* postpress */

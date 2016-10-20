@@ -530,7 +530,6 @@ $.ajaxSetup({
 
 
 
-
     $(".ajax-pay").click(function( event ) {
 
         event.preventDefault();
@@ -615,6 +614,8 @@ function uploaderFileUploaded(up, file, response) {
 
         $( "#file1" ).val( res.result.fname );
 
+        delete res.result.fname;
+        
         consoledata = '<div class="console alert alert-success" role="alert"><div id="res"></div></div>';
 
         $("#console").html(consoledata);

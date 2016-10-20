@@ -6152,6 +6152,9 @@ a.thumbnail:hover, a.thumbnail:focus, a.thumbnail.active {
   margin: 30px auto; }
 
 /* Status */
+.status0 {
+  background-color: #EEEEEE; }
+
 .status1 {
   background-color: #ffc000; }
 
@@ -6168,10 +6171,16 @@ a.thumbnail:hover, a.thumbnail:focus, a.thumbnail.active {
   background-color: #04bb00; }
 
 .status6 {
-  background-color: #437028; }
+  background-color: #4f9e20; }
 
 .status7 {
   background-color: #bc0000; }
+
+.status8 {
+  background-color: #777777; }
+
+.statusGreen {
+  background-color: #4f9e20; }
 
 /* postpress */
 .postpress-background {

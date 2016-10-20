@@ -15,8 +15,8 @@
       </ul>
 
       <ul class="nav navbar-nav navbar-right">
-		<li{{ Helper::setActive('pays') }}><a href="{!! route('pays') !!}"><span class="glyphicon glyphicon-stats"></span> История операций</a></li>
 		<li{{ Helper::setActive('user/transfer') }}><a href="{!! route('user.transfer') !!}" class="ajax-pay" data-toggle="modal" data-target="#open-modal-pay"><span class="glyphicon glyphicon-transfer"></span> Пополнить баланс</a></li>
+    <li{{ Helper::setActive('pays') }}><a href="{!! route('pays') !!}"><span class="glyphicon glyphicon-stats"></span> История операций</a></li>
       </ul>
 
   </div>

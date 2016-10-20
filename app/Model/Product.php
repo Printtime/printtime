@@ -47,5 +47,9 @@ class Product extends Model
         $this->attributes['photo'] = implode(',', $photo);
     }
 
+    public function postpresss()
+    {
+        return $this->belongsToMany(Postpress::class);
+    }
 
 }

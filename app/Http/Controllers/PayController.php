@@ -9,6 +9,7 @@ use Auth;
 use LiqPay;
 use App\Pay;
 use App\User;
+use App\Model\Order;
 
 class PayController extends Controller
 {
@@ -28,11 +29,47 @@ class PayController extends Controller
         $this->liqpay_status = getenv('LIQPAY_STATUS');
     }
 
+    public function orderPay($order_id, $confirm = false)
+    {   
 
+            $order = Order::with('typevar', 'status')
+            ->where('user_id', auth()->user()->id)
+            ->where('status_id', '8')
+            ->findOrfail($order_id);
+
+        if ($confirm == 'confirm') {
+
+            if ($order->sum > auth()->user()->balance) {
+                $no_money = auth()->user()->balance - $order->sum;
+                return redirect()->route('order.index')->withErrors(['sum'=>'На вашем балансе нехватает '.$no_money.' грн.'])->withInput();
+            } else {
+                $user = auth()->user();
+                $user->balance = $user->balance - $order->sum;
+                $user->save();
+
+                $order->status_id = '1';
+                $order->save();
+
+                $pay = new Pay();
+                $pay->status = 'local';
+                $pay->user_id = auth()->user()->id;
+                $pay->amount = $order->sum; 
+                $pay->type = 'sell';
+                $pay->description = 'Списание '.$order->sum.' за заказа №'.$order->id.'';
+                $pay->save();
+
+            }
+
+            return redirect()->route('order.index');
+
+        } else {
+            return view('pay.order',  compact('order'));
+        }
+    }
 
     public function index()
     {   
-        $pays = Pay::where('user_id', auth()->user()->id)->orderBy('created_at', 'desc')->paginate(15);
+        $pays = Pay::where('user_id', auth()->user()->id)->orderBy('created_at', 'desc')->paginate(20);
         return view('pay.index',  compact('pays'));
     }
 

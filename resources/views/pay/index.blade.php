@@ -13,6 +13,7 @@
 		<tr>
 			<th>Номер счета</th>
 			<th>Сумма</th>
+			<th>Описание</th>
 			<th>Статус</th>
 			<th>Тип операции</th>
 			<th>Дата и время</th>
@@ -22,9 +23,10 @@
 
 
 	@foreach($pays as $pay)
-	<tr>
+	<tr class="@if($pay->type == 'buy' and $pay->status !='failure') success @endif @if($pay->type == 'sell') info @endif">
 		<td>{!! $pay->id !!}</td>
-		<td>{!! $pay->amount !!}</td>
+		<td>@if($pay->type == 'sell')-@endif{!! $pay->amount !!}</td>
+		<td>{!! $pay->description !!}</td>
 		<td>{!! $pay->status !!}</td>
 		<td>{!! $pay->type !!}</td>
 		<td>{!! $pay->created_at !!}</td>

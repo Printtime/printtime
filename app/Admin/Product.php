@@ -2,6 +2,7 @@
 
 use App\Model\Product;
 use App\Model\Catalog;
+use App\Model\Postpress;
 use SleepingOwl\Admin\Model\ModelConfiguration;
 
 AdminSection::registerModel(Product::class, function (ModelConfiguration $model) {
@@ -51,7 +52,9 @@ AdminSection::registerModel(Product::class, function (ModelConfiguration $model)
                 ->setWidth('100px'),
                 
                 #php artisan vendor:publish --tag=assets --force
-                AdminColumnEditable::checkbox('order_vis')->setLabel('Published'),
+
+                AdminColumn::lists('postpresss.label')->setLabel('Postpress')->setWidth('100px'),
+                AdminColumnEditable::checkbox('order_vis')->setLabel('Duplex')->setWidth('64px'),
 
         ]);
         
@@ -68,8 +71,9 @@ AdminSection::registerModel(Product::class, function (ModelConfiguration $model)
             AdminFormElement::wysiwyg('content', 'Содержимое'),
             AdminFormElement::image('avatar', 'Аватар'),
            AdminFormElement::images('photo', 'Фото'),
-           AdminFormElement::checkbox('order_vis', 'Отображать списке услуг для заказа'),
-            AdminFormElement::text('order_name', 'Название в списке услуг для заказа'),
+           AdminFormElement::checkbox('order_vis', 'Возможна двусторонняя печать'),
+           // AdminFormElement::text('order_name', 'Название в списке услуг для заказа'),
+            AdminFormElement::multiselect('postpresss', 'Postpress')->setModelForOptions(new Postpress())->setDisplay('label'),
         ]);
 
 
