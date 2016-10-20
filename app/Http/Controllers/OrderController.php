@@ -57,6 +57,17 @@ class OrderController extends Controller
 
    public function edit($id)
     {   
+
+        $order = Order::with('typevar', 'status')->where('user_id', auth()->user()->id)->find($id);
+
+        return view('user.order.edit', [
+            'order'=>$order,
+            'postpress_views'=>$order->typevar->type->product->postpresss,
+            'duplex'=>$order->typevar->type->product->order_vis,
+            ]);
+        
+        dd($order->typevar->type->product->postpresss);
+
         $typevar = Type::findOrFail('1');
         dd($typevar->product->postpresss);
         #$postpress_data = $this->postpress_data();
