@@ -36,8 +36,13 @@ class OrderController extends Controller
 
         $order = Order::with('typevar', 'status')->where('user_id', auth()->user()->id)->find($id);
         
-        return view('user.order.edit', [
+        #$order->typevar->type->height = $order->height;
+        #$order->typevar->type->width = $order->width;
+
+        return view('user.order.create', [
             'order'=>$order,
+            'value'=>$order->typevar,
+            'getPostpressArr'=>$order->getPostpressArr(),
             #'postpress_views'=>$order->typevar->type->product->postpresss,
             #'duplex'=>$order->typevar->type->product->order_vis,
             ]);
@@ -48,7 +53,8 @@ class OrderController extends Controller
    public function create($id)
     {	
         $value = TypeVar::findOrFail($id);
-        return view('user.order.create', compact('value'));
+        $getPostpressArr = null;
+        return view('user.order.create', compact('value', 'getPostpressArr'));
     }
 
    public function setStatus($id, $status)
@@ -64,6 +70,47 @@ class OrderController extends Controller
         }
         return back();
     }
+
+
+   public function update(Request $request, $id)
+    {   
+
+
+
+        $validator = Validator::make($request->all(), [
+            'title' => 'required',
+            'sum' => 'required|min:1',
+        ], []);
+
+        if ($validator->fails()) {
+                return back()->withErrors($validator)->withInput();
+        }
+            
+            $order = Order::findOrFail($id);
+            $order->title = $request->title;
+            $order->comment = $request->comment;
+            $order->status_id = 8;
+            $order->count = $request->count;
+            $order->width = $request->width;
+            $order->height = $request->height;
+            $order->sum = $request->sum;
+            $order->save();
+
+            if(isset($request->postpress)) {
+                $postpress = [];
+                foreach ($request->postpress as $key => $value) {
+                    if($value != 0) { $postpress[$key] = ['var'=>$value]; }
+                }
+                $order->postpress()->sync($postpress);
+            }
+
+
+            PrintFile::where('filename', $request->file1)->update(['order_id' => $order->id, 'side' => '1']);
+            PrintFile::where('filename', $request->file2)->update(['order_id' => $order->id, 'side' => '2']);
+
+          return redirect()->route('order.index');
+    }
+
 
    public function save(Request $request, $id)
     {	

@@ -216,6 +216,7 @@ var uploader = new plupload.Uploader({
         },
  
         FilesAdded: function(up, files) {
+            $('#container1 .thumbnail').remove();
             res_data = '<div id="' + files[0].id + '">' + files[0].name + ' - ' + plupload.formatSize(files[0].size) + ' - <b></b></div>';
             $('#filelist1').html(res_data);
             up.start();

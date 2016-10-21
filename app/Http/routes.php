@@ -154,7 +154,11 @@ Route::group(['prefix' => 'management'], function () {
 		'as'=> 'order.save',
 		'roles'=> ['admin', 'user', 'designer', 'printer'],
 		]);
-
+	Route::post('order/update/{id}', [
+		'uses'=>'OrderController@update',
+		'as'=> 'order.update',
+		'roles'=> ['admin', 'user', 'designer', 'printer'],
+		]);
 	Route::get('order/show/{id}', [
 		'uses'=>'OrderController@show',
 		'as'=> 'order.show',

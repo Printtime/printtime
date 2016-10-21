@@ -31,29 +31,15 @@ class Order extends Model
         return $this->morphToMany(Postpress::class, 'postpressgable', 'postpressgables',  'postpress_id', 'postpressgable_id')->withPivot('var');
     }
 
+    public function getPostpressArr()
+    {
+        $arr = $this->morphToMany(Postpress::class, 'postpressgable', 'postpressgables',  'postpress_id', 'postpressgable_id')->withPivot('var')->pluck('var')->toArray();
+        return array_values($arr);
+    }
+
     public function postpress()
     {
         return $this->morphToMany(Order::class, 'postpressgable', 'postpressgables',  'postpress_id', 'postpressgable_id')->withPivot('var');
     }
 
-
-    // public function pp()
-    // {
-    //     return $this->belongsTo(Postpress::class);
-    // }
-
-    // public function postpress()
-    // {
-    //     return $this->morphToMany(Postpress::class, 'postpress', 'postpressgables',  'postpress_id', 'postpressgable_id');
-    // }
-
-    // public function postpress()
-    // {
-    //     return $this->hasMany(Postpress::class);
-    // }
-
-    // public function postpressvar()
-    // {
-    //     return $this->morphToMany(Postpress::class, 'taggable');
-    // }  
 }

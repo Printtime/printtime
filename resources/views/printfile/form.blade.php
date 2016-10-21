@@ -1,6 +1,8 @@
 
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js" integrity="sha384-I6F5OKECLVtK/BL+8iSLDEHowSAfUo76ZL9+kGAgTRdiByINKJaqTPH/QVNS1VDb" crossorigin="anonymous"></script> -->
 
+
+
 <script type="text/javascript" src="/vendor/jildertmiedema/laravel-plupload/js/plupload.full.min.js"></script>
 <script type="text/javascript" src="/vendor/jildertmiedema/laravel-plupload/js/i18n/ru.js"></script>
 
@@ -21,12 +23,13 @@
 
     <div id="container1">
         <button type="button" class="btn btn-lg" style="width:100%" id="pickfiles1" href="javascript:;">
-          <span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span> <div id="filelist1">Загрузить лицевую сторону</div>
+            @if(isset($order->files[0]))<div class="text-center thumbnail"><img src="{{ route('system.tiff2jpg', ['filename' => $order->files[0]->filename]) }}"></div>@endif
+          <span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span> <div id="filelist1">{{ $order->files[0]->name or 'Загрузить лицевую сторону' }}</div>
         </button>
     </div>
 
-<input id="width_file1" type="hidden" name="width_file1">
-<input id="height_file1" type="hidden" name="height_file1">
+<input id="width_file1" type="hidden" name="width_file1" value="{{ $order->files[0]->width or null }}">
+<input id="height_file1" type="hidden" name="height_file1" value="{{ $order->files[0]->height or null }}">
 
 </div>
 

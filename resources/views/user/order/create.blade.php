@@ -14,14 +14,17 @@
 <div class="row">
 	<div class="col-sm-12">
 	<br>
-{{ Form::open(array('route' => array('order.save', $value->id))) }}
 
-
+@if(isset($order->id))
+  {{ Form::open(array('route' => array('order.update', $order->id))) }}
+@else
+  {{ Form::open(array('route' => array('order.save', $value->id))) }}
+@endif
 
 
   <div class="form-group">
     <label for="title">Название заказа</label>
-    <input value="{{ old('title') }}" required="required" name="title" type="text" class="form-control" id="title" placeholder="Укажите название заказа">
+    <input value="{{ $order->title or null }}" required="required" name="title" type="text" class="form-control" id="title" placeholder="Укажите название заказа">
   </div>
 
 <label>Макет</label>
@@ -39,7 +42,7 @@
     <label class="sr-only" for="width">Ширина</label>
     <div class="input-group">
       <div class="input-group-addon">Ширина</div>
-      <input name="width" type="number" step="1" class="calc form-control text-center input-lg" id="width" value="{{ $value->type->width }}">
+      <input name="width" type="number" step="1" class="calc form-control text-center input-lg" id="width" value="{{ $order->width or $value->type->width }}">
       <div class="input-group-addon"> мм.</div>
     </div>
   </div>
@@ -47,7 +50,7 @@
     <label class="sr-only" for="height">Высота</label>
     <div class="input-group">
       <div class="input-group-addon">Высота</div>
-      <input name="height" type="number" step="1" class="calc form-control text-center input-lg" id="height" value="{{ $value->type->height }}">
+      <input name="height" type="number" step="1" class="calc form-control text-center input-lg" id="height" value="{{ $order->height or $value->type->height }}">
       <div class="input-group-addon"> мм.</div>
     </div>
   </div>
@@ -56,7 +59,7 @@
     <label class="sr-only" for="count">Количество</label>
     <div class="input-group">
       <div class="input-group-addon">Количество</div>
-      <input name="count" type="number" min="1" class="calc form-control text-center input-lg" id="count" value="1">
+      <input name="count" type="number" min="1" class="calc form-control text-center input-lg" id="count" value="{{ $order->count or '1' }}">
       <div class="input-group-addon"> шт.</div>
     </div>
   </div>
@@ -82,11 +85,8 @@
 $(function(){
 
 
-// $('.file2_block').hide();
+function calc_postpress() {
 
-    $("input, select").each(function () {
-
-      $(this).change(function () {
 
         price = $("#price").text();
 
@@ -198,14 +198,25 @@ $(function(){
         $("#sum").text(sum.toFixed(2));
         $("#sumPay").val(sum.toFixed(2));
 
-       });
+       
+
+}
+
+
+// $('.file2_block').hide();
+
+    $("input, select").each(function () {
+
+      $(this).change(function () {
+          calc_postpress();
+      });
 
 
 
     });
 
 
-
+calc_postpress();
 
 });
 
@@ -217,7 +228,7 @@ $(function(){
 
   <tr>
     <td>{{ $pp->label }}</td>
-    <td>{!! Form::select($pp->name, $pp->getData(), null, ['class'=>'form-control', 'id'=>$pp->name]) !!}</td>
+    <td>{!! Form::select('postpress['.$pp->id.']', $pp->getData(), $getPostpressArr, ['class'=>'form-control', 'id'=>$pp->name]) !!}</td>
     <td>
       @if($pp->f) <span id="f{!! $pp->name !!}">{!! $pp->f !!}</span> грн/м погонный @endif
     </td>
@@ -239,7 +250,7 @@ $(function(){
 <table class="table table-striped">
 <tr>
 	<td>Печать</td>
-	<td><span id="print">{{ $value->price }}</span> грн. (<span id="area">{{ ($value->type->height * $value->type->width)/1000000 }}</span> м2)</td>
+	<td><span id="print">{{ $value->price }}</span> грн. (<span id="area">{{ round(($value->type->height * $value->type->width)/1000000, 2) }}</span> м2)</td>
 </tr>
 <tr>
 	<td>Постработы</td>
@@ -259,7 +270,7 @@ $(function(){
 </tr>
 <tr>
 	<td>Итого к оплате</td>
-	<td><b id="sum">{{ $value->price - $value->price * Auth::user()->discount / 100 }}</b> грн.</td>
+	<td><b id="sum">{{ $order->sum or $value->price - $value->price * Auth::user()->discount / 100 }}</b> грн.</td>
 </tr>
 </table>
 
