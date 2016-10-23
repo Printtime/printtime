@@ -22,6 +22,11 @@ class PayController extends Controller
         $this->getkey();
     }
 
+    public function payAdd() 
+    {   
+        return dd($this);
+    } 
+
    private function getkey()
     {
         $this->public_key = getenv('LIQPAY_PUBLIC_KEY');

@@ -35,7 +35,7 @@ class UserController extends Controller
             'phone' => $request->phone
         ]);
 
-        if($request->password) { $user->password = $request->password; }
+        if($request->password) { $user->password = bcrypt($request->password); }
         $user->save();
 
         return back();

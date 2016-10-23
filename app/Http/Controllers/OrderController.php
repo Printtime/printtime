@@ -35,11 +35,12 @@ class OrderController extends Controller
     {   
 
         $order = Order::with('typevar', 'status')->where('user_id', auth()->user()->id)->find($id);
-        
-        return view('user.order.edit', [
+        $order->setStatus(8);
+
+        return view('user.order.create', [
             'order'=>$order,
-            #'postpress_views'=>$order->typevar->type->product->postpresss,
-            #'duplex'=>$order->typevar->type->product->order_vis,
+            'value'=>$order->typevar,
+            'getPostpressArr'=>$order->getPostpressArr(),
             ]);
         
     }
@@ -48,7 +49,8 @@ class OrderController extends Controller
    public function create($id)
     {	
         $value = TypeVar::findOrFail($id);
-        return view('user.order.create', compact('value'));
+        $getPostpressArr = null;
+        return view('user.order.create', compact('value', 'getPostpressArr'));
     }
 
    public function setStatus($id, $status)
@@ -65,29 +67,60 @@ class OrderController extends Controller
         return back();
     }
 
-   public function save(Request $request, $id)
-    {	
 
-        $messages = [
-            'file1.required' => 'Загрузите файл макета, кликнув на "Загрузить лицевую сторону"',
-        ];
+   public function update(Request $request, $id)
+    {   
+
+
 
         $validator = Validator::make($request->all(), [
             'title' => 'required',
-            //'file1' => 'required',
             'sum' => 'required|min:1',
-        ], $messages);
+        ], []);
+
+        if ($validator->fails()) {
+                return back()->withErrors($validator)->withInput();
+        }
+            
+            $order = Order::findOrFail($id);
+            $order->title = $request->title;
+            $order->comment = $request->comment;
+            $order->status_id = 8;
+            $order->count = $request->count;
+            $order->width = $request->width;
+            $order->height = $request->height;
+            $order->sum = $request->sum;
+            $order->save();
+
+            if(isset($request->postpress)) {
+                $postpress = [];
+                foreach ($request->postpress as $key => $value) {
+                    if($value != 0) { $postpress[$key] = ['var'=>$value]; }
+                }
+                $order->postpress()->sync($postpress);
+            }
+
+
+            PrintFile::where('filename', $request->file1)->update(['order_id' => $order->id, 'side' => '1']);
+            PrintFile::where('filename', $request->file2)->update(['order_id' => $order->id, 'side' => '2']);
+
+          return redirect()->route('order.index');
+    }
+
+
+   public function save(Request $request, $id)
+    {	
+
+
+        $validator = Validator::make($request->all(), [
+            'title' => 'required',
+            'sum' => 'required|min:1',
+        ], []);
 
         if ($validator->fails()) {
                 return back()->withErrors($validator)->withInput();
         }
            
-           /*
-            if ($request->sum > auth()->user()->balance) {
-                $no_money = auth()->user()->balance - $request->sum;
-                return back()->withErrors(['sum'=>'На вашем балансе нехватает '.$no_money.' грн.'])->withInput();
-            }
-            */
 
             $order = new Order;
             $order->title = $request->title;
@@ -102,23 +135,13 @@ class OrderController extends Controller
             $order->save();
 
 
-            if($request->obrezka) {
-                $obrezka_obj = Postpress::where('name', 'obrezka')->first();
-                $order->postpress()->attach([ $obrezka_obj->id =>['var'=>$request->obrezka]]);
+            if(isset($request->postpress)) {
+                $postpress = [];
+                foreach ($request->postpress as $key => $value) {
+                    if($value != 0) { $postpress[$key] = ['var'=>$value]; }
+                }
+                $order->postpress()->sync($postpress);
             }
-            if($request->luvers) {
-                $luvers_obj = Postpress::where('name', 'luvers')->first();
-                $order->postpress()->attach([ $luvers_obj->id =>['var'=>$request->luvers]]);
-            }
-            if($request->podvorot) {
-                $podvorot_obj = Postpress::where('name', 'podvorot')->first();
-                $order->postpress()->attach([ $podvorot_obj->id =>['var'=>$request->podvorot]]);
-            }
-
-
-            #$user = auth()->user();
-            #$user->balance = $user->balance - $request->sum;
-            #$user->save();
 
             PrintFile::where('filename', $request->file1)->update(['order_id' => $order->id, 'side' => '1']);
             PrintFile::where('filename', $request->file2)->update(['order_id' => $order->id, 'side' => '2']);

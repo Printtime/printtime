@@ -5,6 +5,7 @@ namespace App\Model;
 use Illuminate\Database\Eloquent\Model;
 
 use App\Model\PrintFile;
+use App\User;
 
 class Order extends Model
 {
@@ -31,29 +32,60 @@ class Order extends Model
         return $this->morphToMany(Postpress::class, 'postpressgable', 'postpressgables',  'postpress_id', 'postpressgable_id')->withPivot('var');
     }
 
+    public function getPostpressArr()
+    {
+        $arr = $this->morphToMany(Postpress::class, 'postpressgable', 'postpressgables',  'postpress_id', 'postpressgable_id')->withPivot('var')->pluck('var')->toArray();
+        return array_values($arr);
+    }
+
     public function postpress()
     {
         return $this->morphToMany(Order::class, 'postpressgable', 'postpressgables',  'postpress_id', 'postpressgable_id')->withPivot('var');
     }
 
+    public function payAdd() {
+        $user = User::find($this->user_id);
+        if($user->balance >= $this->sum) {
+            $user->balance = $user->balance - $this->sum;
+            $user->save();
+            return true;
+        }
+        return false;
+    }
+    
+    public function payBack() {
+        $user = User::find($this->user_id);
+        $user->balance = $user->balance + $this->sum;
+        $user->save();
+        return true;
+    }
+    
+    public function setStatus($new_status_id) 
+    {   
 
-    // public function pp()
-    // {
-    //     return $this->belongsTo(Postpress::class);
-    // }
 
-    // public function postpress()
-    // {
-    //     return $this->morphToMany(Postpress::class, 'postpress', 'postpressgables',  'postpress_id', 'postpressgable_id');
-    // }
+            $rulesStatus = collect([
+                ['status' => 8, 'new_status' => 1, 'function' => 'payAdd'],
+                ['status' => 1, 'new_status' => 8, 'function' => 'payBack'],
+                ['status' => 1, 'new_status' => 7, 'function' => 'payBack'],
+            ]);
 
-    // public function postpress()
-    // {
-    //     return $this->hasMany(Postpress::class);
-    // }
+            $rulesStatus = $rulesStatus->where('status', 1)->where('new_status', 8);
+            if($rulesStatus->first()['function']) {
+                $function = $rulesStatus->first()['function'];
+                $this->$function();
+            }
 
-    // public function postpressvar()
-    // {
-    //     return $this->morphToMany(Postpress::class, 'taggable');
-    // }  
+            return dd('true');
+            dd(array_search('1', $rulesStatus));
+
+                    $res = $rulesStatus->where('8');
+                        dd($res);
+
+                    dd($rulesStatus[$this->status_id][$new_status_id]);
+                    $this->title = $rulesStatus[$this->status_id]['function']; 
+                    #$this->save();
+                   # return dd($this);
+                } 
+
 }
