@@ -35,12 +35,14 @@ class OrderController extends Controller
     {   
 
         $order = Order::with('typevar', 'status')->where('user_id', auth()->user()->id)->find($id);
-        $order->setStatus(8);
+
+        //$order->setStatus(8);
 
         return view('user.order.create', [
             'order'=>$order,
             'value'=>$order->typevar,
             'getPostpressArr'=>$order->getPostpressArr(),
+
             ]);
         
     }

@@ -43,6 +43,7 @@ class Order extends Model
         return $this->morphToMany(Order::class, 'postpressgable', 'postpressgables',  'postpress_id', 'postpressgable_id')->withPivot('var');
     }
 
+
     public function payAdd() {
         $user = User::find($this->user_id);
         if($user->balance >= $this->sum) {
@@ -75,17 +76,8 @@ class Order extends Model
                 $function = $rulesStatus->first()['function'];
                 $this->$function();
             }
+            
+  } 
 
-            return dd('true');
-            dd(array_search('1', $rulesStatus));
-
-                    $res = $rulesStatus->where('8');
-                        dd($res);
-
-                    dd($rulesStatus[$this->status_id][$new_status_id]);
-                    $this->title = $rulesStatus[$this->status_id]['function']; 
-                    #$this->save();
-                   # return dd($this);
-                } 
 
 }

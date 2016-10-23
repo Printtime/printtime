@@ -202,6 +202,15 @@ function calc_postpress() {
 
 
 // $('.file2_block').hide();
+<<<<<<< HEAD
+
+    $("input, select").each(function () {
+
+      $(this).change(function () {
+          calc_postpress();
+      });
+=======
+>>>>>>> 83b9a75b56682fc4bed5c133259befdd53198ec7
 
     $("input, select").each(function () {
 
@@ -214,6 +223,12 @@ function calc_postpress() {
     });
 
 
+<<<<<<< HEAD
+    });
+
+
+=======
+>>>>>>> 83b9a75b56682fc4bed5c133259befdd53198ec7
 calc_postpress();
 
 });
