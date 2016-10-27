@@ -36,7 +36,7 @@ class OrderController extends Controller
 
         $order = Order::with('typevar', 'status')->where('user_id', auth()->user()->id)->find($id);
 
-        //$order->setStatus(8);
+        $order->setStatus(8);
 
         return view('user.order.create', [
             'order'=>$order,
@@ -47,6 +47,12 @@ class OrderController extends Controller
         
     }
 
+   public function delete($id)
+    {   
+        $order = Order::with('typevar', 'status')->where('user_id', auth()->user()->id)->find($id);
+        $order->setStatus(7);
+        return redirect()->route('order.index');
+    }
 
    public function create($id)
     {	
@@ -55,6 +61,7 @@ class OrderController extends Controller
         return view('user.order.create', compact('value', 'getPostpressArr'));
     }
 
+/*
    public function setStatus($id, $status)
     {   
         $order = Order::find($id);
@@ -68,7 +75,7 @@ class OrderController extends Controller
         }
         return back();
     }
-
+*/
 
    public function update(Request $request, $id)
     {   
@@ -103,8 +110,8 @@ class OrderController extends Controller
             }
 
 
-            PrintFile::where('filename', $request->file1)->update(['order_id' => $order->id, 'side' => '1']);
-            PrintFile::where('filename', $request->file2)->update(['order_id' => $order->id, 'side' => '2']);
+            PrintFile::where('filename', $request->file0)->update(['order_id' => $order->id, 'side' => '1']);
+            PrintFile::where('filename', $request->file1)->update(['order_id' => $order->id, 'side' => '2']);
 
           return redirect()->route('order.index');
     }
@@ -145,8 +152,8 @@ class OrderController extends Controller
                 $order->postpress()->sync($postpress);
             }
 
-            PrintFile::where('filename', $request->file1)->update(['order_id' => $order->id, 'side' => '1']);
-            PrintFile::where('filename', $request->file2)->update(['order_id' => $order->id, 'side' => '2']);
+            PrintFile::where('filename', $request->file0)->update(['order_id' => $order->id, 'side' => '1']);
+            PrintFile::where('filename', $request->file1)->update(['order_id' => $order->id, 'side' => '2']);
 
           return redirect()->route('order.index');
     }

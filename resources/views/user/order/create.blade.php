@@ -30,7 +30,26 @@
 <label>Макет</label>
 <p>Расширения tif/tiff, субтрактивная схема формирования цвета CMYK, размер файла не более 2 Гб.</p>
 <div class="row">
-	@include('printfile.form')
+
+
+    <script type="text/javascript" src="/vendor/jildertmiedema/laravel-plupload/js/plupload.full.min.js"></script>
+    <script type="text/javascript" src="/vendor/jildertmiedema/laravel-plupload/js/i18n/ru.js"></script>
+
+        <input id="file0" type="hidden" name="file0">
+        <input id="file1" type="hidden" name="file1">
+
+    <div class="container">
+      <div class="row">
+
+        @include('printfile.form', ['side' => '0', 'side_name'=>'Загрузить лицевую сторону'])
+      @if($value->type->product->order_vis)
+        @include('printfile.form', ['side' => '1', 'side_name'=>'Загрузить обратную сторону'])
+      @endif
+
+    </div></div>
+
+
+
 </div>
 
 <br>
@@ -202,15 +221,7 @@ function calc_postpress() {
 
 
 // $('.file2_block').hide();
-<<<<<<< HEAD
 
-    $("input, select").each(function () {
-
-      $(this).change(function () {
-          calc_postpress();
-      });
-=======
->>>>>>> 83b9a75b56682fc4bed5c133259befdd53198ec7
 
     $("input, select").each(function () {
 
@@ -223,12 +234,7 @@ function calc_postpress() {
     });
 
 
-<<<<<<< HEAD
-    });
 
-
-=======
->>>>>>> 83b9a75b56682fc4bed5c133259befdd53198ec7
 calc_postpress();
 
 });

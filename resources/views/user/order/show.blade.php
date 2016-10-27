@@ -31,7 +31,7 @@
 
 	</div>
 
-	<div class="col-sm-6 col-md-6">
+	<div class="col-sm-6 col-md-6"> 
 		@foreach($order->files as $file)
 
 			<h3>Сторона {!! $file->side !!}</h3>
@@ -49,8 +49,8 @@
 			</p>
 			
 
-		<h3 class="text-right">Сумма: <strong>{{ $order->sum }}</strong> грн.</h3>
 		@endforeach
+		<h3 class="text-right">Сумма: <strong>{{ $order->sum }}</strong> грн.</h3>
 	</div>
 
 	<div class="col-sm-12 col-md-12 text-center">
@@ -60,8 +60,13 @@
 		
 		@if($order->status->id == 8 OR $order->status->id == 1)
 			<a href="{{ route('order.edit', $order->id) }}" class="btn btn-warning">Редактировать заказ</a>
-			<a class="btn btn-danger">Удалить заказ</a>
+			<a class="btn btn-danger" href="{{ route('order.delete', $order->id) }}">Удалить заказ</a>
 		@endif
+
+		@if($order->status->id == 7)
+			<a href="{{ route('order.edit', $order->id) }}" class="btn btn-info"><span class="glyphicon glyphicon-share-alt"></span> Восстановить заказ</a>
+		@endif
+
 	</div>
 
 </div>

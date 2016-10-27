@@ -171,6 +171,12 @@ Route::group(['prefix' => 'management'], function () {
 		'roles'=> ['admin','user'],
 		]);
 
+	Route::get('order/delete/{id}', [
+		'uses'=>'OrderController@delete',
+		'as'=> 'order.delete',
+		'roles'=> ['admin','user'],
+		]);
+
 	Route::get('/order/pay/{order_id}/{confirm?}', [
 		'uses'=>'PayController@orderPay',
 		'as'=> 'pay.orderPay',

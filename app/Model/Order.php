@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 use App\Model\PrintFile;
 use App\User;
+use App\Pay;
 
 class Order extends Model
 {
@@ -49,6 +50,15 @@ class Order extends Model
         if($user->balance >= $this->sum) {
             $user->balance = $user->balance - $this->sum;
             $user->save();
+
+                $pay = new Pay();
+                $pay->status = 'local';
+                $pay->user_id = auth()->user()->id;
+                $pay->amount = $this->sum; 
+                $pay->type = 'sell';
+                $pay->description = 'Списание '.$this->sum.' за заказа №'.$this->id.'';
+                $pay->save();
+
             return true;
         }
         return false;
@@ -58,12 +68,20 @@ class Order extends Model
         $user = User::find($this->user_id);
         $user->balance = $user->balance + $this->sum;
         $user->save();
+
+                $pay = new Pay();
+                $pay->status = 'local';
+                $pay->user_id = auth()->user()->id;
+                $pay->amount = $this->sum; 
+                $pay->type = 'buy';
+                $pay->description = 'Зачисление '.$this->sum.', по заказу №'.$this->id.'';
+                $pay->save();    
+                   
         return true;
     }
     
     public function setStatus($new_status_id) 
     {   
-
 
             $rulesStatus = collect([
                 ['status' => 8, 'new_status' => 1, 'function' => 'payAdd'],
@@ -71,13 +89,15 @@ class Order extends Model
                 ['status' => 1, 'new_status' => 7, 'function' => 'payBack'],
             ]);
 
-            $rulesStatus = $rulesStatus->where('status', 1)->where('new_status', 8);
+            $rulesStatus = $rulesStatus->where('status', $this->status_id)->where('new_status', $new_status_id);
             if($rulesStatus->first()['function']) {
                 $function = $rulesStatus->first()['function'];
                 $this->$function();
             }
-            
-  } 
+
+            $this->status_id = $new_status_id;
+            $this->save();
+    }
 
 
 }

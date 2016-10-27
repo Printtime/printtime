@@ -143,13 +143,13 @@ function uploaderFileUploaded(up, file, response) {
                         
         res = JSON.parse(response.response);
 
-        $( "#file1" ).val( res.result.fname );
+        $( "#file0" ).val( res.result.fname );
 
         delete res.result.fname;
         
-        consoledata = '<div class="console alert alert-success" role="alert"><div id="res"></div></div>';
+        console0data = '<div class="console0 alert alert-success" role="alert"><div id="res"></div></div>';
 
-        $("#console").html(consoledata);
+        $(".file0_block #console0").html(console0data);
 
             $.each( res.result, function( key, value ) {
 
@@ -158,10 +158,121 @@ function uploaderFileUploaded(up, file, response) {
                 }
                 if(value.valid == false) {
                     var status_class = 'glyphicon-remove';
-                    $( "#console .alert" ).removeClass("alert-success").addClass("alert-danger");
+                    $( ".file0_block #console0 .alert" ).removeClass("alert-success").addClass("alert-danger");
                 }
 
-                $("#console #res").append( '<div><span class="glyphicon '+status_class+'" style="margin-right:5px"></span> '+value.title+'</div>' );
+                $(".file0_block #console0 #res").append( '<div><span class="glyphicon '+status_class+'" style="margin-right:5px"></span> '+value.title+'</div>' );
+            });
+
+         if(res.result.width.valid == true && res.result.height.valid == true) {
+
+            $( "#width" ).val(res.result.width.data);
+            $( "#height" ).val(res.result.height.data);
+        
+            $( "#width_file0" ).val(res.result.width.data);
+            $( "#height_file0" ).val(res.result.height.data);
+        }
+
+        CalcPrint();
+        
+}
+
+
+
+
+
+
+
+var uploader = new plupload.Uploader({
+    runtimes : 'html5,flash,silverlight,html4',
+     
+    browse_button : 'pickfiles0',
+    container: document.getElementById('container0'), 
+     
+        url : '/printfile/upload',
+    
+        chunk_size: '1mb',
+
+         headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+     
+    filters : {
+
+        max_file_size : '2048000kb',
+        mime_types: [
+            {title : "Tiff files", extensions : "tif,tiff"},
+            //{title : "Image files", extensions : "jpg,gif,png"}
+        ]
+    },
+
+    flash_swf_url : '/vendor/jildertmiedema/laravel-plupload/js/Moxie.swf',
+    silverlight_xap_url : '/vendor/jildertmiedema/laravel-plupload/js/Moxie.xap',
+     
+    multi_selection: false,
+ 
+    init: {
+        PostInit: function() {
+        },
+ 
+        FilesAdded: function(up, files) {
+            $('#container0 .thumbnail').remove();
+            res_data = '<div id="' + files[0].id + '">' + files[0].name + ' - ' + plupload.formatSize(files[0].size) + ' - <b></b></div>';
+            $('#filelist0').html(res_data);
+            up.start();
+        },
+ 
+        UploadProgress: function(up, file) {
+            document.getElementById(file.id).getElementsByTagName('b')[0].innerHTML = '<span>' + file.percent + "%</span>";
+            document.getElementById('console0').innerHTML = '';
+        },
+    
+
+        FileUploaded: function(up, file, response) {
+
+        uploaderFileUploaded(up, file, response);
+
+        },
+
+        Error: function(up, err) {
+
+            document.getElementById('console0').innerHTML = '<div class="console0 alert alert-danger" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>'+ err.message +'</div>';
+        }
+    }
+});
+
+
+
+
+
+
+
+
+
+
+function uploaderFileUploaded1(up, file, response) {
+                        
+        res = JSON.parse(response.response);
+
+        $( "#file1" ).val( res.result.fname );
+
+        delete res.result.fname;
+        
+        console1data = '<div class="console1 alert alert-success" role="alert"><div id="res"></div></div>';
+
+        $(".file1_block #console1").html(console1data);
+
+            $.each( res.result, function( key, value ) {
+
+                if(value.valid == true) {
+                    var status_class = 'glyphicon-ok success';
+                }
+                if(value.valid == false) {
+                    var status_class = 'glyphicon-remove';
+                    $( ".file1_block #console1 .alert" ).removeClass("alert-success").addClass("alert-danger");
+                }
+
+                $(".file1_block #console1 #res").append( '<div><span class="glyphicon '+status_class+'" style="margin-right:5px"></span> '+value.title+'</div>' );
             });
 
          if(res.result.width.valid == true && res.result.height.valid == true) {
@@ -183,7 +294,7 @@ function uploaderFileUploaded(up, file, response) {
 
 
 
-var uploader = new plupload.Uploader({
+var uploader1 = new plupload.Uploader({
     runtimes : 'html5,flash,silverlight,html4',
      
     browse_button : 'pickfiles1',
@@ -224,30 +335,22 @@ var uploader = new plupload.Uploader({
  
         UploadProgress: function(up, file) {
             document.getElementById(file.id).getElementsByTagName('b')[0].innerHTML = '<span>' + file.percent + "%</span>";
-            document.getElementById('console').innerHTML = '';
+            document.getElementById('console1').innerHTML = '';
         },
     
 
         FileUploaded: function(up, file, response) {
 
-        uploaderFileUploaded(up, file, response);
+        uploaderFileUploaded1(up, file, response);
 
         },
 
         Error: function(up, err) {
 
-            document.getElementById('console').innerHTML = '<div class="console alert alert-danger" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>'+ err.message +'</div>';
+            document.getElementById('console1').innerHTML = '<div class="console1 alert alert-danger" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>'+ err.message +'</div>';
         }
     }
 });
-
-
-
-
-
-
-
-
 
 
 
@@ -265,12 +368,12 @@ var uploader = new plupload.Uploader({
 
 function validFile2Calc(width, height) {
 
-    width_file1 = $('#width_file1').val();
-    height_file1 = $('#height_file1').val();
+    width_file0 = $('#width_file0').val();
+    height_file0 = $('#height_file0').val();
 
-    if(width_file1 > 10 && height_file1 > 10) {
+    if(width_file0 > 10 && height_file0 > 10) {
 
-        if(width_file1 == width && height_file1 == height) {
+        if(width_file0 == width && height_file0 == height) {
                 
                 $('#validFile2Calc').css('display', 'none');
 
@@ -285,13 +388,13 @@ function validFile2Calc(width, height) {
 
             $('#validFile2Calc').css('display', '');
 
-            if(width_file1 != width) {
+            if(width_file0 != width) {
                 $('#width').css('color', '#a94442');
             } else {
                 $('#width').css('color', '#3c763d');
             }
 
-            if(height_file1 != height) {
+            if(height_file0 != height) {
                 $('#height').css('color', '#a94442');
             } else {
                 $('#height').css('color', '#3c763d');
@@ -316,7 +419,7 @@ function CalcPrint() {
         coef_width = $("#coef_width").text();
         coef_height = $("#coef_height").text();
         coef = (coef_width*coef_height)/1000000;
-        // console.log(coef_height);
+        // console0.log(coef_height);
 
         area = (width / 1000) * (height / 1000);
         area =  area * count;
@@ -346,8 +449,9 @@ function CalcPrint() {
 
 
 
-uploader.init();
 
+uploader.init();
+uploader1.init();
 
 
 })(jQuery);
