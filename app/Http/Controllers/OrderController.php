@@ -99,7 +99,7 @@ class OrderController extends Controller
 
                 $delivery = Delivery::where('order_id', $id)->first();
                     
-                if($delivery->order_id) {
+                if($delivery->order_id == $id) {
                     if(!empty($request->name) and !empty($request->city)) {
                         $delivery->order_id = $id;
                         $delivery->name = $request->name;
