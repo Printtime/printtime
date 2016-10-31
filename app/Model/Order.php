@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Model\PrintFile;
 use App\User;
 use App\Pay;
+use App\Delivery;
 
 class Order extends Model
 {
@@ -15,6 +16,12 @@ class Order extends Model
   public function files()
     {
         return $this->hasMany(PrintFile::class);
+    }
+
+
+  public function delivery()
+    {
+        return $this->belongsTo(Delivery::class, 'id', 'order_id');
     }
 
     public function typevar()

@@ -32,9 +32,6 @@
 <div class="row">
 
 
-    <script type="text/javascript" src="/vendor/jildertmiedema/laravel-plupload/js/plupload.full.min.js"></script>
-    <script type="text/javascript" src="/vendor/jildertmiedema/laravel-plupload/js/i18n/ru.js"></script>
-
         <input id="file0" type="hidden" name="file0">
         <input id="file1" type="hidden" name="file1">
 
@@ -220,7 +217,6 @@ function calc_postpress() {
 }
 
 
-// $('.file2_block').hide();
 
 
     $("input, select").each(function () {
@@ -269,6 +265,59 @@ calc_postpress();
 
 <br>
 
+
+<div class="panel-group" id="accordion">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Самовывоз со склада Printtime</a>
+      </h4>
+    </div>
+    <div id="collapse1" class="panel-collapse collapse in">
+      <div class="panel-body">Вы сможете забрать свой заказ по адресу: Украина, г.Кривой Рог, ул. Волгоградская , 12</div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Доставка перевозчиком: <img src="/images/novaposhta_icon.png"> Новая почта</a>
+      </h4>
+    </div>
+    <div id="collapse2" class="panel-collapse collapse">
+      <div class="panel-body">
+              {{ Form::label('Город и отделение', null, ['class' => 'control-label']) }}
+              <div id="city" class="form-group">
+                <input value="{{ $order->delivery->city or null }}" name="city" type="text" class="typeahead form-control" placeholder="Введите город...">
+
+              </div>
+
+              <div id="warehouses" class="form-group">
+                <select class="form-control" @if(!isset($order->delivery->warehouses)) disabled="disabled" @endif name="warehouses">
+                  @if(isset($order->delivery->warehouses))
+                    <option>{{ $order->delivery->warehouses }}</option>
+                  @endif
+                </select>
+              </div>
+
+
+            <div class="form-group">
+                {{ Form::label('Получатель', null, ['class' => 'control-label']) }}
+                <input value="{{ $order->delivery->name or null }}" name="name" type="text" class="form-control" placeholder="Укажите Ф.И.О. получателя">
+            </div>
+            <div class="form-group">
+                {{ Form::label('Телефон', null, ['class' => 'control-label']) }}
+                <input value="{{ $order->delivery->phone or null }}" name="phone" type="text" class="form-control" placeholder="+380">
+            </div>
+
+            Услуга доставки оплачиваются и расчитывается перевозчиком "Новая почта" и взимается с получателя.
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
 <table class="table table-striped">
 <tr>
 	<td>Печать</td>
@@ -277,10 +326,6 @@ calc_postpress();
 <tr>
 	<td>Постработы</td>
 	<td><span id="PricePostpress">0.00</span> грн.</td>
-</tr>
-<tr>
-	<td>Доставка</td>
-	<td>Самовывоз со склада Printtime</td>
 </tr>
 <tr>
 	<td>Ваша скидка <span id="discount">{{ Auth::user()->discount }}</span>%</td>

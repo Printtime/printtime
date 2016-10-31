@@ -48,7 +48,8 @@ elixir(function(mix) {
     	'wow.min.js',
         'bootstrap.min.js',
         'lightbox.js',
-    	'js.js'
+        'typeahead.bundle.min.js',
+        'js.js'
     	], 'public/js/app.js');
 
 

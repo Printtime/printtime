@@ -41,6 +41,10 @@ Route::group(['middleware' => ['api']], function () {
 		'as'=> 'pay.redirect',
 		]);
 
+	Route::get('novaposhta/{name}/{properties}', [
+		'uses'=>'DeliveryController@novaposhta',
+		'as'=> 'system.novaposhta',
+		]);
 
 });
 
@@ -182,6 +186,7 @@ Route::group(['prefix' => 'management'], function () {
 		'as'=> 'pay.orderPay',
 		'roles'=> ['admin', 'user', 'designer', 'printer'],
 		]);
+
 
 
 	/*LiqPay Route*/

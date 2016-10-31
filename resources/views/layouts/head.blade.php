@@ -6,6 +6,11 @@
     <link href="{{ elixir('css/all.css') }}" rel="stylesheet">
     <link href="{{ elixir('css/app.css') }}" rel="stylesheet">
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    
+    <script type="text/javascript" src="/vendor/jildertmiedema/laravel-plupload/js/plupload.full.min.js"></script>
+    <script type="text/javascript" src="/vendor/jildertmiedema/laravel-plupload/js/i18n/ru.js"></script>
+
+
     <base href="/">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>

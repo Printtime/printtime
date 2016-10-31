@@ -15,6 +15,7 @@ use App\Model\Variable;
 use App\Model\Postpress;
 use App\Pay;
 use Validator;
+use App\Delivery;
 
 class OrderController extends Controller
 {
@@ -61,21 +62,6 @@ class OrderController extends Controller
         return view('user.order.create', compact('value', 'getPostpressArr'));
     }
 
-/*
-   public function setStatus($id, $status)
-    {   
-        $order = Order::find($id);
-        $order->status_id = $status;
-        $order->save();
-
-        if($status == '7') {
-            $user = User::find($order->user_id);
-            $user->balance = $user->balance + $order->sum;
-            $user->save();
-        }
-        return back();
-    }
-*/
 
    public function update(Request $request, $id)
     {   
@@ -108,6 +94,42 @@ class OrderController extends Controller
                 }
                 $order->postpress()->sync($postpress);
             }
+
+            
+
+                $delivery = Delivery::where('order_id', $id)->first();
+                    
+                if($delivery->order_id) {
+                    if(!empty($request->name) and !empty($request->city)) {
+                        $delivery->order_id = $id;
+                        $delivery->name = $request->name;
+                        $delivery->phone = $request->phone;
+                        $delivery->city = $request->city;
+                        $delivery->warehouses = $request->warehouses;
+                        $delivery->save();
+                            //Обновляем получателя
+                            // $delivery_array = [];
+                            // $delivery_array['name'] = $request->get('name');
+                            // $delivery_array['phone'] = $request->get('phone');
+                            // $delivery_array['city'] = $request->get('city');
+                            // $delivery_array['warehouses'] = $request->get('warehouses');
+                            // $delivery->update($delivery_array);
+                        } else {
+                            //Удаляем получателя
+                            $delivery->delete();
+                        }
+                } else {                    //Создаем получателя
+                    
+                    if(isset($id) AND count($request->name) >= 3 AND count($request->city) >= 3) {
+                        $delivery = new Delivery;
+                        $delivery->order_id = $id;
+                        $delivery->name = $request->name;
+                        $delivery->phone = $request->phone;
+                        $delivery->city = $request->city;
+                        $delivery->warehouses = $request->warehouses;
+                        $delivery->save();
+                    }
+                }
 
 
             PrintFile::where('filename', $request->file0)->update(['order_id' => $order->id, 'side' => '1']);
@@ -143,6 +165,15 @@ class OrderController extends Controller
             $order->sum = $request->sum;
             $order->save();
 
+            if(isset($order->id) AND isset($request->name) AND isset($request->city)) {
+                $delivery = new Delivery;
+                $delivery->order_id = $order->id;
+                $delivery->name = $request->name;
+                $delivery->phone = $request->phone;
+                $delivery->city = $request->city;
+                $delivery->warehouses = $request->warehouses;
+                $delivery->save();
+            }
 
             if(isset($request->postpress)) {
                 $postpress = [];

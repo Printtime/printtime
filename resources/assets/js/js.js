@@ -444,18 +444,56 @@ function CalcPrint() {
 
 
 
+    uploader.init();
+    uploader1.init();
 
 
 
 
 
+var cities = new Bloodhound({
+  datumTokenizer: Bloodhound.tokenizers.obj.whitespace('DescriptionRu'),
+  queryTokenizer: Bloodhound.tokenizers.whitespace,
+  //prefetch: 'novaposhta',
+  remote: {
+    url: 'novaposhta/getcity/%QUERY',
+    wildcard: '%QUERY'
+  }
+});
 
-uploader.init();
-uploader1.init();
+$('#city .typeahead').typeahead(null, {
+  name: 'getcity',
+  display: 'DescriptionRu',
+  source: cities
+});
+
+$('.typeahead').bind('typeahead:select', function(ev, result) 
+    {
+        $('select[name="warehouses"]').html('<option>Поиск отделений...</option>');
+
+               $.ajax({
+                    type: "GET",
+                    url: 'novaposhta/city/'+result.Ref,
+                    success: function(data) {
+
+                            
+
+                            $('select[name="warehouses"]').html('');
+
+                            $('select[name="warehouses"]').append($.map(data, function(o) {
+                              return $('<option/>', {
+                                value: o.DescriptionRu,
+                                text: o.DescriptionRu
+                              });
+                            }));
+
+                            $('select[name="warehouses"]').removeAttr( "disabled" );
+
+                    }
+            });
+
+    });
 
 
 })(jQuery);
-
-
-//new WOW().init();
 
