@@ -47,7 +47,14 @@ class OrderController extends Controller
             ]);
         
     }
-
+   
+   public function setStatus($id, $status)
+    {
+        $order = Order::find($id);
+        $order->setStatus($status);
+        return back();
+    }
+   
    public function delete($id)
     {   
         $order = Order::with('typevar', 'status')->where('user_id', auth()->user()->id)->find($id);

@@ -25,9 +25,26 @@ class DesignerController extends Controller
 
     public function show($id)
     {   	
-        $postpress_data = OrderController::postpress_data();
-        $order = Order::with('files')->find($id);
-        return view('designer.show',  compact('order', 'postpress_data'));
+        $order = Order::with('typevar', 'status')->find($id);
+        $getPostpressArr = $order->getPostpressArr();
+        return view('designer.show', compact('order', 'getPostpressArr'));
+
+        #$postpress_data = OrderController::postpress_data();
+        #$order = Order::with('files')->find($id);
+        #return view('designer.show',  compact('order', 'postpress_data'));
 
     }
+
+   public function update(Request $request, $id)
+    {       
+        $order = Order::find($id);
+        $order->setStatus(2);
+
+        if(isset($request->file0)) { PrintFile::where('filename', $request->file0)->update(['order_id' => $id, 'side' => '1']); }
+        if(isset($request->file0)) { PrintFile::where('filename', $request->file1)->update(['order_id' => $id, 'side' => '2']); }
+
+        return back();
+    }
+
+
 }

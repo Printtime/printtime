@@ -261,7 +261,7 @@ calc_postpress();
 <br>
 
 <label>Комментарий к заказу</label>
-<textarea name="comment" class="form-control" rows="3" placeholder="Если необходимо, прокомментируйте детали заказа..."></textarea>
+<textarea name="comment" class="form-control" rows="3" placeholder="Если необходимо, прокомментируйте детали заказа...">{{ $order->comment or null }}</textarea>
 
 <br>
 

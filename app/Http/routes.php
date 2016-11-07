@@ -71,6 +71,12 @@ Route::group(['prefix' => 'management'], function () {
 		'as'=> 'designer.show',
 		'roles'=> ['admin', 'designer'],
 		]);
+
+	Route::post('designer/{id}', [
+		'uses'=>'DesignerController@update',
+		'as'=> 'designer.update',
+		'roles'=> ['admin', 'designer'],
+		]);
 //Designer End
 
 //printer Start
@@ -94,7 +100,7 @@ Route::group(['prefix' => 'management'], function () {
 	Route::get('order/{id}/{status}', [
 		'uses'=>'OrderController@setStatus',
 		'as'=> 'order.status',
-		'roles'=> ['admin', 'designer', 'printer'],
+		'roles'=> ['admin', 'manager', 'designer', 'printer'],
 		]);
 	Route::get('send2server/{id}', [
 		'uses'=>'PrintFileController@send2server',

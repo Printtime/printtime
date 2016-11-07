@@ -3,6 +3,7 @@
 namespace App\Model;
 
 use App\Model\Servers;
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 
 class PrintFile extends Model
@@ -15,4 +16,8 @@ class PrintFile extends Model
         return $this->belongsTo(Servers::class, 'server_id');
     }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }
