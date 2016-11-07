@@ -165,7 +165,7 @@ class OrderController extends Controller
             $order->sum = $request->sum;
             $order->save();
 
-            if(isset($order->id) AND isset($request->name) AND isset($request->city)) {
+            if(isset($order->id) AND isset($request->name) AND isset($request->city) AND isset($request->warehouses)) {
                 $delivery = new Delivery;
                 $delivery->order_id = $order->id;
                 $delivery->name = $request->name;

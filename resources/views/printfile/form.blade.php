@@ -11,6 +11,9 @@
     </div>
 
 @if(isset($order->files[$side]))
+<input id="width_file0" type="hidden" name="width_file0" value="{{ $order->files[0]->width or null }}">
+<input id="height_file0" type="hidden" name="height_file0" value="{{ $order->files[0]->height or null }}">
+@else
 <input id="width_file{{$side}}" type="hidden" name="width_file{{$side}}" value="{{ $order->files[$side]->width or null }}">
 <input id="height_file{{$side}}" type="hidden" name="height_file{{$side}}" value="{{ $order->files[$side]->height or null }}">
 @endif
