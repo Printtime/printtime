@@ -61,7 +61,7 @@ class Order extends Model
         if($user->balance >= $this->sum) {
             $user->balance = $user->balance - $this->sum;
             $user->save();
-
+            
                 $pay = new Pay();
                 $pay->status = 'local';
                 $pay->user_id = $user->id;
