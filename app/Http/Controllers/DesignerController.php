@@ -27,6 +27,7 @@ class DesignerController extends Controller
     {   	
         $order = Order::with('typevar', 'status')->find($id);
         $getPostpressArr = $order->getPostpressArr();
+        dd($order);
         return view('designer.show', compact('order', 'getPostpressArr'));
 
         #$postpress_data = OrderController::postpress_data();
