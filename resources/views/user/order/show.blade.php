@@ -58,9 +58,9 @@
 			<a href="{{ route('pay.orderPay', $order->id) }}" data-toggle="modal" data-target="#open-modal-pay" class="btn btn-success ajax-pay">Оплатить заказ</a>
 		@endif
 		
-		@if($order->status->id == 8 OR $order->status->id == 1)
+		@if($order->status->id == 8 OR $order->status->id == 1 OR $order->status->id == 2)
 			<a href="{{ route('order.edit', $order->id) }}" class="btn btn-warning">Редактировать заказ</a>
-			<a class="btn btn-danger" href="{{ route('order.delete', $order->id) }}">Удалить заказ</a>
+			<a class="btn btn-danger" href="{{ route('order.delete', $order->id) }}">Отменить заказ</a>
 		@endif
 
 		@if($order->status->id == 7)

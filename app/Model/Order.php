@@ -60,7 +60,7 @@ class Order extends Model
 
                 $pay = new Pay();
                 $pay->status = 'local';
-                $pay->user_id = auth()->user()->id;
+                $pay->user_id = $user->id;
                 $pay->amount = $this->sum; 
                 $pay->type = 'sell';
                 $pay->description = 'Списание '.$this->sum.' за заказа №'.$this->id.'';
@@ -78,7 +78,7 @@ class Order extends Model
 
                 $pay = new Pay();
                 $pay->status = 'local';
-                $pay->user_id = auth()->user()->id;
+                $pay->user_id = $user->id;
                 $pay->amount = $this->sum; 
                 $pay->type = 'buy';
                 $pay->description = 'Зачисление '.$this->sum.', по заказу №'.$this->id.'';
@@ -90,13 +90,17 @@ class Order extends Model
     public function setStatus($new_status_id) 
     {   
 
+        
             $rulesStatus = collect([
                 ['status' => 8, 'new_status' => 1, 'function' => 'payAdd'],
                 ['status' => 1, 'new_status' => 8, 'function' => 'payBack'],
                 ['status' => 1, 'new_status' => 7, 'function' => 'payBack'],
+                ['status' => 2, 'new_status' => 7, 'function' => 'payBack'],
+                ['status' => 2, 'new_status' => 8, 'function' => 'payBack'], // В работе -> Ждет оплаты
             ]);
-
             $rulesStatus = $rulesStatus->where('status', $this->status_id)->where('new_status', $new_status_id);
+
+
             if($rulesStatus->first()['function']) {
                 $function = $rulesStatus->first()['function'];
                 $this->$function();

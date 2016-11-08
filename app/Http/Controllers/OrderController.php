@@ -51,7 +51,7 @@ class OrderController extends Controller
    public function setStatus($id, $status)
     {
         $order = Order::find($id);
-        $order->setStatus($status);
+        $order->setStatus((int)$status);
         return back();
     }
    

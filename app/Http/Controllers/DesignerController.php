@@ -26,6 +26,8 @@ class DesignerController extends Controller
     public function show($id)
     {   	
         $order = Order::with('typevar', 'status')->find($id);
+        if($order->status_id != 2) { $order->setStatus(2); }
+        
         $getPostpressArr = $order->getPostpressArr();
         return view('designer.show', compact('order', 'getPostpressArr'));
     }
@@ -33,10 +35,10 @@ class DesignerController extends Controller
    public function update(Request $request, $id)
     {       
         $order = Order::find($id);
-        $order->setStatus(2);
+        #$order->setStatus(2);
 
         if(isset($request->file0)) { PrintFile::where('filename', $request->file0)->update(['order_id' => $id, 'side' => '1']); }
-        if(isset($request->file0)) { PrintFile::where('filename', $request->file1)->update(['order_id' => $id, 'side' => '2']); }
+        if(isset($request->file1)) { PrintFile::where('filename', $request->file1)->update(['order_id' => $id, 'side' => '2']); }
 
         return back();
     }
