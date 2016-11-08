@@ -17,15 +17,6 @@
 
 		<p>Статус: {!! $order->status->title !!}</p>
 		
-<!-- 		@if($order->status_id == 1)
-		<p>
-				<a class="btn btn-success btn-sm" href="{!! route('order.status', ['id' => $order->id, 'status' => '2']) !!}">Подтвердить</a>
-				<a class="btn btn-danger btn-sm" href="{!! route('order.status', ['id' => $order->id, 'status' => '7']) !!}">Отменить</a>
-		</p>
-		@else
-		<p>Статус: {!! $order->status->title !!}</p>
-		@endif -->
-
 	</div>
 
 	<div class="col-sm-6 col-md-6">
@@ -37,21 +28,6 @@
 				@endforeach
 		@endif
 
-<!-- 		@foreach($order->files as $file)
-			<h3>Сторона {!! $file->side !!}</h3>
-			<p>Название: {!! $file->name !!}</p>
-			<p>Расширение: {!! $file->extension !!}</p>
-			<p data-toggle="tooltip" data-placement="left" title="{{ $file->size }} байт">Размер файла: {{ Helper::human_filesize($file->size) }}</p>
-			<p>{!! $file->filename !!}</p>
-			<p>
-			@if(Storage::disk('print')->exists($file->filename))
-				<a class="btn btn-primary btn-sm" href="{!! route('printfile.download', ['id' => $file->id, 'server' => 'local']) !!}"><span class="glyphicon glyphicon-download"></span> Скачать</a>@endif
-
-@if($file->server_id == 0 and Storage::disk('print')->exists($file->filename))
-<a href="{!! route('printfile.send2server', ['id' => $file->id]) !!}" class="btn btn-warning btn-sm send2server" id="load" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Отправка..."><span class="glyphicon glyphicon-upload"></span> Отправить в печать</a>
-@endif
-			</p>
-		@endforeach -->
 	</div>
 
 

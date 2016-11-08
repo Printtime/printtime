@@ -27,13 +27,7 @@ class DesignerController extends Controller
     {   	
         $order = Order::with('typevar', 'status')->find($id);
         $getPostpressArr = $order->getPostpressArr();
-        dd($order);
         return view('designer.show', compact('order', 'getPostpressArr'));
-
-        #$postpress_data = OrderController::postpress_data();
-        #$order = Order::with('files')->find($id);
-        #return view('designer.show',  compact('order', 'postpress_data'));
-
     }
 
    public function update(Request $request, $id)
