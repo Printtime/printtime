@@ -17,6 +17,7 @@
 			<th>№</th>
 			<th></th>
 			<th></th>
+			<th></th>
 			<th>Ширина (мм)</th>
 			<th>Высота (мм)</th>
 			<th>Дата и время</th>
@@ -28,6 +29,7 @@
 @foreach($orders as $order)
 		<tr>
 			<td>{{ $order->id }}</td>
+			<td><span class="label label-default status{{ $order->status_id }}">{{ $order->status->title }}</span></td>
 			<td>@if($order->comment) <a href="#" data-toggle="tooltip" data-html="true" title="<i>{!! $order->title !!}</i><br>{!! $order->comment !!}"><span class="glyphicon glyphicon-flag"></span></a> @endif</td>
 
 			<td>{{ $order->typevar->type->title }}, {{ $order->typevar->variable->title }}</td>

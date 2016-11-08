@@ -18,6 +18,10 @@ class Order extends Model
         return $this->hasMany(PrintFile::class);
     }
 
+  public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
   public function delivery()
     {

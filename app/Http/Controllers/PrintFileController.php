@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\User;
+use App\Model\Order;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests;
 use App\Model\PrintFile;
@@ -41,6 +42,8 @@ class PrintFileController extends Controller
 
     public function upload(Request $request)
     {   
+
+
 
         return Plupload::receive('file', function ($file)
         {    
@@ -105,8 +108,10 @@ class PrintFileController extends Controller
 
     public function send2server($id)
     {
-            $server = Servers::find($id);
 
+            $server = Servers::first();
+
+            
             $this->commands('check', $server);
             
             if(!$server->check) {
@@ -122,6 +127,7 @@ class PrintFileController extends Controller
             if(!$file) {
                 return response('Файла нет в storage', 401);
             }
+
 
             $localfile->server_id = $server->id;
             $localfile->save();
