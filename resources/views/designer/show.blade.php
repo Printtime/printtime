@@ -79,8 +79,8 @@
     <input id="file1" type="hidden" name="file1">
 
     <div class="container"><div class="row">
-        @include('printfile.form', ['side' => '0', 'side_name'=>'Загрузить лицевую сторону'])
-        @include('printfile.form', ['side' => '1', 'side_name'=>'Загрузить обратную сторону'])
+        @if(isset($order->files[0])) @include('printfile.form', ['side' => '0', 'side_name'=>'Загрузить лицевую сторону']) @endif
+        @if(isset($order->files[1])) @include('printfile.form', ['side' => '1', 'side_name'=>'Загрузить обратную сторону']) @endif
     </div></div>
 
 </div>
