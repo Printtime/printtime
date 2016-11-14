@@ -93,8 +93,9 @@ class Order extends Model
     
     public function setStatus($new_status_id) 
     {   
+        $this->status_id = (int)$this->status_id;
+        $new_status_id = (int)$new_status_id;
 
-        
             $rulesStatus = collect([
                 ['status' => 8, 'new_status' => 1, 'function' => 'payAdd'],
                 ['status' => 1, 'new_status' => 8, 'function' => 'payBack'],
