@@ -2,43 +2,52 @@
 
 @section('content')
 
+<meta http-equiv="refresh" content="600">
 
 <div class="container-fluid">
 <div class="row">
 
 
-<div class="col-sm-10 col-md-10 col-sm-offset-1">
+<div class="col-sm-12 col-md-8 col-md-offset-2 col-sm-offset-0">
 
-<h3>Заказы на печать</h3>
+	@foreach($orders->groupBy('type_var_id') as $group)
 
-<table class="table table-hover table-striped">
-	<thead>
+
+<table class="table table-hover">
+	<thead style="background: #efefef;">
 		<tr>
-			<th>№</th>
-			<th></th>
-			<th>Название</th>
-			<th>Ширина (мм)</th>
-			<th>Высота (мм)</th>
-			<th>Дата и время</th>
-			<th>Количество</th>
-			<th>Постработы</th>
+			<th width="32px">№</th>
+			<th width="32px"></th>
+			<th width="32px"></th>
+			<th width="360px">{{ $group->first()->typevar->type->title }}<br>{{ $group->first()->typevar->variable->title }}</th>
+			<th width="48px">Ш</th>
+			<th width="48px">В</th>
+			<th width="200px">Дата и время</th>
+			<th width="80px">Кол-во</th>
 			<th>Файлы</th>
 		</tr>
 	</thead>
 	<tbody>
 
-@foreach($orders as $order)
+@foreach($group as $order)
 		<tr>
 			<td>{{ $order->id }}</td>
-			<td>@if($order->comment) <a href="#" data-toggle="tooltip" data-html="true" title="<i>{!! $order->title !!}</i><br>{!! $order->comment !!}"><span class="glyphicon glyphicon-flag"></span></a> @endif</td>
+			<td>@if($order->comment) <a data-toggle="tooltip" data-html="true" title="<i>{!! $order->title !!}</i><br>{!! $order->comment !!}"><span class="glyphicon glyphicon-flag"></span></a> @endif</td>
+
+			<td>@if(count($order->getPostpress) >= 1)
+
+				<a href="{!! route('printer.show', ['id' => $order->id]) !!}" data-toggle="tooltip" data-html="true" title="@foreach($order->getPostpress as $postpress)
+					<i>{!! $postpress->label !!}</i>: {{ $postpress->getData()[$postpress->pivot->var] }}<br>
+				@endforeach"><span class="glyphicon glyphicon-scissors"></span></a>
+
+
+			@endif</td>
 
 			<td>
-				<a href="{!! route('printer.show', ['id' => $order->id]) !!}">{{ $order->typevar->type->title }}, {{ $order->typevar->variable->title }}</a>
-				<br>
-				<a class="btn btn-xs btn-default @if($order->status_id == '3') btn-success @endif btn-sm" href="{!! route('order.status', ['id' => $order->id, 'status' => '3']) !!}">Готово</a>
-				<a class="btn btn-xs btn-default @if($order->status_id == '4') btn-success @endif btn-sm" href="{!! route('order.status', ['id' => $order->id, 'status' => '4']) !!}">На складе</a>
-				<a class="btn btn-xs btn-default @if($order->status_id == '5') btn-success @endif btn-sm" href="{!! route('order.status', ['id' => $order->id, 'status' => '5']) !!}">Отправлено</a>
-				<a class="btn btn-xs btn-danger @if($order->status_id == '6') btn-success @endif btn-sm" href="{!! route('order.status', ['id' => $order->id, 'status' => '6']) !!}">Получено</a>
+				<a class="btn btn-xs btn-default @if($order->status_id == '9') btn-success status{{ $order->status_id }} no-border @endif btn-sm" href="{!! route('order.status', ['id' => $order->id, 'status' => '9']) !!}">В печати</a>
+				<a class="btn btn-xs btn-default @if($order->status_id == '3') btn-success status{{ $order->status_id }} no-border @endif btn-sm" href="{!! route('order.status', ['id' => $order->id, 'status' => '3']) !!}">Готово</a>
+				<a class="btn btn-xs btn-default @if($order->status_id == '4') btn-success status{{ $order->status_id }} no-border @endif btn-sm" href="{!! route('order.status', ['id' => $order->id, 'status' => '4']) !!}">На складе</a>
+				<a class="btn btn-xs btn-default @if($order->status_id == '5') btn-success status{{ $order->status_id }} no-border @endif btn-sm" href="{!! route('order.status', ['id' => $order->id, 'status' => '5']) !!}">Отправлено</a>
 				
 			</td>
 
@@ -47,31 +56,24 @@
 			<td>{!! $order->created_at !!}</td>
 			<td>{!! $order->count !!}</td>
 
-			<td>@if($order->getPostpress)
-				@foreach($order->getPostpress as $postpress)
-					{!! $postpress->label !!}: {!! $postpress_data[$postpress->name][$postpress->pivot->var] !!}<br>
-				@endforeach
-			@endif</td>
-
 			
 			<td>
-				@foreach($order->files as $file)
+				@foreach($order->printerfiles as $file)
+				
 					@if($file->server and $file->confirmed)
-						<a class="btn btn-success btn-sm" href="http://{!! $file->server->local_ip !!}:{!! $file->server->web_local_port !!}/{!! $file->server->web_local_dir !!}/{!! $file->filename !!}"><span class="glyphicon glyphicon-download"></span> Local</a>
-						<a class="btn btn-primary btn-sm" href="http://{!! $file->server->remote_ip !!}:{!! $file->server->web_remote_port !!}/{!! $file->server->web_remote_dir !!}/{!! $file->filename !!}"><span class="glyphicon glyphicon-download"></span> Web</a><br>
-					@endif
+						<a class="btn btn-primary btn-sm" href="http://{!! $file->server->local_ip !!}:{!! $file->server->web_local_port !!}/{!! $file->server->web_local_dir !!}/{!! $file->filename !!}">
+							<span class="glyphicon glyphicon-download"></span> {{ $file->side }} ({{ $file->width }} x {{ $file->height }})
+							
+						</a>
+						@endif
 				@endforeach
 			</td>
 		</tr>
 @endforeach
+
 	</tbody>
 </table>
+	@endforeach
 
-
-<center>{{ $orders->links() }}</center>
-
-</div>
-</div>
-</div>
-
+</div></div></div>
 @endsection

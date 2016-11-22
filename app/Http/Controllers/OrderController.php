@@ -85,8 +85,8 @@ class OrderController extends Controller
         }
             
             $order = Order::findOrFail($id);
-            $order->title = $request->title;
-            $order->comment = $request->comment;
+            $order->title = htmlentities($request->title);
+            $order->comment = htmlentities($request->comment);
             $order->status_id = 8;
             $order->count = $request->count;
             $order->width = $request->width;
@@ -162,7 +162,7 @@ class OrderController extends Controller
 
             $order = new Order;
             $order->title = $request->title;
-            $order->comment = $request->comment;
+            $order->comment = htmlentities($request->comment);
             $order->user_id = auth()->user()->id;
             $order->type_var_id = $id;
             $order->status_id = 8;

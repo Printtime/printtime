@@ -40,5 +40,5 @@ class Pay extends Model
 	'transaction_id', 
 	];
 
-	
+
 }

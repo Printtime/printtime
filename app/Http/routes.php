@@ -58,6 +58,35 @@ Route::group(['middleware' => ['web', 'roles']], function () {
 //All Management
 Route::group(['prefix' => 'management'], function () {
 
+//Manager Start
+	Route::group(['prefix' => 'manager'], function () {
+
+		Route::get('/', [
+			'uses'=>'ManagerController@index',
+			'as'=> 'manager.index',
+			'roles'=> ['admin', 'manager'],
+			]);
+
+		Route::get('orders', [
+			'uses'=>'ManagerController@orders',
+			'as'=> 'manager.orders',
+			'roles'=> ['admin', 'manager'],
+			]);
+
+		Route::get('users', [
+			'uses'=>'ManagerController@users',
+			'as'=> 'manager.users',
+			'roles'=> ['admin', 'manager'],
+			]);
+
+		Route::get('pays', [
+			'uses'=>'ManagerController@pays',
+			'as'=> 'manager.pays',
+			'roles'=> ['admin', 'manager'],
+			]);
+
+	});
+//Manager End
 
 
 //Designer Start

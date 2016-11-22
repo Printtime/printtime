@@ -30,7 +30,7 @@
 		<tr>
 			<td>{{ $order->id }}</td>
 			<td><span class="label label-default status{{ $order->status_id }}">{{ $order->status->title }}</span></td>
-			<td>@if($order->comment) <a href="#" data-toggle="tooltip" data-html="true" title="<i>{!! $order->title !!}</i><br>{!! $order->comment !!}"><span class="glyphicon glyphicon-flag"></span></a> @endif</td>
+			<td>@if($order->comment) <a href="{!! route('designer.show', ['id' => $order->id]) !!}" data-toggle="tooltip" data-html="true" title="<i>{!! $order->title !!}</i><br>{!! $order->comment !!}"><span class="glyphicon glyphicon-flag"></span></a> @endif</td>
 
 			<td>{{ $order->typevar->type->title }}, {{ $order->typevar->variable->title }}</td>
 			<td>{!! $order->width !!}</td>

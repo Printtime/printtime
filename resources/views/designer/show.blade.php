@@ -9,10 +9,10 @@
 		<p><span class="label label-default status{{$order->status_id}}">{!! $order->status->title !!}</span></p>
 		<p>Товар: {{ $order->typevar->type->title }}</p>
 		<p>Параметр: {{ $order->typevar->variable->title }}</p>
-		<p>Ширина: {{ $order->width }} мм</p>
-		<p>Высота: {{ $order->height }} мм</p>
+		<p>Ширина: <b>{{ $order->width }}</b> мм</p>
+		<p>Высота: <b>{{ $order->height }}</b> мм</p>
 		<p>Название: {!! $order->title !!}</p>
-		<p>Комментарий: {!! $order->comment !!}</p>
+		<p>Комментарий: <div>{!! $order->comment !!}</div></p>
 		<p>Дата: {!! $order->created_at !!}</p>
 
 

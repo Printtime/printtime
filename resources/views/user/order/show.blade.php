@@ -32,24 +32,39 @@
 	</div>
 
 	<div class="col-sm-6 col-md-6"> 
-		@foreach($order->files as $file)
-			@if(auth()->user()->id == $file->user_id)
-				<h3>Сторона {!! $file->side !!}</h3>
+
+	@for ($i = 0; $i <= 1; $i++)
+		@if($file = $order->userfiles($i))
+	 		<h3>Сторона {!! $file->side !!}</h3>
+			<div class="text-center thumbnail"><img src="{{ route('system.tiff2jpg', ['filename' => $file->filename]) }}"></div>
+			<p>Название: {!! $file->name !!} | ID:{!! $file->id !!}</p>
+			<p>Расширение: {!! $file->extension !!}</p>
+			<p data-toggle="tooltip" data-placement="left" title="{{ $file->size }} байт">Размер файла: {{ Helper::human_filesize($file->size) }}</p>
+		@endif
+	@endfor
+
+
+
+{{-- 		@foreach($order->userfiles as $file)
+		
+			
+ 				<h3>Сторона {!! $file->side !!}</h3>
 				<div class="text-center thumbnail"><img src="{{ route('system.tiff2jpg', ['filename' => $file->filename]) }}"></div>
 				<p>Название: {!! $file->name !!} | ID:{!! $file->id !!}</p>
 				<p>Расширение: {!! $file->extension !!}</p>
 				<p data-toggle="tooltip" data-placement="left" title="{{ $file->size }} байт">Размер файла: {{ Helper::human_filesize($file->size) }}</p>
 				
-<!-- 				<p>
+ 				<p>
 				@if($file->server and $file->confirmed)
 					<a class="btn btn-primary btn-sm" href="http://{!! $file->server->remote_ip !!}:{!! $file->server->web_remote_port !!}/{!! $file->server->web_remote_dir !!}/{!! $file->filename !!}"><span class="glyphicon glyphicon-download"></span> Скачать удаленно</a>
 				@else
 					Файл загружается...
 				@endif
-				</p> -->
+				</p> 
 				
-			@endif
+			@if(auth()->user()->id == $file->user_id) @endif
 		@endforeach
+		--}}
 		<h3 class="text-right">Сумма: <strong>{{ $order->sum }}</strong> грн.</h3>
 	</div>
 

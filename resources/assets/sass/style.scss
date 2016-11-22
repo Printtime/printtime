@@ -563,9 +563,13 @@ a.thumbnail:hover, a.thumbnail:focus, a.thumbnail.active {
 	.status6 { background-color: #4f9e20; } //Получено
 	.status7 { background-color: #bc0000; } //Отмена
 	.status8 { background-color: #777777; } //Ждет оплаты
+	.status9 { background-color: #337ab7; } //В печати
 
 	.statusGreen { background-color: #4f9e20; }
 
+.no-border {
+	border: 0px solid;
+}
 
 /* postpress */
 

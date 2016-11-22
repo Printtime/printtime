@@ -19,9 +19,9 @@ class PrinterController extends Controller
 {
     public function index()
     {   	
-        $orders = Order::with('typevar', 'status')->where('status_id', '>=', '2')->where('status_id', '<=', '5')->orderBy('id', 'desc')->paginate('20');
-        $postpress_data = OrderController::postpress_data();
-        return view('printer.index',  compact('orders', 'postpress_data'));
+        $orders = Order::with('typevar', 'status')->where('status_id', '>=', '2')->where('status_id', '<=', '5')->Orwhere('status_id', '=', '9')->orderBy('id', 'desc')->paginate('20');
+       # $postpress_data = OrderController::postpress_data();
+        return view('printer.index',  compact('orders'));
     }
 
     public function show($id)

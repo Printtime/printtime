@@ -18,6 +18,30 @@ class Order extends Model
         return $this->hasMany(PrintFile::class);
     }
 
+  public function userfiles($side)
+    {   
+        #$this->side1 = $this->hasMany(PrintFile::class)->where('user_id', auth()->user()->id)->where('side', '1')->orderby('id', 'desc')->first();
+        #$this->side2 = $this->hasMany(PrintFile::class)->where('user_id', auth()->user()->id)->where('side', '2')->orderby('id', 'desc')->first();
+        #return $this;
+        $side = $side + 1;
+        return $this->hasOne(PrintFile::class)
+            ->where('user_id', auth()->user()->id)
+            ->where('side', $side)
+            ->orderby('id', 'desc')
+            ->first();
+
+        // return $this->hasMany(PrintFile::class)
+        // ->where('user_id', auth()->user()->id)
+        // ->orderby('id', 'desc')
+        // ->groupBy('side')
+        // ->groupBy('id');
+    }
+
+  public function printerfiles()
+    {
+        return $this->hasMany(PrintFile::class)->where('confirmed', '1')->whereNotNull('server_id')->orderby('side', 'asc');
+    }
+
   public function user()
     {
         return $this->belongsTo(User::class);
@@ -67,7 +91,7 @@ class Order extends Model
                 $pay->user_id = $user->id;
                 $pay->amount = $this->sum; 
                 $pay->type = 'sell';
-                $pay->description = 'Списание '.$this->sum.' за заказа №'.$this->id.'';
+                $pay->description = 'Списание '.$this->sum.' за заказ №'.$this->id.'';
                 $pay->save();
 
             return true;
@@ -85,7 +109,7 @@ class Order extends Model
                 $pay->user_id = $user->id;
                 $pay->amount = $this->sum; 
                 $pay->type = 'buy';
-                $pay->description = 'Зачисление '.$this->sum.', по заказу №'.$this->id.'';
+                $pay->description = 'Зачисление '.$this->sum.' по заказу №'.$this->id.'';
                 $pay->save();    
                    
         return true;
@@ -102,6 +126,7 @@ class Order extends Model
                 ['status' => 1, 'new_status' => 7, 'function' => 'payBack'],
                 ['status' => 2, 'new_status' => 7, 'function' => 'payBack'],
                 ['status' => 2, 'new_status' => 8, 'function' => 'payBack'], // В работе -> Ждет оплаты
+                ['status' => 7, 'new_status' => 2, 'function' => 'payAdd'], // Отмена -> В работе
             ]);
             $rulesStatus = $rulesStatus->where('status', $this->status_id)->where('new_status', $new_status_id);
 

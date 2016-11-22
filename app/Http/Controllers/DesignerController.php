@@ -54,7 +54,9 @@ class DesignerController extends Controller
         
         //Выбрать файлы для печати
         if(isset($request->confirmed)) {
-                    
+                
+                PrintFile::where('order_id', $id)->update(['confirmed' => false]);
+                
                 foreach ($request->confirmed as $file_id) {
                     PrintFile::where('id', $file_id)->update(['confirmed' => true]);
                 }
