@@ -5852,21 +5852,41 @@ a {
     background-color: #f1672a; }
 
 .catalog h1 {
-  margin-bottom: 20px; }
+  margin-bottom: 20px;
+  background: #f1672a;
+  font-size: 12pt;
+  color: #fff;
+  padding: 10px; }
 
 .catalog a {
   color: #4d4d4d; }
   .catalog a:hover {
     color: #f1672a; }
 
-.catalog .thumbnail {
-  box-shadow: 0 8px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 0px; }
+.catalog .row .col-sm-12 {
+  border-bottom: 1px #eee solid;
+  margin-bottom: 30px;
+  padding-bottom: 30px; }
 
-.catalog .caption h3 {
-  font-size: 16px;
-  display: inline-block;
-  margin-top: 15px; }
+.catalog .thumbnail {
+  display: block;
+  padding: 4px;
+  border: none;
+  border-radius: 0px;
+  background-color: none;
+  margin-bottom: 0px; }
+  .catalog .thumbnail .hovereffect {
+    float: left !important;
+    width: 260px !important;
+    margin-right: 30px !important; }
+
+.catalog .caption {
+  line-height: 1.6em; }
+  .catalog .caption h3 {
+    font-size: 24px;
+    margin-top: 0px; }
+    .catalog .caption h3 a {
+      color: #f1672a; }
 
 .catalog .btn-send {
   color: white;
@@ -5906,7 +5926,7 @@ a {
     background-color: white; }
 
 .catalog .caption {
-  font-size: 10pt; }
+  font-size: 12pt; }
 
 .active {
   text-decoration: underline; }
@@ -6102,7 +6122,7 @@ https://miketricking.github.io/dist/
   opacity: 0;
   filter: alpha(opacity=0);
   transition: all .2s ease-in-out;
-  margin: 50px 0 0;
+  margin: 20px 0 0;
   padding: 7px 14px; }
 
 .hovereffect a.info:hover {

@@ -171,24 +171,44 @@ a {
 
 .catalog {
 
-h1 {  margin-bottom: 20px; }
+h1 {  margin-bottom: 20px; background: $brand-color1; font-size:12pt; color: #fff; padding: 10px; }
 
 	    a {
 	    	color: $brand-color2;
 	    	&:hover { color: $brand-color1; }
 	    }
 
+.row .col-sm-12 {
+	border-bottom: 1px #eee solid;
+	margin-bottom: 30px;
+	padding-bottom: 30px;
+}
+
 .thumbnail {
-	@include box-shadow(0, 8px, 8px, rgba(0, 0, 0, 0.1));
-	border-radius: 0px;
+    display: block;
+    padding: 4px;
+    border: none;
+    border-radius: 0px;
+    background-color: none;
+    margin-bottom: 0px;
+
+	.hovereffect {
+		float:left !important;
+		width:260px !important;
+		margin-right:30px !important;
+	}
+
 }
 
 .caption {
 		h3 {
-			    font-size: 16px;
-			    display: inline-block;
-			    margin-top: 15px;
+			    font-size: 24px;
+			    margin-top: 0px;
+			    a {
+			    	color: $brand-color1;
+			    }
 		}
+    			line-height: 1.6em;
 }
 
 .btn-send {
@@ -196,7 +216,7 @@ h1 {  margin-bottom: 20px; }
 }
 
 .caption {
-	font-size:10pt;
+	font-size:12pt;
 }
 
 }
@@ -436,7 +456,7 @@ opacity:0;
 filter:alpha(opacity=0);
 -webkit-transition:all .2s ease-in-out;
 transition:all .2s ease-in-out;
-margin:50px 0 0;
+margin:20px 0 0;
 padding:7px 14px;
 }
 
