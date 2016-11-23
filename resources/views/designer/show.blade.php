@@ -81,7 +81,12 @@
 					<td>{{ $file->height }} мм</td>
 					<td>{{ $file->resolution }}</td>
 					<td>@if(Storage::disk('print')->exists($file->filename))
-						<a class="btn btn-primary btn-sm" href="{!! route('printfile.download', ['id' => $file->id, 'server' => 'local']) !!}"><span class="glyphicon glyphicon-download"></span></a>@endif</td>
+						<a class="btn btn-primary btn-sm" href="{!! route('printfile.download', ['id' => $file->id, 'server' => 'local']) !!}"><span class="glyphicon glyphicon-download"></span></a>@endif
+
+@if($file->server_id == 0 and Storage::disk('print')->exists($file->filename))
+<a href="{!! route('printfile.send2server', ['id' => $file->id]) !!}" class="btn btn-warning btn-sm send2server" id="load" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Отправка..."><span class="glyphicon glyphicon-upload"></span> Отправить в цех</a>
+@endif
+						</td>
 
 			</tr>
 				@endforeach
