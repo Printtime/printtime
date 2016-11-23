@@ -59,7 +59,6 @@ class DesignerController extends Controller
                 
                 foreach ($request->confirmed as $file_id) {
                     PrintFile::where('id', $file_id)->update(['confirmed' => true]);
-                    $this->send2server($file_id);
                 }
 
                 $order->setStatus(2);
