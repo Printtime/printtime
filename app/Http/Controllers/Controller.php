@@ -87,21 +87,22 @@ class Controller extends BaseController
             return readfile($jpg);
     }
 
-   public function tiff($filename = null)
+   public function tiff($EXIF = null, $filename = null)
     {   
         
-        if($filename) {
+        if($EXIF) {
 
-            $path = storage_path('print/'.$filename);
-            $EXIF = exif_read_data($path, 'IFD0');
+
 
             $data['XResolution'] = explode('/', $EXIF['XResolution']);
             $data['XResolution'] = $data['XResolution'][0] / $data['XResolution'][1];
             $width = round(round($EXIF['ImageWidth']/($data['XResolution']/25.4)));
+            if(mb_strlen($width) >= 4) { $width = round($width, -1); }
 
             $data['YResolution'] = explode('/', $EXIF['YResolution']);
             $data['YResolution'] = $data['YResolution'][0] / $data['YResolution'][1];
             $height = round(round($EXIF['ImageLength']/($data['YResolution']/25.4)));
+            if(mb_strlen($height) >= 4) { $height = round($height, -1); }
 
             $resolution = ceil(($data['XResolution']+$data['YResolution'])/2); 
 
@@ -127,8 +128,9 @@ class Controller extends BaseController
                 case ($width < 40):
                     $data['width']['title'] = 'Ширина макета: '.$width.'мм, допустимо не менее 40 мм';
                     $data['width']['valid'] = false;
+                    $data['width']['data'] = $width;
                     break;
-                case ($width > 40):
+                case ($width >= 40):
                     $data['width']['title'] = 'Ширина макета: '.$width.' мм';
                     $data['width']['valid'] = true;
                     $data['width']['data'] = $width;
@@ -136,14 +138,16 @@ class Controller extends BaseController
                 default:
                     $data['width']['title'] = 'Ширина не определена';
                     $data['width']['valid'] = false;
+                    $data['width']['data'] = '';
             }
 
             switch ($height) {
                 case ($height < 40):
                     $data['height']['title'] = 'Высота макета: '.$height.' мм, допустимо не менее 40 мм';
                     $data['height']['valid'] = false;
+                    $data['height']['data'] = $height;
                     break;
-                case ($height > 40):
+                case ($height >= 40):
                     $data['height']['title'] = 'Высота макета: '.$height.' мм';
                     $data['height']['valid'] = true;
                     $data['height']['data'] = $height;
@@ -172,8 +176,9 @@ class Controller extends BaseController
                 case ($resolution < 45):
                     $data['resolution']['title'] = 'Разрешение макета: '.$resolution.' dpi, допустимо не менее 45 dpi';
                     $data['resolution']['valid'] = false;
+                    $data['resolution']['data'] = '';
                     break;
-                case ($resolution > 45):
+                case ($resolution >= 45):
                     $data['resolution']['title'] = 'Разрешение макета: '.$resolution.' dpi';
                     $data['resolution']['valid'] = true;
                     $data['resolution']['data'] = $resolution;
@@ -181,6 +186,7 @@ class Controller extends BaseController
                 default:
                     $data['resolution']['title'] = 'Разрешение не определено';
                     $data['resolution']['valid'] = false;
+                    $data['resolution']['data'] = '';
             }
 
             switch ($EXIF['Compression']) {

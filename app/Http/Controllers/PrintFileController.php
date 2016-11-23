@@ -57,7 +57,18 @@ class PrintFileController extends Controller
                 return abort('404');
             }
 
-            $tiffinfo = $this->tiff($fname);
+            
+            $path = storage_path('print/'.$fname);
+            $EXIF = exif_read_data($path, 'IFD0');
+
+            unset($EXIF['ExtensibleMetadataPlatform']);
+            unset($EXIF['ImageResourceInformation']);
+            unset($EXIF['IPTC/NAA']);
+            unset($EXIF['ICC_Profile']);
+            unset($EXIF['StripOffsets']);
+            unset($EXIF['StripByteCounts']);
+
+            $tiffinfo = $this->tiff($EXIF, $fname);
 
             $printfile = new PrintFile;
             $printfile->name = $file->getClientOriginalName();
