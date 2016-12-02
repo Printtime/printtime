@@ -95,6 +95,12 @@ return [
 
     'cipher' => 'AES-256-CBC',
 
+    'liqpay' => [
+        'public_key' => env('LIQPAY_PUBLIC_KEY'),
+        'private_key' => env('LIQPAY_PRIVATE_KEY'),
+        'liqpay_status' => env('LIQPAY_STATUS'),
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Logging Configuration

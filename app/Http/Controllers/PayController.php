@@ -29,9 +29,9 @@ class PayController extends Controller
 
    private function getkey()
     {
-        $this->public_key = getenv('LIQPAY_PUBLIC_KEY');
-        $this->private_key = getenv('LIQPAY_PRIVATE_KEY');
-        $this->liqpay_status = getenv('LIQPAY_STATUS');
+        $this->public_key = config('app.liqpay.public_key');
+        $this->private_key = config('app.liqpay.private_key');
+        $this->liqpay_status = config('app.liqpay.liqpay_status');
     }
 
     public function orderPay($order_id, $confirm = false)
