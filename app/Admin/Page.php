@@ -15,13 +15,16 @@ AdminSection::registerModel(Page::class, function (ModelConfiguration $model) {
     $model->onCreateAndEdit(function() {
         return AdminForm::form()->setItems([
             AdminFormElement::text('title', 'Title')->required(),
+            AdminFormElement::image('avatar', 'Аватар'),
             AdminFormElement::textarea('description', 'Краткое описание'),
            # AdminFormElement::ckeditor('text', 'Содержание')
 
             AdminFormElement::wysiwyg('text', 'Содержание')
             ->setParameters([
                 'height' => 400,
-            ])
+            ]),
+
+           AdminFormElement::images('photo', 'Фото'),
 
         ]);
     });
