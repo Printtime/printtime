@@ -31,6 +31,16 @@
                     <li{{ Helper::setActive('/') }}><a href="{{ url('/') }}">Услуги</a></li>
                     <li{{ Helper::setActive('post') }}><a title="Новости" href="{!! route('post.index') !!}">Новости</a></li>
                     <li{{ Helper::setActive('portfolio') }}><a href="{!! route('catalog.portfolio') !!}">Наши работы</a></li>
+                      <li role="presentation" class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                          Оборудование <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            @foreach(App\Model\Page::where('parent_id', '3')->orderBy('lft')->get() as $pages)
+                                <li{{ Helper::setActive('page/'.$pages->id.'') }}><a href="{{ url('/page/'.$pages->id.'') }}">{{ $pages->title }}</a></li>
+                            @endforeach
+                        </ul>
+                      </li>
                     <li{{ Helper::setActive('page/2') }}><a href="{{ url('/page/2') }}">Контакты</a></li>
                 </ul>
 
