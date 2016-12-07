@@ -6,7 +6,7 @@
 <div class="row">
 
 <div class="col-sm-12">
-	@if(isset($page->avatar))	
+	@if($page->avatar)	
 	<img class="img-thumbnail pull-left" width="50%" style="margin-right: 20px; margin-bottom: 20px;" src="{{ $page->avatar }}" alt="{{ $page->title }}">
 	@endif
 	
