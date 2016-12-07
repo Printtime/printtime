@@ -4,14 +4,22 @@
 <div class="container">
 <h1>{!! $page->title !!}</h1>
 <div class="row">
-	<div class="col-sm-12">{!! $page->text !!}</div>
 
+<div class="col-sm-12">
+	@if(isset($page->avatar))	
+	<img class="img-thumbnail pull-left" width="50%" style="margin-right: 20px; margin-bottom: 20px;" src="{{ $page->avatar }}" alt="{{ $page->title }}">
+	@endif
+	
+	{!! $page->text !!}
+</div>
+
+		@if($page->photo)	
             @foreach($page->photo as $photo)
             <div class="col-sm-3 col-md-4">
                 <a class="thumbnail" href="{!! $photo !!}" data-lightbox="photo"><img src="{{ route('imagecache', ['photoedium', last(explode('/', $photo))]) }}" alt="{!! $page->title !!}"></a>
             </div>
             @endforeach
-            
+           @endif
 </div>
 
 	@if($page->get_sub_pages)	
