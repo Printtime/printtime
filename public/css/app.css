@@ -5928,8 +5928,11 @@ a {
 .catalog .caption {
   font-size: 12pt; }
 
-.active {
+.container .active {
   text-decoration: underline; }
+
+.breadcrumb .active {
+  text-decoration: none; }
 
 .catalog-block a {
   color: #4d4d4d;

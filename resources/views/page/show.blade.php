@@ -2,7 +2,10 @@
 
 @section('content')
 <div class="container">
+{!! Breadcrumbs::render('show', $page) !!}
 <h1>{!! $page->title !!}</h1>
+
+
 <div class="row">
 
 <div class="col-sm-12">

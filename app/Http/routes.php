@@ -1,8 +1,19 @@
 <?php
 
+
 Route::group(['middleware' => 'web'], function () {
 
-	Route::get('/', 'CatalogController@index');
+Breadcrumbs::register('home', function($breadcrumbs)
+{
+    $breadcrumbs->push('Главная', route('home'));
+});
+
+Breadcrumbs::register('printers', function($breadcrumbs)
+{
+    $breadcrumbs->push('Оборудование', route('page.show', 3));
+});
+
+	Route::get('/', 'CatalogController@index')->name('home');
 
 	Route::resource('catalog', 'CatalogController', ['only' => ['show']]);
 	Route::get('portfolio', 'CatalogController@portfolio')->name('catalog.portfolio');
