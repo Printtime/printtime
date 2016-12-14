@@ -221,13 +221,16 @@ h1 {  margin-bottom: 20px; background: $brand-color1; font-size:12pt; color: #ff
 
 }
 
-.active {
+.container .active {
 	text-decoration: underline;
+}
+
+.breadcrumb .active {
+	text-decoration: none;
 }
 
 
 .catalog-block {
-
 
 	a { 
 		color: $brand-color2;

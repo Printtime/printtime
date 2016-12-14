@@ -179,6 +179,7 @@ return [
 
         JildertMiedema\LaravelPlupload\LaravelPluploadServiceProvider::class,
 
+        DaveJamesMiller\Breadcrumbs\ServiceProvider::class,
         
     ],
 
@@ -229,6 +230,8 @@ return [
         'Helper' => App\Helpers\Helper::class,
         'Image' => Intervention\Image\Facades\Image::class,
         'Plupload' => JildertMiedema\LaravelPlupload\Facades\Plupload::class,
+
+        'Breadcrumbs' => DaveJamesMiller\Breadcrumbs\Facade::class,
     ],
 
 ];
