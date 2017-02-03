@@ -30,7 +30,7 @@
 		<td>{{ $user->phone }}</td>
 		<td>{{ $user->balance }}</td>
 		<td>{{ $user->discount }}%</td>
-		<td><a href="http://printtime.dev/management/manager/users" class="ajax-modal-link" data-toggle="modal" data-target=".ajax-modal">{{ $user->credit }}</a></td>
+		<td><a href="{{ route('manager.users.credit', ['id'=>$user->id]) }}" class="ajax-modal-link" data-toggle="modal" data-target=".ajax-modal">{{ $user->credit }}</a></td>
 		<td>{{ $user->orders_count }}</td>
 	</tr>
 @endforeach

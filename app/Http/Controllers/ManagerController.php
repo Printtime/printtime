@@ -60,4 +60,18 @@ class ManagerController extends Controller
     	#dd($pays);
        return view('manager.pays', compact('pays'));
     }
+
+    public function credit(Request $request)
+    {
+       $user = User::find($request->id);
+       return view('manager.form.credit', compact('user'));
+    }
+
+    public function credit_update(Request $request)
+    {   
+        $user = User::find($request->id);
+        $user->fill($request->all())->save();
+        return true;
+    }
+
 }

@@ -90,6 +90,18 @@ Route::group(['prefix' => 'management'], function () {
 			'roles'=> ['admin', 'manager'],
 			]);
 
+		Route::get('users/credit', [
+			'uses'=>'ManagerController@credit',
+			'as'=> 'manager.users.credit',
+			'roles'=> ['admin', 'manager'],
+			]);
+
+		Route::post('users/credit', [
+			'uses'=>'ManagerController@credit_update',
+			'as'=> 'manager.users.credit_update',
+			'roles'=> ['admin', 'manager'],
+			]);
+
 		Route::get('pays', [
 			'uses'=>'ManagerController@pays',
 			'as'=> 'manager.pays',
