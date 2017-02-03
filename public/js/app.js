@@ -578,6 +578,19 @@ $('.send2server').click(function( event ) {
 
 });
 
+    $(".ajax-modal-link").click(function( event ) {
+
+        event.preventDefault();
+
+        $.ajax({
+            url: this.href,
+            success: function(data) {
+                $('.ajax-modal .modal-dialog').html(data);
+            }
+        });
+
+    });
+
 
     $(".ajax").click(function( event ) {
 

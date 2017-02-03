@@ -15,7 +15,7 @@
 		<th>№</th>
 		<th>Пользователь</th>
 		<th>action</th>
-		<th>payment_id</th>
+		<th>Card</th>
 		<th>status</th>
 		<th>type</th>
 		<th>Сумма</th>
@@ -27,7 +27,7 @@
 		<td><a href="#" data-toggle="tooltip" data-html="true" title="{{ $pay->description }}">{{ $pay->id }}</a></td>
 		<td>{{ $pay->name }}</td>
 		<td>{{ $pay->action }}</td>
-		<td>{{ $pay->payment_id }}</td>
+		<td>{{ $pay->sender_card_mask2 }}</td>
 		<td>{{ $pay->status }}</td>
 		<td>{{ $pay->type }}</td>
 		<td>{{ $pay->amount }}</td>

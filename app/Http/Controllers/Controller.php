@@ -67,7 +67,7 @@ class Controller extends BaseController
 
         if (file_exists($path)) {
 
-            exec('convert -profile "../storage/icc/CMYK_Profiles/CoatedFOGRA27.icc" '.$path.' -profile "../storage/icc/RGB_Profiles/AppleRGB.icc" -quality 80 -resize 256x256 '.$jpg.'');
+            exec('nice -n 19 convert -profile "../storage/icc/CMYK_Profiles/CoatedFOGRA27.icc" '.$path.' -profile "../storage/icc/RGB_Profiles/AppleRGB.icc" -quality 80 -resize 256x256 '.$jpg.'');
         }
 
     }

@@ -97,6 +97,11 @@
 <div class="modal-dialog-pay" role="document"></div>
 </div>
 
+<!-- ajax modal -->
+<div class="modal fade ajax-modal" tabindex="-1" role="dialog" aria-labelledby="ajaxModalLabel">
+  <div class="modal-dialog" role="document"></div>
+</div>
+
     
     <script src="{{ elixir('js/app.js') }}"></script>
 

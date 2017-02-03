@@ -3,10 +3,10 @@
 @section('content')
 
 
-<div class="container">
+<div class="container-fluid">
 <div class="row">
 
-<div class="col-sm-12 col-md-12">
+<div class="col-sm-12 col-md-10 col-md-offset-1 col-sm-offset-0">
 <h3>Пользователи</h3>
 
 <table class="table table-hover">
@@ -16,9 +16,9 @@
 		<th>Ф.И.О.</th>
 		<th>E-mail</th>
 		<th>Телефон</th>
-		<th>Дата регистрации</th>
 		<th>Баланс</th>
 		<th>Скидка</th>
+		<th>Кред.лимит</th>
 		<th>Заказов</th>
 	</tr>
 </thead>
@@ -28,9 +28,9 @@
 		<td>{{ $user->name }}</td>
 		<td>{{ $user->email }}</td>
 		<td>{{ $user->phone }}</td>
-		<td>{{ $user->created_at }}</td>
 		<td>{{ $user->balance }}</td>
 		<td>{{ $user->discount }}%</td>
+		<td><a href="http://printtime.dev/management/manager/users" class="ajax-modal-link" data-toggle="modal" data-target=".ajax-modal">{{ $user->credit }}</a></td>
 		<td>{{ $user->orders_count }}</td>
 	</tr>
 @endforeach
