@@ -57,7 +57,7 @@
                         <a href="/profile"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> {{ Auth::user()->name }}</a>
                     </li> --}}
 
-<li{{ Helper::setActive('user/transfer') }}><a href="{!! route('user.transfer') !!}" class="ajax-pay" data-toggle="modal" data-target="#open-modal-pay"><span class="glyphicon glyphicon-transfer"></span> {{ Auth::user()->balance }} грн.</a></li>
+<li{{ Helper::setActive('user/transfer') }}><a href="{!! route('user.transfer') !!}" class="ajax-pay" data-toggle="modal" data-target="#open-modal-pay"><span class="glyphicon glyphicon-transfer"></span> {{ Auth::user()->balance }} грн. @if(Auth::user()->credit > 0)<sup data-toggle="tooltip" data-placement="top" title="Кредитный лимит" style="position:relative; left:-20px; top:-10px;"><sup>{{ Auth::user()->credit }}</sup></sup>@endif</a></li>
 
 
                     <li>

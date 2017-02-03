@@ -44,7 +44,7 @@ class PayController extends Controller
 
         if ($confirm == 'confirm') {
 
-            if ($order->sum > auth()->user()->balance) {
+            if ($order->sum > (auth()->user()->balance + auth()->user()->credit)) {
                 $no_money = auth()->user()->balance - $order->sum;
                 return redirect()->route('order.index')->withErrors(['sum'=>'На вашем балансе нехватает '.$no_money.' грн.'])->withInput();
             } else {

@@ -17,6 +17,7 @@ AdminSection::registerModel(User::class, function (ModelConfiguration $model) {
                 AdminColumn::link('name')->setLabel('Имя'),
                 AdminColumn::text('balance')->setLabel('Баланс'),
                 AdminColumn::text('discount', 'Скидка %'),
+                AdminColumn::text('credit')->setLabel('Кред.лимит (грн.)'),
                 AdminColumn::email('email')->setLabel('Email')->setWidth('150px'),
                 AdminColumn::lists('roles.label')->setLabel('Roles')->setWidth('200px'),
             ])->paginate(20);
@@ -31,6 +32,7 @@ AdminSection::registerModel(User::class, function (ModelConfiguration $model) {
             AdminFormElement::multiselect('roles', 'Roles')->setModelForOptions(new Role())->setDisplay('label'),
             AdminFormElement::text('balance', 'Баланс (грн.)'),
             AdminFormElement::text('discount', 'Скидка (%)'),
+            AdminFormElement::text('credit', 'Кредитный лимит (грн.)'),
             #AdminFormElement::multiselect('roles', 'Roles')->lists(Role::class)->setDisplay('label'),
             #AdminFormElement::multiselect('roles', 'Roles', Role::filteredList())->setDisplay('label'),
             #AdminFormElement::multiselect('roles', 'Roles')->setModelForOptions(Role::filteredList())->setDisplay('label'),

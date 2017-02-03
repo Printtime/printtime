@@ -7,6 +7,10 @@
 <div class="row">
 <div class="col-sm-12 col-md-12">
 
+  <div class="form-group pull-right">
+    <p>Ваш кредитный лимит: {{ Auth::user()->credit }} грн.</p>
+  </div>
+
 {!! Form::open(['route' => 'user.profileUpdate']) !!}
   <div class="form-group">
     {!! Form::label('name', 'Фамилия Имя Отчество') !!}
