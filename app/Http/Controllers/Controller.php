@@ -62,13 +62,14 @@ class Controller extends BaseController
 
     public function tiff2jpg_convert($filename, $jpg)
     {   
-
+        /*
         $path = storage_path('print/'.$filename);
 
         if (file_exists($path)) {
 
             exec('nice -n 19 convert -profile "../storage/icc/CMYK_Profiles/CoatedFOGRA27.icc" '.$path.' -profile "../storage/icc/RGB_Profiles/AppleRGB.icc" -quality 80 -resize 256x256 '.$jpg.'');
         }
+        */
 
     }
 
