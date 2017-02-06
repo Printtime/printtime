@@ -26,7 +26,7 @@
 	<tr class="@if($pay->type == 'buy' and $pay->status !='failure') success @endif @if($pay->type == 'sell') info @endif">
 		<td>{!! $pay->id !!}</td>
 		<td>@if($pay->type == 'sell')-@endif{!! $pay->amount !!}</td>
-		<td>{!! $pay->description !!}</td>
+		<td>{!! nl2br($pay->description) !!}</td>
 		<td>{!! $pay->status !!}</td>
 		<td>{!! $pay->type !!}</td>
 		<td>{!! $pay->created_at !!}</td>

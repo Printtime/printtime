@@ -89,6 +89,8 @@
 
 <a id="back-to-top" href="#" class="btn btn-lg back-to-top" role="button" title="Наверх!" data-toggle="tooltip" data-placement="left"><span class="glyphicon glyphicon-chevron-up"></span></a>
 
+
+<!-- ajax modal -->
 <div class="modal fade" id="open-modal" tabindex="-1" role="dialog">
 <div class="modal-dialog" role="document"></div>
 </div>
@@ -97,10 +99,7 @@
 <div class="modal-dialog-pay" role="document"></div>
 </div>
 
-<!-- ajax modal -->
-<div class="modal fade ajax-modal" tabindex="-1" role="dialog" aria-labelledby="ajaxModalLabel">
-  <div class="modal-dialog" role="document"></div>
-</div>
+@include('layouts.ajax')
 
     
     <script src="{{ elixir('js/app.js') }}"></script>

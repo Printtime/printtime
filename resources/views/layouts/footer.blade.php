@@ -9,6 +9,8 @@
 <div class="modal-dialog-pay" role="document"></div>
 </div>
 
+@include('layouts.ajax')
+
     
     <script src="{{ elixir('js/app.js') }}"></script>
 

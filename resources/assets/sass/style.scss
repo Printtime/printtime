@@ -4,6 +4,8 @@
 @font-face { font-family: 'PFDinTextCondPro-Light';  src: local('PFDinTextCondPro-Light'), url('http://nomail.com.ua/files/woff/2bba26df7ba63d850e5bd1de2f142358.woff') format('woff'); }
 @font-face { font-family: 'PFDinTextCondPro-Bold';  src: local('PFDinTextCondPro-Bold'), url('http://nomail.com.ua/files/woff/9ae3709d644c8df5546e96d0eddc99e1.woff') format('woff'); }
 
+@import "ajax";
+
 $brand-color1: #f1672a;
 $brand-color2: #4d4d4d;
 $link-color: #f1672a;

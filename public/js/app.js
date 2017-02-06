@@ -540,12 +540,16 @@ $.ajaxSetup({
 
     $(".ajax-pay").click(function( event ) {
 
+
+                $('.ajaxloader').show();
+
         event.preventDefault();
 
         $.ajax({
             url: this.href,
             success: function(data) {
                 $('.modal-dialog-pay').html(data);
+                $('.ajaxloader').hide();
             }
         });
 
@@ -578,7 +582,7 @@ $('.send2server').click(function( event ) {
 
 });
 
-    $(".ajax-modal-link").click(function( event ) {
+/*    $(".ajax-modal-link").click(function( event ) {
 
         event.preventDefault();
 
@@ -589,7 +593,7 @@ $('.send2server').click(function( event ) {
             }
         });
 
-    });
+    });*/
 
 
     $(".ajax").click(function( event ) {

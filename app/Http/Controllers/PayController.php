@@ -46,7 +46,7 @@ class PayController extends Controller
 
             if ($order->sum > (auth()->user()->balance + auth()->user()->credit)) {
                 $no_money = auth()->user()->balance - $order->sum;
-                return redirect()->route('order.index')->withErrors(['sum'=>'На вашем балансе нехватает '.$no_money.' грн.'])->withInput();
+                return redirect()->route('order.index')->withErrors(['sum'=>'На вашем балансе не хватает '.$no_money.' грн.'])->withInput();
             } else {
                 $user = auth()->user();
                 $user->balance = $user->balance - $order->sum;
@@ -60,7 +60,7 @@ class PayController extends Controller
                 $pay->user_id = auth()->user()->id;
                 $pay->amount = $order->sum; 
                 $pay->type = 'sell';
-                $pay->description = 'Списание '.$order->sum.' за заказа №'.$order->id.'';
+                $pay->description = 'Списание '.$order->sum.' за заказ №'.$order->id.'';
                 $pay->save();
 
             }

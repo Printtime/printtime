@@ -23,14 +23,14 @@
 	</tr>
 </thead>
 @foreach($users as $user)
-	<tr>
+	<tr @if($user->balance < 0) class="danger" @endif>
 		<td>{{ $user->id }}</td>
-		<td>{{ $user->name }}</td>
+		<td><a href="{{ route('manager.users.edit', ['id'=>$user->id]) }}" class="ajax-pay" data-toggle="modal" data-target="#open-modal-pay">{{ $user->name }}</a></td>
 		<td>{{ $user->email }}</td>
 		<td>{{ $user->phone }}</td>
-		<td>{{ $user->balance }}</td>
+		<td><a href="{{ route('manager.pay.create', ['id'=>$user->id]) }}"  class="ajax-pay" data-toggle="modal" data-target="#open-modal-pay"><span class="glyphicon glyphicon-triangle-right"></span></a> {{ $user->balance }}</td>
 		<td>{{ $user->discount }}%</td>
-		<td><a href="{{ route('manager.users.credit', ['id'=>$user->id]) }}" class="ajax-modal-link" data-toggle="modal" data-target=".ajax-modal">{{ $user->credit }}</a></td>
+		<td>{{ $user->credit }}</td>
 		<td>{{ $user->orders_count }}</td>
 	</tr>
 @endforeach

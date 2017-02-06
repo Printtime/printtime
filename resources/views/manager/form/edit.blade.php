@@ -5,18 +5,27 @@
             </div>
 
 
-{!! Form::model($user, ['route' => ['manager.users.credit_update', 'id='.$user->id.'']]) !!}
+{!! Form::model($user, ['route' => ['manager.users.edit_update', 'id='.$user->id.'']]) !!}
             <div class="modal-body">
 
-<div class="row">
+            <div class="form-group">
+                {!! Form::label('name', 'Ф.И.О.') !!}
+                {!! Form::text('name', null, ['class' => 'form-control', 'required'=>'required']) !!}
+            </div>
 
-        <div class="col-md-4">
+            <div class="form-group">
+                {!! Form::label('balance', 'Баланс '.$user->balance.' грн.') !!}
+            </div>
+
+            <div class="form-group">
+                {!! Form::label('discount', 'Скидка в %') !!}
+                {!! Form::text('discount', null, ['class' => 'form-control']) !!}
+            </div>
+
             <div class="form-group">
                 {!! Form::label('credit', 'Кредитный лимит в грн.') !!}
                 {!! Form::text('credit', null, ['class' => 'form-control', 'required'=>'required']) !!}
             </div>
-        </div>
-</div>
 
             </div>
 

@@ -51,27 +51,64 @@ class ManagerController extends Controller
        return view('manager.users', compact('users'));
     }
 
-    public function pays()
+    public function pays(Request $request)
     {   	
     	$pays = Pay::join('users', 'users.id', '=', 'pays.user_id')
     	->select('pays.*', 'users.name')
-    	->orderBy('pays.id', 'desc')
-    	->paginate(20);
-    	#dd($pays);
+    	->orderBy('pays.id', 'desc');
+        if($request->user_id) { $pays->where('user_id', $request->user_id); }
+        $pays = $pays->paginate(20);
+        if($request->user_id) { $pays->appends(['user_id' => $request->user_id]); }
+        
        return view('manager.pays', compact('pays'));
     }
 
-    public function credit(Request $request)
+    public function edit(Request $request)
     {
        $user = User::find($request->id);
-       return view('manager.form.credit', compact('user'));
+       return view('manager.form.edit', compact('user'));
     }
 
-    public function credit_update(Request $request)
+    public function edit_update(Request $request)
     {   
         $user = User::find($request->id);
         $user->fill($request->all())->save();
-        return true;
+        return back();
     }
+
+
+
+    public function pay_form(Request $request)
+    {
+       $user = User::find($request->id);
+       return view('manager.form.pay', compact('user'));
+    }
+
+
+    public function pay_create(Request $request)
+    {   
+
+        $user = User::find($request->id);
+            if($request->type == 'buy') {
+            $user->balance = $user->balance + $request->amount;
+            }
+            if($request->type == 'sell') {
+            $user->balance = $user->balance - $request->amount;
+            }
+        $user->save();
+
+
+        $pay = new Pay();
+        $pay->status = 'local';
+        $pay->user_id = $request->id;
+        $pay->amount = $request->amount;
+        $pay->description = $request->description." \nОстаток баланса ".$user->balance." грн. на ".date("d.m.Y H:i:s");
+        $pay->type = $request->type;
+        $pay->save();
+
+        return back();
+
+    }
+
 
 }

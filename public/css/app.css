@@ -5741,6 +5741,116 @@ button.close {
   font-family: 'PFDinTextCondPro-Bold';
   src: local("PFDinTextCondPro-Bold"), url("http://nomail.com.ua/files/woff/9ae3709d644c8df5546e96d0eddc99e1.woff") format("woff"); }
 
+.ajaxloader {
+  position: fixed;
+  width: 110px;
+  height: 110px;
+  left: 50%;
+  top: 50%;
+  margin: auto;
+  margin-left: -55px;
+  margin-top: -55px;
+  z-index: 9999;
+  display: none; }
+
+.ajaxloader .wBall {
+  position: absolute;
+  width: 105px;
+  height: 105px;
+  opacity: 0;
+  transform: rotate(225deg);
+  -o-transform: rotate(225deg);
+  -ms-transform: rotate(225deg);
+  -webkit-transform: rotate(225deg);
+  -moz-transform: rotate(225deg);
+  animation: orbit 3.3225s infinite;
+  -o-animation: orbit 3.3225s infinite;
+  -ms-animation: orbit 3.3225s infinite;
+  -webkit-animation: orbit 3.3225s infinite;
+  -moz-animation: orbit 3.3225s infinite; }
+
+.ajaxloader .wBall .wInnerBall {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  background: white;
+  left: 0px;
+  top: 0px;
+  border-radius: 14px; }
+
+.ajaxloader #wBall_1 {
+  animation-delay: 0.726s;
+  -o-animation-delay: 0.726s;
+  -ms-animation-delay: 0.726s;
+  -webkit-animation-delay: 0.726s;
+  -moz-animation-delay: 0.726s; }
+
+.ajaxloader #wBall_2 {
+  animation-delay: 0.143s;
+  -o-animation-delay: 0.143s;
+  -ms-animation-delay: 0.143s;
+  -webkit-animation-delay: 0.143s;
+  -moz-animation-delay: 0.143s; }
+
+.ajaxloader #wBall_3 {
+  animation-delay: 0.2865s;
+  -o-animation-delay: 0.2865s;
+  -ms-animation-delay: 0.2865s;
+  -webkit-animation-delay: 0.2865s;
+  -moz-animation-delay: 0.2865s; }
+
+.ajaxloader #wBall_4 {
+  animation-delay: 0.4295s;
+  -o-animation-delay: 0.4295s;
+  -ms-animation-delay: 0.4295s;
+  -webkit-animation-delay: 0.4295s;
+  -moz-animation-delay: 0.4295s; }
+
+.ajaxloader #wBall_5 {
+  animation-delay: 0.583s;
+  -o-animation-delay: 0.583s;
+  -ms-animation-delay: 0.583s;
+  -webkit-animation-delay: 0.583s;
+  -moz-animation-delay: 0.583s; }
+
+@keyframes orbit {
+  0% {
+    opacity: 1;
+    z-index: 99;
+    transform: rotate(180deg);
+    animation-timing-function: ease-out; }
+  7% {
+    opacity: 1;
+    transform: rotate(300deg);
+    animation-timing-function: linear;
+    origin: 0%; }
+  30% {
+    opacity: 1;
+    transform: rotate(410deg);
+    animation-timing-function: ease-in-out;
+    origin: 7%; }
+  39% {
+    opacity: 1;
+    transform: rotate(645deg);
+    animation-timing-function: linear;
+    origin: 30%; }
+  70% {
+    opacity: 1;
+    transform: rotate(770deg);
+    animation-timing-function: ease-out;
+    origin: 39%; }
+  75% {
+    opacity: 1;
+    transform: rotate(900deg);
+    animation-timing-function: ease-out;
+    origin: 70%; }
+  76% {
+    opacity: 0;
+    transform: rotate(900deg); }
+  100% {
+    opacity: 0;
+    transform: rotate(900deg); } }
+
 .fa-btn {
   margin-right: 6px; }
 

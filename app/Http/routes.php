@@ -90,15 +90,15 @@ Route::group(['prefix' => 'management'], function () {
 			'roles'=> ['admin', 'manager'],
 			]);
 
-		Route::get('users/credit', [
-			'uses'=>'ManagerController@credit',
-			'as'=> 'manager.users.credit',
+		Route::get('users/edit', [
+			'uses'=>'ManagerController@edit',
+			'as'=> 'manager.users.edit',
 			'roles'=> ['admin', 'manager'],
 			]);
 
-		Route::post('users/credit', [
-			'uses'=>'ManagerController@credit_update',
-			'as'=> 'manager.users.credit_update',
+		Route::post('users/edit', [
+			'uses'=>'ManagerController@edit_update',
+			'as'=> 'manager.users.edit_update',
 			'roles'=> ['admin', 'manager'],
 			]);
 
@@ -107,6 +107,19 @@ Route::group(['prefix' => 'management'], function () {
 			'as'=> 'manager.pays',
 			'roles'=> ['admin', 'manager'],
 			]);
+
+		Route::get('users/pay', [
+			'uses'=>'ManagerController@pay_form',
+			'as'=> 'manager.pay.create',
+			'roles'=> ['admin', 'manager'],
+			]);
+
+		Route::post('users/pay', [
+			'uses'=>'ManagerController@pay_create',
+			'as'=> 'manager.pay.create',
+			'roles'=> ['admin', 'manager'],
+			]);
+
 
 	});
 //Manager End
