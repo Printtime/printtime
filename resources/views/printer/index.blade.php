@@ -61,10 +61,18 @@
 				@foreach($order->printerfiles as $file)
 				
 					@if($file->server and $file->confirmed)
-						<a class="btn btn-primary btn-sm" href="http://{!! $file->server->local_ip !!}:{!! $file->server->web_local_port !!}/{!! $file->server->web_local_dir !!}/{!! $file->filename !!}">
-							<span class="glyphicon glyphicon-download"></span> {{ $file->side }} ({{ $file->width }} x {{ $file->height }})
-							
-						</a>
+						
+						@if($file->printfile)
+							<a class="btn btn-success btn-sm" href="http://{!! $file->server->local_ip !!}:{!! $file->server->web_local_port !!}/{!! $file->server->web_local_dir !!}/{!! $file->printfile !!}">
+								<span class="glyphicon glyphicon-download"></span> {{ $file->side }}
+							</a>
+							@else
+							<a class="btn btn-primary btn-sm" href="http://{!! $file->server->local_ip !!}:{!! $file->server->web_local_port !!}/{!! $file->server->web_local_dir !!}/{!! $file->filename !!}">
+								<span class="glyphicon glyphicon-download"></span> {{ $file->side }}
+								
+							</a>
+						@endif
+						
 						@endif
 				@endforeach
 			</td>
