@@ -16,7 +16,8 @@
 <table class="table table-hover">
 	<thead style="background: #efefef;">
 		<tr>
-			<th width="32px">№</th>
+			<th width="32px">Клиент</th>
+			<th width="32px">Заказ</th>
 			<th width="32px"></th>
 			<th width="32px"></th>
 			<th width="360px">{{ $group->first()->typevar->type->title }}<br>{{ $group->first()->typevar->variable->title }}</th>
@@ -31,6 +32,7 @@
 
 @foreach($group as $order)
 		<tr>
+			<td><span data-toggle="tooltip" data-html="true" title="{{ $order->user->name }}">{{ $order->user_id }}</span></td>
 			<td>{{ $order->id }}</td>
 			<td>@if($order->comment) <a data-toggle="tooltip" data-html="true" title="<i>{!! $order->title !!}</i><br>{!! $order->comment !!}"><span class="glyphicon glyphicon-flag"></span></a> @endif</td>
 
@@ -72,7 +74,7 @@
 								
 							</a>
 						@endif
-						
+
 						@endif
 				@endforeach
 			</td>
