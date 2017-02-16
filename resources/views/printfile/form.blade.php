@@ -10,7 +10,7 @@ if(isset($order)) {
 
     <div id="container{{$side}}">
         <button type="button" class="btn btn-lg" style="width:100%" id="pickfiles{{$side}}" href="javascript:;">
-            @if(isset($file))<div class="text-center thumbnail"><img src="{{ route('system.tiff2jpg', ['filename' => $file->filename]) }}"></div>@endif
+            {{--@if(isset($file))<div class="text-center thumbnail"><img src="{{ route('system.tiff2jpg', ['filename' => $file->filename]) }}"></div>@endif--}}
           <span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span> <div id="filelist{{$side}}">{{ $file->name or $side_name }}</div>
         </button>
     </div>

@@ -91,7 +91,7 @@ class PrintFileController extends Controller
 
 
 
-    public function commands($command, $obj, $var = null)
+    public function commands($command, $obj, $var = null, $newname = null)
     {   
         if($command == 'check') {
             exec("ssh ".$obj->login."@".$obj->remote_ip." df -hl --total --output=pcent", $output);
@@ -109,20 +109,43 @@ class PrintFileController extends Controller
         }
 
         if($command == 'scp') {
-            exec("scp ".$var." ".$obj->login."@".$obj->remote_ip.":~/".$obj->web_remote_dir." >/dev/null 2>/dev/null &");
+            exec("scp ".$var." ".$obj->login."@".$obj->remote_ip.":~/".$obj->web_remote_dir."/".$newname." >/dev/null 2>/dev/null &");
         }
 
         return $obj;
     }
 
+    public function slugify($string) {
+        $string = transliterator_transliterate("Any-Latin; NFD; [:Nonspacing Mark:] Remove; NFC; [:Punctuation:] Remove; Lower();", $string);
+        $string = preg_replace('/[-\s]+/', '-', $string);
+        return trim($string, '-');
+    }
 
+    public function printfile($localfile)
+    {
+        $data[] = $localfile->order->user_id;
+        $data[] = $localfile->order->id;
+        $data[] = $localfile->order->width.'x'.$localfile->order->height;
+        $data[] = $localfile->order->count;
+        $data[] = $this->slugify($localfile->order->typevar->type->title);
+        $data[] = $this->slugify($localfile->order->typevar->variable->title);
+        if($localfile->order->side == 2) { $data[] =  'side-2'; } 
+        $res = implode("-", $data);
+        return $res.'.tif'; 
+    }
 
     public function send2server($id)
     {
 
             $server = Servers::first();
 
-            
+/*
+            $localfile = PrintFile::find($id);
+            $server->web_remote_printfile = $this->printfile($localfile);
+            $this->commands('scp', $server, '123');
+            return dd($server);
+            */
+
             $this->commands('check', $server);
             
             if(!$server->check) {
@@ -139,12 +162,14 @@ class PrintFileController extends Controller
                 return response('Файла нет в storage', 401);
             }
 
-
             $localfile->server_id = $server->id;
+            $newname = $this->printfile($localfile);
+            $localfile->printfile = $newname;
             $localfile->save();
 
+
             $filepath = storage_path('print/'.$localfile->filename); 
-            $this->commands('scp', $server, $filepath);
+            $this->commands('scp', $server, $filepath, $newname);
             return response('Файл отправлен', 200);
     }
 

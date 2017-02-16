@@ -36,7 +36,7 @@
 	@for ($i = 0; $i <= 1; $i++)
 		@if($file = $order->userfiles($i))
 	 		<h3>Сторона {!! $file->side !!}</h3>
-			<div class="text-center thumbnail"><img src="{{ route('system.tiff2jpg', ['filename' => $file->filename]) }}"></div>
+			{{-- <div class="text-center thumbnail"><img src="{{ route('system.tiff2jpg', ['filename' => $file->filename]) }}"></div> --}}
 			<p>Название: {!! $file->name !!} | ID:{!! $file->id !!}</p>
 			<p>Расширение: {!! $file->extension !!}</p>
 			<p data-toggle="tooltip" data-placement="left" title="{{ $file->size }} байт">Размер файла: {{ Helper::human_filesize($file->size) }}</p>
