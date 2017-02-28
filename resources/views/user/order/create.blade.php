@@ -104,7 +104,6 @@ $(function(){
 
 function calc_postpress() {
 
-
         price = $("#price").text();
 
         width = $("#width").val();
@@ -179,6 +178,19 @@ function calc_postpress() {
         }
 
 
+
+/*        ppp = $(this + " #ppp");
+        console.log(ppp.html());
+        attr_lamination = $("div[pppid*='"+ppp.val()+"']");*/
+
+        /*
+        if($("div[pppid*='"+lamination.val()+"']")) {
+          attr_lamination = $("div[pppid*='"+lamination.val()+"']");
+            console.log(attr_lamination.attr('ppprice'));
+            console.log(attr_lamination.attr('ppprice_count'));
+        }*/
+
+
         priceobrezka = parseFloat(priceobrezka, 10);
         priceluvers = parseFloat(priceluvers, 10);
         pricepodvorot = parseFloat(pricepodvorot, 10);
@@ -189,6 +201,16 @@ function calc_postpress() {
 
         PricePostpress = (priceobrezka+priceluvers+pricepodvorot).toFixed(2);
         $('#PricePostpress').text(PricePostpress);
+
+
+//if($(this).next('#ppp').find("div").length >= 1) { calc_ppp($(this).attr('id'), $(this).attr('name'), $(this).val()); }
+
+      $('.postpresss select').each(function() {
+        if($(this).next('#ppp').find("div").length >= 1) { calc_ppp($(this).attr('id'), $(this).attr('name'), $(this).val()); }
+         //score += +this.textContent;
+      });
+
+
 
         //Сумма общая
         area = (width / 1000) * (height / 1000);
@@ -220,19 +242,44 @@ function calc_postpress() {
 }
 
 
+function calc_ppp(name, postpress_id, val) {
+          // console.log(name);
+          // console.log(postpress_id);
+          // console.log(val);
+          ppprice = $("div[pppid='"+val+"']").attr('ppprice');
+          ppprice_count = $("div[pppid='"+val+"']").attr('ppprice_count');
+          
+
+            area = $("#area").text();
+            pppsum = ((ppprice/ppprice_count)*area).toFixed(2);
+
+            if(pppsum == 'NaN') {
+              pppsum = '0.00';
+            }
+
+            PricePostpress = $('#PricePostpress').text();
+
+            pppsum = parseFloat(pppsum, 10);
+            PricePostpress = PricePostpress*1;
+            
+            allpppsum = (pppsum+PricePostpress).toFixed(2);
 
 
-    $("input, select").each(function () {
+            $("#price"+name+"").text(pppsum);
+            $('#PricePostpress').text(allpppsum);
+          
+          
+          //calc_postpress();
 
-      $(this).change(function () {
-          calc_postpress();
-      });
-
-
-
-    });
+}
 
 
+$("input, select").each(function () {
+  $(this).change(function () {
+      //if($(this).next('#ppp').find("div").length >= 1) { calc_ppp($(this).attr('id'), $(this).attr('name'), $(this).val()); }
+      calc_postpress();
+  });
+});
 
 calc_postpress();
 
@@ -242,14 +289,19 @@ calc_postpress();
 
   <label>Постработы</label>
 
-
-  <table class="table table-hover">
+  <table class="table table-hover postpresss">
 @foreach($value->type->product->postpresss as $pp)
-
-
   <tr>
     <td>{{ $pp->label }}</td>
-    <td>{!! Form::select('postpress['.$pp->id.']', $pp->getData(), $getPostpressArr, ['class'=>'form-control', 'id'=>$pp->name]) !!}</td>
+    <td>{!! Form::select('postpress['.$pp->id.']', $pp->getData(), $getPostpressArr, ['class'=>'form-control', 'id'=>$pp->name]) !!}
+
+        <div class="hidden" id="ppp" ppid="postpress[{{ $pp->id }}]">
+          @foreach($pp->getPPP() as $PPP)
+            @if($PPP->ppprice and $PPP->ppprice_count)<div pppid="{{ $PPP->id }}" ppprice="{{ $PPP->ppprice }}" ppprice_count="{{ $PPP->ppprice_count }}"></div>@endif
+          @endforeach
+        </div>
+
+    </td>
     <td>
       @if($pp->f) <span id="f{!! $pp->name !!}">{!! $pp->f !!}</span> грн/м погонный @endif
     </td>

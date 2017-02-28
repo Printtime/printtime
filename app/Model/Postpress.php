@@ -16,4 +16,9 @@ class Postpress extends Model
     	return $collection->prepend('Нет', 0);
     }
 
+    public function getPPP()
+    {
+      return  $this->hasMany(PostpressData::class)->get();
+    }
+
 }

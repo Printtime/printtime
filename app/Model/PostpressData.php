@@ -7,5 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 class PostpressData extends Model
 {
 	protected $table = 'postpress_data';
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'ppprice', 'ppprice_count', 'ppprice_desc'];
 }

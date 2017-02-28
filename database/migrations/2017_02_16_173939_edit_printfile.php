@@ -24,6 +24,8 @@ class EditPrintfile extends Migration
      */
     public function down()
     {
-        $table->dropColumn('printfile');
+        Schema::table('print_files', function ($table) {
+            $table->dropColumn('printfile');
+        });
     }
 }
