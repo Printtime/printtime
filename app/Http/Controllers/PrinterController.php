@@ -24,7 +24,7 @@ class PrinterController extends Controller
         #$orders = Order::with('typevar', 'status')->where('status_id', '>=', '2')->where('status_id', '<=', '5')->Orwhere('status_id', '=', '9')->orderBy('id', 'desc')->paginate('20');
         $orders = Order::with('typevar', 'typevar.type', 'typevar.variable', 'status', 'user', 'printerfiles.server', 'getPostpress')
         ->where('status_id', $status)->orderBy('created_at', 'asc')
-        ->paginate('20');
+        ->get();
 
        # $postpress_data = OrderController::postpress_data();
         return view('printer.index',  compact('orders'));
@@ -36,7 +36,7 @@ class PrinterController extends Controller
             ->where('user_id', $user_id)
             
             ->orderBy('created_at', 'desc')
-            ->paginate('20'); 
+            ->get(); 
 
             $user = User::find($user_id);
             return view('printer.index')->with('orders', $orders)->with('user', $user);
