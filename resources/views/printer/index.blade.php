@@ -19,7 +19,6 @@
 <div class="container-fluid">
 <div class="row">
 
-
 <div class="col-sm-12 col-md-8 col-md-offset-2 col-sm-offset-0">
 
 	@foreach($orders->groupBy('type_var_id') as $group)
@@ -96,6 +95,12 @@
 	</tbody>
 </table>
 	@endforeach
+
+
+
+
+<center>{{ $orders->links() }}</center>
+
 
 </div></div></div>
 @endsection
