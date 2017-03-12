@@ -22,7 +22,7 @@ class OrderController extends Controller
 
    public function index()
     {   
-        $orders = Order::with('typevar', 'status')->where('user_id', auth()->user()->id)->orderBy('id', 'desc')->paginate('20');
+        $orders = Order::with('typevar', 'typevar.type', 'typevar.variable', 'status')->where('user_id', auth()->user()->id)->orderBy('id', 'desc')->paginate('20');
         return view('user.order.index', compact('orders'));
     }
 

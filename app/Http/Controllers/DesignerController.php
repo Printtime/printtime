@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Http\Requests;
 
 use App\Model\Order;
 use App\Model\PrintFile;
@@ -15,14 +14,15 @@ use App\Model\Variable;
 
 class DesignerController extends Controller
 {
-    public function index()
+    public function index(Request $request, $status = 1)
     {   	
 
-        $orders = Order::with('typevar', 'status')
-        ->where('status_id', 1)
-        ->orWhere('status_id', 2)
-        ->orderBy('id', 'desc')
-        ->paginate('20');
+        if(isset($request->sort)) { $sort = 'desc'; } else { $sort = 'asc'; }
+
+        $orders = Order::with('typevar', 'typevar.type', 'typevar.variable', 'status')
+        ->where('status_id', $status)
+        ->orderBy('updated_at', $sort)->paginate('20')->appends(['sort' => $sort]);
+
         return view('designer.index',  compact('orders'));
 
     }
@@ -30,9 +30,6 @@ class DesignerController extends Controller
     public function show($id)
     {   	
         $order = Order::with('typevar', 'status')->find($id);
-        #if($order->status_id != 2) { $order->setStatus(2); }
-
-
         $getPostpressArr = $order->getPostpressArr();
         return view('designer.show', compact('order', 'getPostpressArr'));
     }

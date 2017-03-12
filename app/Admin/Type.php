@@ -41,6 +41,13 @@ AdminSection::registerModel(Type::class, function (ModelConfiguration $model) {
             //     ->setLabel('Type_Var'),
         ]);
         
+
+
+        $display->setColumns([
+            AdminColumn::text('roll_width')->setLabel('Рулон')->setWidth('48px'),
+            AdminColumn::text('semantic')->setLabel('Семан.имя')->setWidth('48px'),
+        ]);
+
         return $display;
     });
 
@@ -72,6 +79,8 @@ AdminSection::registerModel(Type::class, function (ModelConfiguration $model) {
            AdminFormElement::select('product_id', 'Продукт')->setModelForOptions(new Product)->setDisplay('title'),
             AdminFormElement::text('width', 'Ширина (мм)')->required()->setDefaultValue('1000'),
             AdminFormElement::text('height', 'Высота (мм)')->required()->setDefaultValue('1000'),
+            AdminFormElement::text('roll_width', 'Ширина рулона (мм)'),
+            AdminFormElement::text('semantic', 'Семантическое имя'),
         ]);
 
         $tabs[] = AdminDisplay::tab($form)->setLabel('Информация')->setActive(true)->setIcon('<i class="fa fa-credit-card"></i>');

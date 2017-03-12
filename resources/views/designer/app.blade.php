@@ -28,7 +28,9 @@
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <!-- Left Side Of Navbar -->
 <ul class="nav navbar-nav">
-<li{{ Helper::setActive('management/designer') }}><a href="{!! route('designer.index') !!}"><span class="glyphicon glyphicon-th-list"></span> Новые заказы</a></li>
+<li{{ Helper::setActive('management/designer') }}><a href="{!! route('designer.index') !!}">Новые заказы</a></li>
+<li{{ Helper::setActive('management/designer/2') }}><a href="{!! route('designer.index', ['status' => 2, 'sort'=>'asc']) !!}">В работе</a></li>
+<!-- <li{{ Helper::setActive('management/designer/8') }}><a href="{!! route('designer.index', ['status' => 8, 'order'=>'desc']) !!}">Ждет оплаты</a></li> -->
 </ul>
 
                 <ul class="nav navbar-nav navbar-right">

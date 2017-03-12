@@ -1,15 +1,15 @@
 @extends('designer.app')
 
+
 @section('content')
 
 
-<div class="container">
+<div class="container-fluid">
 <div class="row">
 
 
-<div class="col-sm-12 col-md-12">
+<div class="col-sm-12 col-md-10 col-md-offset-1 col-sm-offset-0">
 
-<h3>Новые заказы на проверку</h3>
 
 <table class="table table-hover table-striped">
 	<thead>
@@ -20,6 +20,7 @@
 			<th></th>
 			<th>Ширина (мм)</th>
 			<th>Высота (мм)</th>
+			<th>Кол-во</th>
 			<th>Дата и время</th>
 			<th></th>
 		</tr>
@@ -35,6 +36,7 @@
 			<td>{{ $order->typevar->type->title }}, {{ $order->typevar->variable->title }}</td>
 			<td>{!! $order->width !!}</td>
 			<td>{!! $order->height !!}</td>
+			<td>{!! $order->count !!}</td>
 			<td>{!! $order->created_at !!}</td>
 			<td><a class="btn btn-success btn-xs" href="{!! route('designer.show', ['id' => $order->id]) !!}">Открыть</a></td>
 		</tr>

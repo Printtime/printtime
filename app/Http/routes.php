@@ -69,6 +69,7 @@ Route::group(['middleware' => ['web', 'roles']], function () {
 //All Management
 Route::group(['prefix' => 'management'], function () {
 
+
 //Manager Start
 	Route::group(['prefix' => 'manager'], function () {
 
@@ -126,18 +127,18 @@ Route::group(['prefix' => 'management'], function () {
 
 
 //Designer Start
-	Route::get('designer', [
+	Route::get('designer/{status?}', [
 		'uses'=>'DesignerController@index',
 		'as'=> 'designer.index',
 		'roles'=> ['admin', 'designer'],
 		]);
-	Route::get('designer/{id}', [
+	Route::get('designer/show/{id}', [
 		'uses'=>'DesignerController@show',
 		'as'=> 'designer.show',
 		'roles'=> ['admin', 'designer'],
 		]);
 
-	Route::post('designer/{id}', [
+	Route::post('designer/show/{id}', [
 		'uses'=>'DesignerController@update',
 		'as'=> 'designer.update',
 		'roles'=> ['admin', 'designer'],
@@ -145,16 +146,34 @@ Route::group(['prefix' => 'management'], function () {
 //Designer End
 
 //printer Start
-	Route::get('printer', [
+	Route::get('printer/users', [
+		'uses'=>'PrinterController@users',
+		'as'=> 'printer.users',
+		'roles'=> ['admin', 'printer'],
+		]);
+
+	Route::get('printer/{status?}', [
 		'uses'=>'PrinterController@index',
 		'as'=> 'printer.index',
 		'roles'=> ['admin', 'printer'],
 		]);
+
+	Route::get('printer/user/{user_id}/orders', [
+		'uses'=>'PrinterController@user_orders',
+		'as'=> 'printer.user.orders',
+		'roles'=> ['admin', 'printer'],
+		]);
+
+
+
+
+			/*
 	Route::get('printer/{id}', [
 		'uses'=>'PrinterController@show',
 		'as'=> 'printer.show',
 		'roles'=> ['admin', 'printer'],
 		]);
+	*/
 //printer End
 
 	Route::get('download/{id}/{server}', [

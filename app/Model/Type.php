@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Type extends Model
 {
 	protected $table = 'types';
-    protected $fillable = ['title', 'product_id', 'width', 'height'];
+    protected $fillable = ['title', 'product_id', 'width', 'height', 'semantic', 'roll_width'];
     public $timestamps = false;
 
     public function product()

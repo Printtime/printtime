@@ -28,7 +28,12 @@
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <!-- Left Side Of Navbar -->
 <ul class="nav navbar-nav">
-<li{{ Helper::setActive('management/printer') }}><a href="{!! route('printer.index') !!}"><span class="glyphicon glyphicon-th-list"></span> Новые заказы</a></li>
+<li{{ Helper::setActive('management/printer') }}><a href="{!! route('printer.index') !!}">Новые заказы</a></li>
+<li{{ Helper::setActive('management/printer/9') }}><a href="{!! route('printer.index', ['status' => 9]) !!}">В печати</a></li>
+<li{{ Helper::setActive('management/printer/3') }}><a href="{!! route('printer.index', ['status' => 3]) !!}">Готово</a></li>
+<li{{ Helper::setActive('management/printer/4') }}><a href="{!! route('printer.index', ['status' => 4]) !!}">На складе</a></li>
+<li{{ Helper::setActive('management/printer/5') }}><a href="{!! route('printer.index', ['status' => 5]) !!}">Отправлено</a></li>
+<li{{ Helper::setActive('management/printer/users') }}><a href="{!! route('printer.users') !!}"><span class="glyphicon glyphicon-user"></span> Пользователи</a></li>
 </ul>
 
                 <ul class="nav navbar-nav navbar-right">
@@ -76,6 +81,8 @@
         <div class="responseText"></div>
     </div>
 </div>
+        
+        @yield('user')
 
         @yield('content')
     </div>

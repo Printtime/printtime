@@ -7,6 +7,12 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
+//users()
+use App\User;
+use App\Pay;
+use App\Model\Order;
+use DB;
+
 use App\Model\Slider;
 use App\Model\Product;
 use App\Model\Catalog;
@@ -234,5 +240,14 @@ class Controller extends BaseController
 
     }
 
+
+    public function users()
+    {       
+        return User::join('orders', 'users.id', '=', 'orders.user_id')
+            ->groupBy('orders.user_id')
+            ->select('users.*', DB::raw('count(*) as orders_count'))
+            ->orderBy('users.id', 'desc')
+            ->paginate(20);
+    }
 
 }

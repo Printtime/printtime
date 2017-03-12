@@ -42,13 +42,7 @@ class ManagerController extends Controller
 
     public function users()
     {   	
-    	$users = User::join('orders', 'users.id', '=', 'orders.user_id')
-            ->groupBy('orders.user_id')
-            ->select('users.*', DB::raw('count(*) as orders_count'))
-    	 	->orderBy('users.id', 'desc')
-            ->paginate(20);
-
-       return view('manager.users', compact('users'));
+       return view('manager.users')->with('users', Controller::users());
     }
 
     public function pays(Request $request)

@@ -105,18 +105,6 @@ $('.send2server').click(function( event ) {
 
 });
 
-/*    $(".ajax-modal-link").click(function( event ) {
-
-        event.preventDefault();
-
-        $.ajax({
-            url: this.href,
-            success: function(data) {
-                $('.ajax-modal .modal-dialog').html(data);
-            }
-        });
-
-    });*/
 
 
     $(".ajax").click(function( event ) {
@@ -155,6 +143,312 @@ $('.send2server').click(function( event ) {
 
 
 
+function make_message(id, name, cssclass, message) {
+        $("#make_message #"+id).remove();
+        $("#make_message").append('<div style="margin-top:20px;" id="'+id+'" class="'+cssclass+'"><input required="required" id="'+name+'" type="checkbox" name="'+name+'"> <label for="'+name+'">'+message+'</label></div>');
+}
+
+
+
+function remove_message(id) {
+    $("#make_message #"+id).remove();
+}
+
+//Проверка на ширину материала, types:roll_width
+function validcut(width, height) {
+
+    roll_width = $('#roll_width').text();
+    roll_width = parseFloat(roll_width, 10);
+    width = parseFloat(width, 10);
+    height = parseFloat(height, 10);
+
+    if(roll_width > 10) {
+
+        this.make_message = make_message(
+                        'vcrw',
+                        'validcut_roll_width',
+                        'alert alert-danger',
+                        'Подтвердите что ваш заказ будет состоять из 2-х частей. Размер материала '+roll_width+'мм, '
+                        );
+
+            switch( true ){
+
+              case roll_width < width:
+                this.make_message;
+              break;
+
+              case roll_width < height:
+                this.make_message;
+              break;
+
+              case roll_width < height && roll_width < width:
+                this.make_message;
+              break;
+
+              case roll_width > height && roll_width > width:
+                remove_message('vcrw');
+
+            };
+     }
+   
+}
+
+function postpresss_select_disabled() {
+
+//Включение/выключение select 
+    $( ".postpresss select option:selected").each(function() {
+
+        item = $(this).parent();
+        
+
+        if(item.prop("disabled") != true) {
+
+            switch(item.attr('id')){
+
+               case 'obrezka':
+                   if(item.val() >= 1) {
+                        $("#karman, #podvorot").prop("disabled", true);
+                    } else {
+                        $("#karman, #podvorot").prop("disabled", false);
+                    }
+               break;
+
+               case 'podvorot':
+                   if(item.val() >= 1) {
+                        $("#karman").prop("disabled", true);
+                    } else {
+                        $("#karman").prop("disabled", false);
+                    }
+               break;
+               
+               case 'karman':
+                   if(item.val() >= 1) {
+                        $("#obrezka, #podvorot").prop("disabled", true);
+                    } else {
+                        $("#obrezka, #podvorot").prop("disabled", false);
+                    }
+               break;
+
+              
+            };
+        }
+    });
+
+}
+
+
+function postpresss_select_each() {
+     $('.postpresss select').each(function() {
+        if($(this).next('#ppp').find("div").length >= 1) { calc_ppp($(this).attr('id'), $(this).attr('name'), $(this).val()); }
+      });
+
+    postpresss_select_disabled();
+
+}
+
+
+function calc_postpress() {
+
+        price = $("#price").text();
+
+        width = $("#width").val();
+        height = $("#height").val();
+        count = $("#count").val();
+
+        obrezka = $("#obrezka").val();
+        fobrezka = $("#fobrezka").text();
+
+        luvers = $("#luvers").val();
+        fluvers = $("#fluvers").text();
+
+        karman = $("#karman").val();
+
+        podvorot = $("#podvorot").val();
+
+        discount = $("#discount").text();
+
+
+        length_sides = 0;
+        length_podvorot = 40;
+        
+
+        //Карман
+        length_karman = 150;
+
+        switch(karman){
+
+            //Нет
+           case '0':
+            pricekarman = '0.00';
+           break;     
+
+           //Только сверху
+           case '12':
+            m2_karman = (((width*length_karman)*count)/1000);
+            pricekarman = ((m2_karman/1000)*price).toFixed(2);
+           break;
+           
+           //Сверху и снизу
+           case '13':
+            m2_karman = ((((width*length_karman)*2)*count)/1000);
+            pricekarman = ((m2_karman/1000)*price).toFixed(2);
+           break;
+           
+           //По бокам
+           case '14':
+            m2_karman = ((((height*length_karman)*2)*count)/1000);
+            pricekarman = ((m2_karman/1000)*price).toFixed(2);
+           break;
+
+           default:
+            pricekarman = '0.00';
+           break;
+
+        };
+
+
+        //Обрезка
+        if(obrezka == 1) {
+            //$("#karman").prop( "disabled", true );
+            //$("#podvorot").prop( "disabled", true );
+            priceobrezka = (((width*2 + height*2)*count)/1000*fobrezka).toFixed(2);
+        } else {
+            //$("#karman").prop( "disabled", false );
+            //$("#podvorot").prop( "disabled", false );
+            priceobrezka = '0.00';
+        }
+
+
+        if (luvers == 2) {
+         //По углам
+          priceluvers = fluvers*4;
+          length_sides = (width*2 + height*2)*count;
+        } else if (luvers == 3) {
+          //По периметру
+          countluvers = (Math.ceil((width*2 + height*2)/300))+2;
+          priceluvers = countluvers*count*fluvers;
+          length_sides = (width*2 + height*2)*count;
+        } else if (luvers == 4) {
+          //верх
+          countluvers = (Math.ceil((width/300)))+1;
+          priceluvers = countluvers*count*fluvers;
+          length_sides = (width)*count;
+        } else if (luvers == 5) {
+          //Верх и низ
+          countluvers = (Math.ceil((width/300)))+1;
+          priceluvers = countluvers*count*fluvers*2;
+          length_sides = (width*2)*count;
+        } else if (luvers == 6) {
+          //Лево и право
+          countluvers = (Math.ceil((height/300)))+1;
+          priceluvers = countluvers*count*fluvers*2;
+          length_sides = (height*2)*count;
+        } else {
+          priceluvers = '0.00';
+        }
+
+        //Подворот
+        if(podvorot == 7) {
+
+            //$("#obrezka").prop( "disabled", true );
+
+            if(length_sides > 1) {
+              m2_pricepodvorot = (length_sides*length_podvorot)/1000;
+            } else {
+              m2_pricepodvorot = (((width*2 + height*2)*count)*length_podvorot/1000);
+            }
+            pricepodvorot = ((m2_pricepodvorot/1000)*price).toFixed(2);
+
+        } else {
+            //$("#obrezka").prop( "disabled", false );
+            pricepodvorot = '0.00';
+        }
+
+
+
+        priceobrezka = parseFloat(priceobrezka, 10);
+        priceluvers = parseFloat(priceluvers, 10);
+        pricepodvorot = parseFloat(pricepodvorot, 10);
+        pricekarman = parseFloat(pricekarman, 10);
+
+        $('#priceobrezka').text(priceobrezka);
+        $('#priceluvers').text(priceluvers);
+        $('#pricepodvorot').text(pricepodvorot);
+        $('#pricekarman').text(pricekarman);
+
+        PricePostpress = (priceobrezka+priceluvers+pricepodvorot+pricekarman).toFixed(2);
+        $('#PricePostpress').text(PricePostpress);
+
+
+        //Сумма общая
+        area = (width / 1000) * (height / 1000);
+        area =  area * count;
+        $("#area").text(area.toFixed(2));
+
+        coef_width = $("#coef_width").text();
+        coef_height = $("#coef_height").text();
+        coef = (coef_width*coef_height)/1000000;
+        price = price/coef;
+        
+        print = area * price;
+        $("#print").text(print.toFixed(2));
+
+
+        PricePostpress = PricePostpress*1;
+
+        sum = print+PricePostpress;
+        economy = (sum * discount) / 100;
+        $("#economy").text(economy.toFixed(2));
+        
+        sum = sum - economy;
+
+        $("#sum").text(sum.toFixed(2));
+        $("#sumPay").val(sum.toFixed(2));
+
+    
+        postpresss_select_each();
+
+}
+
+
+function calc_ppp(name, postpress_id, val) {
+          ppprice = $("div[pppid='"+val+"']").attr('ppprice');
+          ppprice_count = $("div[pppid='"+val+"']").attr('ppprice_count');
+
+            area = $("#area").text();
+            pppsum = ((ppprice/ppprice_count)*area).toFixed(2);
+
+            if(pppsum == 'NaN') {
+              pppsum = '0.00';
+            }
+
+            PricePostpress = $('#PricePostpress').text();
+            
+
+            pppsum = parseFloat(pppsum, 10);
+            PricePostpress = PricePostpress*1;
+            
+            allpppsum = (pppsum+PricePostpress).toFixed(2);
+
+
+            $("#price"+name+"").text(pppsum);
+            $('#PricePostpress').text(allpppsum);
+
+}
+
+
+$("input, select").each(function () {
+  $(this).change(function () { calc_postpress(); });
+});
+
+calc_postpress();
+
+
+
+
+
+
+// --------------- Start Upload Files function --------------- 
 
 function uploaderFileUploaded(up, file, response) {
                         
@@ -190,15 +484,10 @@ function uploaderFileUploaded(up, file, response) {
             $( "#height_file0" ).val(res.result.height.data);
         }
 
+
         CalcPrint();
         
 }
-
-
-
-
-
-
 
 var uploader = new plupload.Uploader({
     runtimes : 'html5,flash,silverlight,html4',
@@ -219,7 +508,6 @@ var uploader = new plupload.Uploader({
         max_file_size : '2048000kb',
         mime_types: [
             {title : "Tiff files", extensions : "tif,tiff"},
-            //{title : "Image files", extensions : "jpg,gif,png"}
         ]
     },
 
@@ -257,13 +545,6 @@ var uploader = new plupload.Uploader({
         }
     }
 });
-
-
-
-
-
-
-
 
 
 
@@ -305,12 +586,6 @@ function uploaderFileUploaded1(up, file, response) {
         
 }
 
-
-
-
-
-
-
 var uploader1 = new plupload.Uploader({
     runtimes : 'html5,flash,silverlight,html4',
      
@@ -330,7 +605,6 @@ var uploader1 = new plupload.Uploader({
         max_file_size : '2048000kb',
         mime_types: [
             {title : "Tiff files", extensions : "tif,tiff"},
-            //{title : "Image files", extensions : "jpg,gif,png"}
         ]
     },
 
@@ -370,12 +644,7 @@ var uploader1 = new plupload.Uploader({
 });
 
 
-
-
-
-
-
-
+// --------------- End Upload Files function --------------- 
 
 //START calc order and postpress
     $('.calc').change(function(e) {
@@ -392,18 +661,20 @@ function validFile2Calc(width, height) {
 
         if(width_file0 == width && height_file0 == height) {
                 
-                $('#validFile2Calc').css('display', 'none');
+                remove_message('confirm_size');
 
                 $('#height').css('color', '#3c763d');
                 $('#width').css('color', '#3c763d');
 
-                $('#confirm_size').removeAttr("required");
-
         } else {
 
-            $('#confirm_size').attr("required", "required");
+                make_message(
+                    'confirm_size',
+                    'confirm_size_name',
+                    'alert alert-danger',
+                    'Я знаю о несовпадении размеров файла-макета и разрешаю изменить макет дизайнером компании под установленые мною размеры.'
+                    );
 
-            $('#validFile2Calc').css('display', '');
 
             if(width_file0 != width) {
                 $('#width').css('color', '#a94442');
@@ -419,9 +690,14 @@ function validFile2Calc(width, height) {
         }
     }
 
+
+    validcut(width, height);
 }
 
+
 function CalcPrint() {
+
+        calc_postpress();
 
         price = $("#price").text();
         discount = $("#discount").text();
@@ -436,7 +712,6 @@ function CalcPrint() {
         coef_width = $("#coef_width").text();
         coef_height = $("#coef_height").text();
         coef = (coef_width*coef_height)/1000000;
-        // console0.log(coef_height);
 
         area = (width / 1000) * (height / 1000);
         area =  area * count;
@@ -452,21 +727,12 @@ function CalcPrint() {
         sum = ((print-economy)+postpress*1);
         $("#sum").text(sum.toFixed(2));
         $("#sumPay").val(sum.toFixed(2));
-
 }
 //END calc order and postpress
 
 
-
-
-
-
     uploader.init();
     uploader1.init();
-
-
-
-
 
 var cities = new Bloodhound({
   datumTokenizer: Bloodhound.tokenizers.obj.whitespace('DescriptionRu'),

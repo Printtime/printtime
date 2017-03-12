@@ -6,6 +6,8 @@
 <h1>{{ $value->type->title }}</h1>
 <h3>{{ $value->variable->title }}</h3>
 
+<div class="hidden" id="roll_width">{{ $value->type->roll_width }}</div>
+
 
 <div class="hidden" id="price">{{ $value->price }}</div>
 <div class="hidden" id="coef_width">{{ $value->type->width }}</div>
@@ -29,8 +31,15 @@
     <input value="{{ $order->title or null }}" required="required" name="title" type="text" class="form-control" id="title" placeholder="Укажите название заказа">
   </div>
 
+<hr>
+
 <label>Макет</label>
-<p>Расширения tif/tiff, субтрактивная схема формирования цвета CMYK, размер файла не более 2 Гб.</p>
+<ul>
+  <li>Расширения файла: <b>tif или tiff</b></li>
+  <li>Схема формирования цвета: <b>Coated Fogra27 ISO 12647-2:20004</b></li>
+  <li>Размер файла: <b>не более 2 Гб</b></li>
+</ul>
+
 <div class="row">
 
 
@@ -82,12 +91,8 @@
     </div>
   </div>
 
-<div id="validFile2Calc" class="col-sm-12" style="display:none">
-  <div class="alert alert-danger" style="margin-top:5px">
-      <input id="confirm_size" type="checkbox" name="confirm_size">
-      <label for="confirm_size"> Я знаю о несовпадении размеров файла-макета и разрешаю изменить макет дизайнером компании под установленые мною размеры.</label>
-  </div>
-</div>
+<div id="make_message" class="col-sm-12"></div>
+
 
 </div>
 
@@ -97,195 +102,6 @@
 @if(count($value->type->product->postpresss) >= 1)
 
 <br>
-
-<script type="text/javascript">
-$(function(){
-
-
-function calc_postpress() {
-
-        price = $("#price").text();
-
-        width = $("#width").val();
-        height = $("#height").val();
-        count = $("#count").val();
-
-        obrezka = $("#obrezka").val();
-        fobrezka = $("#fobrezka").text();
-
-        luvers = $("#luvers").val();
-        fluvers = $("#fluvers").text();
-
-        podvorot = $("#podvorot").val();
-
-        discount = $("#discount").text();
-
-        length_sides = 0;
-        length_podvorot = 40;
-        
-        if(obrezka == 1) {
-            $("#podvorot").prop( "disabled", true );
-            priceobrezka = (((width*2 + height*2)*count)/1000*fobrezka).toFixed(2);
-        } else {
-            $("#podvorot").prop( "disabled", false );
-            priceobrezka = '0.00';
-        }
-
-
-        if (luvers == 2) {
-         //По углам
-          priceluvers = fluvers*4;
-          length_sides = (width*2 + height*2)*count;
-        } else if (luvers == 3) {
-          //По периметру
-          countluvers = (Math.ceil((width*2 + height*2)/300))+2;
-          priceluvers = countluvers*count*fluvers;
-          length_sides = (width*2 + height*2)*count;
-        } else if (luvers == 4) {
-          //верх
-          countluvers = (Math.ceil((width/300)))+1;
-          priceluvers = countluvers*count*fluvers;
-          length_sides = (width)*count;
-        } else if (luvers == 5) {
-          //Верх и низ
-          countluvers = (Math.ceil((width/300)))+1;
-          priceluvers = countluvers*count*fluvers*2;
-          length_sides = (width*2)*count;
-        } else if (luvers == 6) {
-          //Лево и право
-          countluvers = (Math.ceil((height/300)))+1;
-          priceluvers = countluvers*count*fluvers*2;
-          length_sides = (height*2)*count;
-        } else {
-          priceluvers = '0.00';
-        }
-        
-        if(podvorot == 7) {
-
-            $("#obrezka").prop( "disabled", true );
-
-            if(length_sides > 1) {
-              m2_pricepodvorot = (length_sides*length_podvorot)/1000;
-            } else {
-              m2_pricepodvorot = (((width*2 + height*2)*count)*length_podvorot/1000);
-            }
-            pricepodvorot = ((m2_pricepodvorot/1000)*price).toFixed(2);
-
-        } else {
-            $("#obrezka").prop( "disabled", false );
-
-            pricepodvorot = '0.00';
-        }
-
-
-
-/*        ppp = $(this + " #ppp");
-        console.log(ppp.html());
-        attr_lamination = $("div[pppid*='"+ppp.val()+"']");*/
-
-        /*
-        if($("div[pppid*='"+lamination.val()+"']")) {
-          attr_lamination = $("div[pppid*='"+lamination.val()+"']");
-            console.log(attr_lamination.attr('ppprice'));
-            console.log(attr_lamination.attr('ppprice_count'));
-        }*/
-
-
-        priceobrezka = parseFloat(priceobrezka, 10);
-        priceluvers = parseFloat(priceluvers, 10);
-        pricepodvorot = parseFloat(pricepodvorot, 10);
-
-        $('#priceobrezka').text(priceobrezka);
-        $('#priceluvers').text(priceluvers);
-        $('#pricepodvorot').text(pricepodvorot);
-
-        PricePostpress = (priceobrezka+priceluvers+pricepodvorot).toFixed(2);
-        $('#PricePostpress').text(PricePostpress);
-
-
-//if($(this).next('#ppp').find("div").length >= 1) { calc_ppp($(this).attr('id'), $(this).attr('name'), $(this).val()); }
-
-      $('.postpresss select').each(function() {
-        if($(this).next('#ppp').find("div").length >= 1) { calc_ppp($(this).attr('id'), $(this).attr('name'), $(this).val()); }
-         //score += +this.textContent;
-      });
-
-
-
-        //Сумма общая
-        area = (width / 1000) * (height / 1000);
-        area =  area * count;
-        $("#area").text(area.toFixed(2));
-
-        coef_width = $("#coef_width").text();
-        coef_height = $("#coef_height").text();
-        coef = (coef_width*coef_height)/1000000;
-        price = price/coef;
-        
-        print = area * price;
-        $("#print").text(print.toFixed(2));
-
-
-        PricePostpress = PricePostpress*1;
-
-        sum = print+PricePostpress;
-        economy = (sum * discount) / 100;
-        $("#economy").text(economy.toFixed(2));
-        
-        sum = sum - economy;
-
-        $("#sum").text(sum.toFixed(2));
-        $("#sumPay").val(sum.toFixed(2));
-
-       
-
-}
-
-
-function calc_ppp(name, postpress_id, val) {
-          // console.log(name);
-          // console.log(postpress_id);
-          // console.log(val);
-          ppprice = $("div[pppid='"+val+"']").attr('ppprice');
-          ppprice_count = $("div[pppid='"+val+"']").attr('ppprice_count');
-          
-
-            area = $("#area").text();
-            pppsum = ((ppprice/ppprice_count)*area).toFixed(2);
-
-            if(pppsum == 'NaN') {
-              pppsum = '0.00';
-            }
-
-            PricePostpress = $('#PricePostpress').text();
-
-            pppsum = parseFloat(pppsum, 10);
-            PricePostpress = PricePostpress*1;
-            
-            allpppsum = (pppsum+PricePostpress).toFixed(2);
-
-
-            $("#price"+name+"").text(pppsum);
-            $('#PricePostpress').text(allpppsum);
-          
-          
-          //calc_postpress();
-
-}
-
-
-$("input, select").each(function () {
-  $(this).change(function () {
-      //if($(this).next('#ppp').find("div").length >= 1) { calc_ppp($(this).attr('id'), $(this).attr('name'), $(this).val()); }
-      calc_postpress();
-  });
-});
-
-calc_postpress();
-
-});
-
-</script>
 
   <label>Постработы</label>
 

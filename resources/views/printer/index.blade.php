@@ -1,5 +1,17 @@
 @extends('printer.app')
 
+
+@section('user')
+	@if(isset($user))
+		<div class="container" style="margin-bottom: 20px">
+		<div class="row">
+		<div class="col-sm-12">
+		<h3>{{ $user->name }}</h3>
+		<small>Телефон: {{ $user->phone }}, e-maiL: {{ $user->email }}</small>
+		</div></div></div>
+	@endif
+@endsection
+
 @section('content')
 
 <meta http-equiv="refresh" content="600">
@@ -32,15 +44,15 @@
 
 @foreach($group as $order)
 		<tr>
-			<td><span data-toggle="tooltip" data-html="true" title="{{ $order->user->name }}">{{ $order->user_id }}</span></td>
+			<td><a href="{{ route('printer.user.orders', ['user_id' => $order->user_id]) }}" data-toggle="tooltip" data-html="true" title="{{ $order->user->name }}">{{ $order->user_id }}</a></td>
 			<td>{{ $order->id }}</td>
 			<td>@if($order->comment) <a data-toggle="tooltip" data-html="true" title="<i>{!! $order->title !!}</i><br>{!! $order->comment !!}"><span class="glyphicon glyphicon-flag"></span></a> @endif</td>
 
 			<td>@if(count($order->getPostpress) >= 1)
 
-				<a href="{!! route('printer.show', ['id' => $order->id]) !!}" data-toggle="tooltip" data-html="true" title="@foreach($order->getPostpress as $postpress)
+				<span data-toggle="tooltip" data-html="true" title="@foreach($order->getPostpress as $postpress)
 					<i>{!! $postpress->label !!}</i>: {{ $postpress->getData()[$postpress->pivot->var] }}<br>
-				@endforeach"><span class="glyphicon glyphicon-scissors"></span></a>
+				@endforeach"><span class="glyphicon glyphicon-scissors"></span></span>
 
 
 			@endif</td>
