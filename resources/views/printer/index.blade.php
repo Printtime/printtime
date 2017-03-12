@@ -57,6 +57,7 @@
 			@endif</td>
 
 			<td>
+				<small>Текущее состояние: {{ $order->status->title }}</small><br>
 				<a class="btn btn-xs btn-default @if($order->status_id == '9') btn-success status{{ $order->status_id }} no-border @endif btn-sm" href="{!! route('order.status', ['id' => $order->id, 'status' => '9']) !!}">В печати</a>
 				<a class="btn btn-xs btn-default @if($order->status_id == '3') btn-success status{{ $order->status_id }} no-border @endif btn-sm" href="{!! route('order.status', ['id' => $order->id, 'status' => '3']) !!}">Готово</a>
 				<a class="btn btn-xs btn-default @if($order->status_id == '4') btn-success status{{ $order->status_id }} no-border @endif btn-sm" href="{!! route('order.status', ['id' => $order->id, 'status' => '4']) !!}">На складе</a>

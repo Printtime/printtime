@@ -84,6 +84,10 @@
 
 	</div>
 
+	<div class="col-sm-12 col-md-12 text-right">
+		<a href="{{ route('order.trash', $order->id) }}" data-toggle="modal" data-target="#open-modal-pay" class="ajax-pay"><span class="glyphicon glyphicon-trash"></span> Удалить заказ</a>
+	</div>
+
 </div>
 </div>
 

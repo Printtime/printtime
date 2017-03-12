@@ -3,6 +3,7 @@
 namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 use App\Model\PrintFile;
 use App\User;
@@ -12,6 +13,10 @@ use App\Delivery;
 class Order extends Model
 {
     protected $fillable = ['title', 'comment', 'count', 'width', 'height', 'sum'];
+
+    use SoftDeletes;
+
+    protected $dates = ['deleted_at'];
 
   public function files()
     {

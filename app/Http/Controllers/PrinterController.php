@@ -20,7 +20,6 @@ class PrinterController extends Controller
 {
     public function index($status = 2)
     {   	   
-        #return dd($request->status);
         #$orders = Order::with('typevar', 'status')->where('status_id', '>=', '2')->where('status_id', '<=', '5')->Orwhere('status_id', '=', '9')->orderBy('id', 'desc')->paginate('20');
         $orders = Order::with('typevar', 'typevar.type', 'typevar.variable', 'status', 'user', 'printerfiles.server', 'getPostpress')
         ->where('status_id', $status)->orderBy('created_at', 'asc')

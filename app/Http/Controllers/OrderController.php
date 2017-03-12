@@ -62,6 +62,20 @@ class OrderController extends Controller
         return redirect()->route('order.index');
     }
 
+   public function trash($id, $confirm = false)
+    {   
+        $order = Order::with('typevar', 'status')->where('user_id', auth()->user()->id)->find($id);
+
+        if ($confirm == 'confirm') {
+            $order->deleted_at = date("Y-m-d H:i:s");
+            $order->save();
+            return redirect()->route('order.index');
+        }
+
+
+        return view('order.trash')->with('order', $order);
+    }
+
    public function create($id)
     {	
         $value = TypeVar::findOrFail($id);
