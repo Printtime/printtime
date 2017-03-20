@@ -93,17 +93,19 @@ class PrintFileController extends Controller
 
     public function commands($command, $obj, $var = null, $newname = null)
     {   
-        if($command == 'check') {
-            exec("ssh ".$obj->login."@".$obj->remote_ip." df -hl --total --output=pcent", $output);
-            
-            $pcent = trim(end($output));
-            $pcent = mb_substr($pcent, 0, -1);
-            $pcent = $pcent * 1;
+        
 
+        if($command == 'check') {
+            $json_url = "http://".$obj->login."@".$obj->remote_ip.":".$obj->web_remote_port;
+            $json = file_get_contents($json_url);
+            $data = json_decode($json, TRUE);
+            $df = trim(end($data['df']));
+            $pcent = $df*1;
                if($pcent <= 90) {
-                $free = 100 - $pcent;
-                    if($free > 90) { $obj->$command = true; } else { $obj->$command = false; }
-                } else { $obj->$command = false; }
+                 $obj->$command = true;
+             } else {
+                $obj->$command = false;
+            }
         }
 
         if($command == 'df') {
@@ -142,19 +144,12 @@ class PrintFileController extends Controller
 
             $server = Servers::first();
 
-/*
-            $localfile = PrintFile::find($id);
-            $server->web_remote_printfile = $this->printfile($localfile);
-            $this->commands('scp', $server, '123');
-            return dd($server);
-            */
-
             $this->commands('check', $server);
             
             if(!$server->check) {
                 return response('Сервер '.$server->login.'@'.$server->remote_ip.' не отвечает или закончилось дисковое пространство', 401);
             }
-
+            
             $localfile = PrintFile::find($id);
             if(!$localfile) {
                 return response('Файла нет в базе', 401);
