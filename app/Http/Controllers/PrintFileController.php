@@ -95,10 +95,12 @@ class PrintFileController extends Controller
     {   
         if($command == 'check') {
             exec("ssh ".$obj->login."@".$obj->remote_ip." df -hl --total --output=pcent", $output);
-            print_r($output);
-            $pcent= trim(end($output));
-            return dd($pcent);
-               if($pcent) {
+            
+            $pcent = trim(end($output));
+            $pcent = mb_substr($pcent, 0, -1);
+            $pcent = $pcent * 1;
+
+               if($pcent <= 90) {
                 $free = 100 - $pcent;
                     if($free > 90) { $obj->$command = true; } else { $obj->$command = false; }
                 } else { $obj->$command = false; }
