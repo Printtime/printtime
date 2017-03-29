@@ -227,7 +227,8 @@ Route::group(['prefix' => 'management'], function () {
 		]);
 
 	Route::get('/user/transfer', [
-		'uses'=>'UserController@transfer',
+		'uses'=>'UserController@transfer_disable',
+		#'uses'=>'UserController@transfer',
 		'as'=> 'user.transfer',
 		'roles'=> ['admin', 'user', 'designer', 'printer'],
 		]);

@@ -55,4 +55,13 @@ class UserController extends Controller
 
         return view('pay.transfer');
     }
+
+   public function transfer_disable(Request $request)
+    {
+        if($request->ajax()){
+            return view('pay.disable');
+        } 
+
+        return view('pay.disable');
+    }
 }
