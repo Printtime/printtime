@@ -27,6 +27,11 @@
                 {!! Form::text('credit', null, ['class' => 'form-control', 'required'=>'required']) !!}
             </div>
 
+            <div class="form-group">
+                {!! Form::label('password', 'Новый пароль') !!}
+                {!! Form::text('password', '', ['class' => 'form-control']) !!}
+            </div>
+
             </div>
 
               <div class="modal-footer">

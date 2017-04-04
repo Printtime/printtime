@@ -66,7 +66,16 @@ class ManagerController extends Controller
     public function edit_update(Request $request)
     {   
         $user = User::find($request->id);
-        $user->fill($request->all())->save();
+
+        $data = $request->all();
+
+        if($data['password']) {
+            $data['password'] = bcrypt($data['password']);
+        } else {
+            unset($data['password']);
+        }
+        
+        $user->fill($data)->save();
         return back();
     }
 
