@@ -35,8 +35,8 @@ class Controller extends BaseController
    public function cleaner()
     {   
 
-      $storage = Storage::disk('print');
-
+      
+/*
         $oldprintfiles = PrintFile::where('created_at', '<', Carbon::yesterday())
         ->where('confirmed', '1')
         ->where('server_id', '1')
@@ -46,7 +46,7 @@ class Controller extends BaseController
 
 
         foreach ($oldprintfiles as $file) {
-
+            $storage = Storage::disk('print');
                     if($storage->exists($file->filename)) {
                         $storage->delete($file->filename);
                     }
@@ -62,11 +62,13 @@ class Controller extends BaseController
                             $f->save();
 
         }
+        
 
 
         $size = \Helper::human_filesize($oldprintfiles->sum('size'));
         echo $message = 'Удалено файлов с веб сервера на '.$size.', функция Controller@cleaner()';
         \Log::info($message);
+        */
 
         $printfiles = PrintFile::where('created_at', '<', Carbon::yesterday())
         ->where('order_id', '0')
@@ -80,10 +82,11 @@ class Controller extends BaseController
         \Log::info('---Начало удаления файлов из storage и db без заказов---');
 
         foreach ($printfiles as $file) {
+            $storage = Storage::disk('print');
                     if($storage->exists($file->filename)) {
                         $storage->delete($file->filename);
                         PrintFile::where('filename', $file->filename)->delete();
-                        $res[] = $file->filename;
+                        echo $res[] = $file->filename;
                     }
 
                     \Log::info($file->filename);
